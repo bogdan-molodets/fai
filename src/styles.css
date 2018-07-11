@@ -1,1 +1,231 @@
-/* You can add global styles to this file, and also import other style files */
+body {
+    box-sizing: border-box;
+    overflow: hidden;
+    overflow: hidden !important;
+    margin: 0;
+    padding: 0;
+}
+
+body ::-webkit-scrollbar {
+    width: 7px !important;
+}
+
+app-side-bar {
+    position: absolute;
+    z-index: 30;
+    top: 0;
+    left: 0;
+    /*width: 425px;*/
+    height: 100%;
+    background-color: #fafafa;
+    /*padding: 5px;*/
+    overflow: hidden;
+    box-shadow: 5px 0px 5px rgba(0, 0, 0, 0.2)
+}
+
+app-map {
+    position: absolute;
+    top: 0;
+    right: 0;
+    /*width:calc(100% - 425px);*/
+    height: 100%;
+    /*background-color: #00cc66; */
+}
+
+#map {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+app-console {
+    position: absolute;
+    z-index: 20;
+    bottom: 15px;
+    /*right: 50px;
+    width: calc( 100% - 525px);*/
+    height: 200px;
+    background-color: #fafafa;
+    border-radius: 5px;
+    overflow-y: hidden;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.2);
+    -webkit-transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    -webkit-transition-duration: 0.35s;
+    transition-duration: 0.35s;
+}
+
+app-console .ui.header>.icon {
+    font-size: 1em;
+}
+
+app-console .icon.close {
+    position: absolute;
+    right: 5px;
+    top: 8px;
+}
+
+app-console:not(.show) {
+    -webkit-transform: translateX(3000px);
+    transform: translateX(3000px);
+    -webkit-transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    -webkit-transition-duration: 0.35s;
+    transition-duration: 0.35s;
+}
+
+.title {
+    position: absolute;
+    width: 100%;
+    background: green;
+    top: 0;
+    left: 0;
+    padding: 10px;
+    color: white;
+    box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.3);
+}
+
+.title .header.ui {
+    color: white !important;
+    margin: 0;
+}
+
+.viewLogs {
+    padding: 9px 7px 9px 9px;
+    position: absolute;
+    z-index: 15;
+    bottom: 10px;
+    right: 10px;
+    border-radius: 100%;
+    box-shadow: 0px 3px 7px rgba(0, 0, 0, 0.4);
+    color: grey;
+    background: rgb(11, 58, 11);
+}
+
+.viewLogs:not(.grey) {
+    background: green;
+    color: white;
+}
+
+.logs {
+    overflow-y: auto;
+    height: inherit;
+    padding: 40px 10px;
+}
+
+.sideBarContent {
+    overflow-y: auto;
+    height: calc(100% - 52px);
+    margin-top: 52px;
+    padding: 10px;
+}
+header{
+    position: absolute;
+    z-index: 1;
+    background: green;
+    width: 100%;
+    height: 52px;
+    padding: 17px;
+    color: white;
+    top: 0;
+}
+header .icon, .title .mobile .icon{
+    font-size: 28px!important;
+    color: #fafafa!important;
+}
+header h1{
+    position: absolute;
+    top: 8px;
+    margin: 0 calc((100% - 95px)/2);
+    width: 95px;
+}
+.title .mobile .icon{
+    padding-top: 8px;
+    padding-left: 12px;
+} 
+/*body .contentText{
+    background-color: #333;
+    color: #fafafa;
+}*/
+.shadow.show{
+    display: block!important;
+}
+.shadow{
+    display: none!important;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    z-index: 20;
+    background-color: rgba(0, 0, 0, 0.4);
+    -webkit-transition: background-color .5s linear;
+    transition: background-color .5s linear;
+}
+@media screen and (max-width: 899px) {
+    .mobile{
+        display:block;
+    }
+    app-side-bar .title .ui.header{
+        display:none; 
+    }
+    .viewLogs{
+        padding: 20px 17px 20px 20px;
+        font-size: 16px;
+    }
+    app-side-bar {
+        width: 90%;
+        transform: translateX(-1000px);
+        -webkit-transition-duration: 0.35s;
+        transition-duration: 0.35s;
+    }
+    app-side-bar.show {
+        transform: translateX(0);
+        -webkit-transition-duration: 0.35s;
+        transition-duration: 0.35s;
+    }
+    app-map {
+        width: 100%;
+    }
+    app-console {
+        bottom: 5px;
+        right: 5px;
+        width: calc( 100% - 10px);
+    }
+}
+
+@media screen and (min-width: 900px) {
+    .mobile{
+        display:none;
+    }
+    .shadow.mobile{
+        display:none!important;
+    }
+    app-side-bar {
+        width: 350px
+    }
+    app-map {
+        width: calc(100% - 350px);
+    }
+    app-console {
+        right: 50px;
+        width: calc( 100% - 425px - 100px);
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .mobile{
+        display:none;
+    }
+    .shadow.mobile{
+        display:none!important;
+    }
+    app-side-bar {
+        width: 450px;
+    }
+    app-map {
+        width: calc(100% - 450px);
+    }
+    app-console {
+        right: 150px;
+        width: calc( 100% - 425px - 300px);
+    }
+}
