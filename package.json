@@ -20,8 +20,17 @@
     "@angular/platform-browser": "^6.0.3",
     "@angular/platform-browser-dynamic": "^6.0.3",
     "@angular/router": "^6.0.3",
+    "@turf/circle": "^6.0.1",
+    "@turf/turf": "^5.1.6",
+    "@types/mapbox-gl": "^0.45.1",
     "core-js": "^2.5.4",
+    "gulp": "^3.9.1",
+    "jquery": "^3.3.1",
+    "less": "^2.7.3",
+    "mapbox-gl": "^0.46.0",
     "rxjs": "^6.0.0",
+    "semantic-ui": "^2.3.3",
+    "turf": "^3.0.14",
     "zone.js": "^0.8.26"
   },
   "devDependencies": {
