@@ -5,7 +5,9 @@ body {
     margin: 0;
     padding: 0;
 }
-
+td{
+    display: table-cell!important;
+}
 body ::-webkit-scrollbar {
     width: 7px !important;
 }
@@ -155,10 +157,24 @@ header h1{
     width: 100%;
     height: 100%;
     position: fixed;
-    z-index: 20;
+    z-index: 25;
     background-color: rgba(0, 0, 0, 0.4);
     -webkit-transition: background-color .5s linear;
     transition: background-color .5s linear;
+}
+.stages{
+    margin-bottom: 10px;
+}
+.hide{
+    display:none;
+}
+#logo{
+    position: absolute;
+    left: 10px;
+    bottom: 40px;
+}
+.mapboxgl-ctrl-logo{
+    display: none!important;
 }
 @media screen and (max-width: 899px) {
     .mobile{
@@ -200,14 +216,14 @@ header h1{
         display:none!important;
     }
     app-side-bar {
-        width: 350px
+        width: 370px
     }
     app-map {
-        width: calc(100% - 350px);
+        width: calc(100% - 370px);
     }
     app-console {
         right: 50px;
-        width: calc( 100% - 425px - 100px);
+        width: calc( 100% - 370px - 100px);
     }
 }
 

@@ -24,6 +24,7 @@
     "@turf/turf": "^5.1.6",
     "@types/mapbox-gl": "^0.45.1",
     "@types/socket.io-client": "^1.4.32",
+    "@zxing/ngx-scanner": "^1.1.0",
     "core-js": "^2.5.4",
     "gulp": "^3.9.1",
     "jquery": "^3.3.1",
