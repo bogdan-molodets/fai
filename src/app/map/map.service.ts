@@ -82,6 +82,10 @@ export class MapService {
       el.style.width = '16px';
       el.style.height = '16px';
       el.style.visibility = 'visible';
+      let that = this;
+      el.addEventListener('click', function () {
+        that.selectPoint([lat,lon], 11);
+      });
       return new mapboxgl.Marker(el)
         .setLngLat([lat, lon])
         .addTo(this.map);
