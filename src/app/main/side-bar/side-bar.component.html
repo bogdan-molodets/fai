@@ -43,10 +43,10 @@
           <td>{{center[0]}}</td>
           <td>{{center[1]}}</td>
         </tr>
-        <tr *ngFor='let point of points, let i = index' class='{{i}}-point' (click)='selectPoint(point, i)'>
+        <tr *ngFor='let point of points, let i = index' class='{{i}}-point' (click)='selectPoint(point.geometry.coordinates[1], i)'>
           <td>Point {{i}}</td>
-          <td>{{point[0]}}</td>
-          <td>{{point[1]}}</td>
+          <td>{{point.geometry.coordinates[1][0]}}</td>
+          <td>{{point.geometry.coordinates[1][1]}}</td>
         </tr>
       </tbody>
     </table>
