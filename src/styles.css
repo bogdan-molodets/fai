@@ -42,7 +42,7 @@ app-map {
 
 app-console {
     position: absolute;
-    z-index: 20;
+    z-index: 200;
     bottom: 15px;
     /*right: 50px;
     width: calc( 100% - 525px);*/
@@ -93,15 +93,63 @@ app-console:not(.show) {
 }
 
 .viewLogs {
-    padding: 9px 7px 9px 9px;
+    padding: 9px 10px;
     position: absolute;
-    z-index: 15;
+    z-index: 200;
     bottom: 10px;
     right: 10px;
     border-radius: 100%;
     box-shadow: 0px 3px 7px rgba(0, 0, 0, 0.4);
     color: grey;
     background: rgb(11, 58, 11);
+}
+.viewLogs i.icon{
+    margin: 0!important;
+}
+.viewLogs.new:before{
+    position: absolute;
+    margin: -.5em 0 0 1.4em;
+    background-color: #f2711c;
+    content: '';
+    border-radius: 100%;
+    width: 8px;
+    height: 8px;
+}
+.viewLogs.new:after{
+    position: absolute;
+    margin: -.5em 0 0 .2em;
+    border: 1px solid #f2711c;
+    content: '';
+    border-radius: 100%;
+    width: 8px;
+    height: 8px;
+    animation: pulsar 2.5s ease-out infinite
+}
+@keyframes pulsar{
+    0%{
+        transform: scale(1);
+        -webkit-transform: scale(1);
+        opacity: 1;
+    }
+    50%{
+        transform: scale(1.5);
+        -webkit-transform: scale(1.5);
+        opacity: .25;
+    }
+    100%{
+        transform: scale(3);
+        -webkit-transform: scale(3);
+        opacity: .5;
+    }
+}
+viewLogs{
+    position: absolute;
+    margin: -.5em 0 0 .2em;
+    background-color: #f2711c;
+    content: '';
+    border-radius: 100%;
+    width: 8px;
+    height: 8px; 
 }
 
 .viewLogs:not(.grey) {
@@ -175,6 +223,66 @@ header h1{
 }
 .mapboxgl-ctrl-logo{
     display: none!important;
+}
+/*app-modal.hide .modal{
+    right: 5000px;
+}
+app-modal.hide .modal-shadow{
+    right: 5000px;
+}*/
+.modal{
+    position: fixed;
+    top: 100px;
+    left: calc(450px + 50px);
+    width: 500px;
+    z-index: 200;
+    width: calc((100% - 450px - 100px));
+    height: auto;
+    /*background-color: rgba(255, 255, 255, 0.2);*/
+}
+.modal h1.ui.header{
+    color: #fafafa;
+    text-align: center;
+}
+.modal-shadow{
+    position: fixed;
+    top: 0;
+    left: 450px;
+    width: calc(100% - 450px);
+    height: 100%;
+    z-index: 199;
+    background-color: rgba(0, 0, 0, 0.5)
+}
+.modal #right,.modal #left{
+    margin-top: 100px;
+}
+.modal #right.basic, .modal #left.basic{
+    pointer-events: none;
+}
+.modal-content-text{
+    position: absolute;
+    margin: 0 75px;
+    width: calc(100% - 2 * 75px);
+    min-height: 300px;
+    height: auto;
+    border-radius: 8px;
+    border: 2px solid #fafafa;
+    padding: 10px;
+    background-color: white;
+    box-shadow: 1px 4px 15px rgba(0,0,0, 0.3);
+}
+.modal-content-text.left:not(.active){
+    left: 5000px;
+    transition: left .2 ease;
+}
+.modal-content-text.right:not(.active){
+    right: 5000px;
+    transition: right .2 ease;
+}
+.modal-content-text.active{ 
+    right: 0;
+    left: 0;
+    transition: right .2 ease left .2 ease;
 }
 @media screen and (max-width: 899px) {
     .mobile{
