@@ -45,6 +45,8 @@ export class SideBarComponent implements OnInit {
   }
 
   start(){
+    $('app-side-bar').removeClass('show');
+    $('.shadow').removeClass('show');
      $('app-modal').removeClass('hide'); 
   }
 
