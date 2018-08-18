@@ -43,4 +43,9 @@ export class SideBarComponent implements OnInit {
     this.hideSideBar();
     this.mapService.selectPoint(point,11);
   }
+
+  start(){
+     $('app-modal').removeClass('hide'); 
+  }
+
 }
