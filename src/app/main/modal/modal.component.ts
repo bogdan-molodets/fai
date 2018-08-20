@@ -78,9 +78,9 @@ export class ModalComponent implements OnInit {
       this.state = '';
       this.index++;
       $(`#${this.index}`).addClass('active').removeClass('left');
-    } else if (this.index == 10) {
-      console.log('close modal');
-      $('app-modal').addClass('hide');
+    }else if(this.index == 10){
+      this.index = 1;
+      $('app-modal').addClass('hide'); 
     }
   }
 
