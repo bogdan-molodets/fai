@@ -7,6 +7,9 @@ import {
   Validators,
   ReactiveFormsModule
 } from '@angular/forms';
+import { RtmlsService } from '../../rtmls/rtmls.service';
+import { map, repeatWhen, retryWhen, takeWhile, delay, take } from 'rxjs/operators';
+import { Observable, interval } from 'rxjs';
 declare const $: any;
 @Component({
   selector: 'app-modal',
@@ -15,21 +18,22 @@ declare const $: any;
 })
 export class ModalComponent implements OnInit {
 
+  private alive = true;
   index = 1;
-  stateIndexes = [5,8,10];
-  state ='';
+  stateIndexes = [5, 8, 10];
+  state = '';
   createReq: FormGroup;
   createMarkerReq: FormGroup;
   flight_id = new FormControl('', [Validators.required, Validators.minLength(1)]);
   target_id = new FormControl('', [Validators.required, Validators.minLength(1)]);
   rs_id = new FormControl('', [Validators.required, Validators.minLength(1)]);
   marker_id = new FormControl('', [Validators.required, Validators.minLength(1)]);
-  constructor() {
+  constructor(private rtmls: RtmlsService) {
     this.initForm();
-   }
+  }
 
   ngOnInit() {
-    
+
   }
 
   initForm() {
@@ -55,14 +59,14 @@ export class ModalComponent implements OnInit {
     //return this.createReq.invalid && this.index == 1;
   }
 
-  checkState(){
-    return (this.stateIndexes.includes(this.index) && this.state!='ready');
+  checkState() {
+    return (this.stateIndexes.includes(this.index) && this.state != 'ready');
   }
 
   previousStep() {
     if (this.index > 1) {
       $(`#${this.index}`).addClass('left').removeClass('active');
-      this.state ='';
+      this.state = '';
       this.index--;
       $(`#${this.index}`).addClass('active').removeClass('right');
     }
@@ -71,7 +75,7 @@ export class ModalComponent implements OnInit {
   nextStep() {
     if (this.index < 10) {
       $(`#${this.index}`).addClass('right').removeClass('active');
-      this.state ='';
+      this.state = '';
       this.index++;
       $(`#${this.index}`).addClass('active').removeClass('left');
     }else if(this.index == 10){
@@ -80,28 +84,91 @@ export class ModalComponent implements OnInit {
     }
   }
 
-  runRS(){
+  runRS() {
+    let alive = true;
     $('.modal-content-text.active .ui.green.button').addClass('loading');
-    setTimeout(() => {
-      this.state = 'ready';
-      $('.modal-content-text.active .ui.green.button').removeClass('loading');
-    }, 5000);
+    // create rs
+    this.rtmls.createTarget(this.flight_id.value, this.target_id.value).subscribe(res => {
+      if (res.statusText == "OK") {
+        // run rs
+        this.rtmls.runReferenceStation(this.flight_id.value, this.target_id.value, this.rs_id.value).subscribe(runres => {      
+          if (runres.statusText == "OK") {
+            // get state untill ready
+            this.rtmls.getReferenceStationState(this.flight_id.value, this.target_id.value).pipe(
+              repeatWhen(() => interval(1000)),
+              takeWhile(() => alive)
+            ).subscribe(res => {            
+              if (res.state == 'ready') {
+                alive = false;
+                this.state = 'ready';
+                $('.modal-content-text.active .ui.green.button').removeClass('loading');
+              }
+            });
+          }
+        });
+      } else {
+        console.log(res);
+      }
+    });
+    // setTimeout(() => {
+    //   this.state = 'ready';
+    //   $('.modal-content-text.active .ui.green.button').removeClass('loading');
+    // }, 5000);
   }
 
-  runCP(){
+  runCP() {
+    let alive = true;
     $('.modal-content-text.active .ui.green.button').addClass('loading');
-    setTimeout(() => {
-      this.state = 'ready';
-      $('.modal-content-text.active .ui.green.button').removeClass('loading');
-    }, 5000);
+    //run cp
+    this.rtmls.createTargetCentralPoint(this.flight_id.value, this.target_id.value, this.marker_id.value).subscribe(res => {
+      // get state cp
+      console.log(res);
+      if (res.statusText == "OK") {
+        this.rtmls.getTargetCentralPointState(this.flight_id.value, this.target_id.value).pipe(
+          repeatWhen(() => interval(1000)),
+          takeWhile(() => alive)
+        ).subscribe(res => {
+          console.log(res);
+          if (res.state == 'ready') {
+            alive = false;
+            this.state = 'ready';
+            $('.modal-content-text.active .ui.green.button').removeClass('loading');
+          }
+        });
+      }
+    });
+    // setTimeout(() => {
+    //   this.state = 'ready';
+    //   $('.modal-content-text.active .ui.green.button').removeClass('loading');
+    // }, 5000);
   }
 
-  runAP(){
+  runAP() {
+    let alive = true;
     $('.modal-content-text.active .ui.green.button').addClass('loading');
-    setTimeout(() => {
-      this.state = 'ready';
-      $('.modal-content-text.active .ui.green.button').removeClass('loading');
-    }, 5000);
+    this.rtmls.createTargetAzimuthPoint(this.flight_id.value, this.target_id.value, this.marker_id.value).subscribe(res => {
+      if (res.statusText == "OK") {
+        this.rtmls.getTargetAzimuthPointState(this.flight_id.value, this.target_id.value).pipe(
+          repeatWhen(() => interval(1000)),
+          takeWhile(() => alive)
+        ).subscribe(res => {
+          if (res.state == 'ready') {
+            alive = false;
+            this.state = 'ready';
+            $('.modal-content-text.active .ui.green.button').removeClass('loading');
+            // draw target
+          }
+        });
+      }
+    });
+    // setTimeout(() => {
+    //   this.state = 'ready';
+    //   $('.modal-content-text.active .ui.green.button').removeClass('loading');
+    // }, 5000);
   }
 
+
+  ngOnDestroy() {
+    this.alive = false;
+  }
 }

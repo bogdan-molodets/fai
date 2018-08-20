@@ -31,6 +31,7 @@
     "less": "^2.7.3",
     "mapbox-gl": "^0.46.0",
     "rxjs": "^6.0.0",
+    "rxjs-compat": "^6.2.2",
     "semantic-ui": "^2.3.3",
     "socket.io-client": "^2.1.1",
     "turf": "^3.0.14",
