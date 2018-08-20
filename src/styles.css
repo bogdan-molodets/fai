@@ -117,13 +117,14 @@ app-console:not(.show) {
 }
 .viewLogs.new:after{
     position: absolute;
-    margin: -.5em 0 0 .2em;
+    margin: -0.45em 0 0 .3em;
     border: 1px solid #f2711c;
     content: '';
     border-radius: 100%;
-    width: 8px;
-    height: 8px;
-    animation: pulsar 2.5s ease-out infinite
+    width: 6px;
+    height: 6px;
+    -webkit-animation: pulsar 2.5s ease-out infinite;
+    animation: pulsar 2s ease-out infinite;
 }
 @keyframes pulsar{
     0%{
@@ -352,6 +353,14 @@ app-modal.hide .modal-shadow{
 }
 
 @media screen and (min-width: 1200px) {
+    .modal-shadow{
+        width: calc(100% - 450px);
+        left: 450px;
+    }
+    .modal{
+        width: calc((100% - 450px - 100px));
+        left: calc(450px + 50px);
+    }
     .mobile{
         display:none;
     }
