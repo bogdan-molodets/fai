@@ -17,13 +17,13 @@ export class ConsoleComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.rtmls.readLogs('2018-08-18 12:12:34', 'test_id'). pipe(
+    // this.rtmls.readLogs('2018-08-18 12:12:34', 'test_id'). pipe(
      
-      repeatWhen(() => interval(1000)),      
-      takeWhile(() => this._alive)
-    ).subscribe(res => {
-      console.log(res);
-    });
+    //   repeatWhen(() => interval(1000)),      
+    //   takeWhile(() => this._alive)
+    // ).subscribe(res => {
+    //   console.log(res);
+    // });
 
   }
 
