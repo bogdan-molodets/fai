@@ -3,10 +3,10 @@
     <h1>FAI app</h1>
 </header>
 <div class='shadow mobile' (click)='hideSideBar()'></div>
-<app-side-bar></app-side-bar>
+<app-side-bar [RS]='valueRS' [CP]='valueCP' [AP]='valueAP'></app-side-bar>
 <app-map></app-map>
 <app-console></app-console>
 <div class='viewLogs new' (click)='viewLogs()'>
     <i class='plug icon'></i>
 </div>
-<app-modal class='hide'></app-modal>
+<app-modal class='hide' (changeRS)='viewRS($event)' (changeCP)='viewCP($event)' (changeAP)='viewAP($event)'></app-modal>
