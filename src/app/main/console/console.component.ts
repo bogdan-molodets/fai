@@ -13,22 +13,30 @@ declare const $: any;
 export class ConsoleComponent implements OnInit {
   private _alive = true;
   private date: string;
+  private logs = [];
   constructor(private rtmls: RtmlsService) {
 
   }
 
   ngOnInit() {
-    this.rtmls.currentflightId.pipe(takeWhile(() => this._alive)).subscribe(res => {
-      this.date = this.getFormatedDate();
-      this.rtmls.readLogs(this.date, res).pipe(
-        expand(ex => {
-          this.date = this.getFormatedDate();
-          return this.rtmls.readLogs(this.date, res).pipe(delay(1000));
-        }
-        )
-      ).subscribe(res => {
-        console.log(res);
-      });
+    this.rtmls.currentflightId.subscribe(resf => {
+      console.log(resf);
+      if (resf) {
+        this.date = '2018-01-01 01:01:01';
+        this.rtmls.readLogs(this.date).pipe(
+          expand(ex => {
+            return this.rtmls.readLogs(this.date).pipe(delay(1000));
+          }
+          )
+        ).subscribe(res => {
+
+          this.logs=this.logs.concat(res.log);
+          if (res.log.length > 0) {          
+            this.date = this.logs[0].timestamp;
+          }
+        });
+
+      }
 
     });
 

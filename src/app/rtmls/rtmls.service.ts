@@ -15,8 +15,10 @@ export class RtmlsService {
   currentflightId = this.flightIdSource.asObservable();
   constructor(private httpClient: HttpClient) { }
 
-  readLogs(lastSync: string, flightId: string): Observable<any> {
-    return this.httpClient.get<LogResponse>(environment.apiUrl + 'log', { params: { lastsync: lastSync, flight_id: flightId } });//.map(res => {
+  readLogs(lastSync: string, flightId?: string): Observable<any> {
+    let params=flightId? {lastsync: lastSync, flight_id: flightId}: {lastsync: lastSync};
+
+    return this.httpClient.get<LogResponse>(environment.apiUrl + 'log', { params: params });//.map(res => {
     // return new LogResponseSerializer().deserialize(res);
     //});
   }
