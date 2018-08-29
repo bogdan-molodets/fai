@@ -115,6 +115,7 @@ export class ModalComponent implements OnInit {
       this.state = `${error.error.detail.status}. ${error.error.detail.message}`
       $('.modal-content-text.active .ui.orange.button').removeClass('loading');
     })
+    this.rtmls.processFlightId(this.flight_id.value);
   }
 
   runRS() {
@@ -139,7 +140,7 @@ export class ModalComponent implements OnInit {
         });
       }
     });
-
+   
     // setTimeout(() => {
     //   this.state = 'ready';
     //   $('.modal-content-text.active .ui.green.button').removeClass('loading');

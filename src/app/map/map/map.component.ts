@@ -14,7 +14,7 @@ export class MapComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.map = this.mapService.getMap('map',0,0,4);
+    this.map = this.mapService.getMap('map',0,0,4).addControl(new mapboxgl.NavigationControl(),'top-left');
   }
 
 }
