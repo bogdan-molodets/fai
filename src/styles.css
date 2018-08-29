@@ -81,7 +81,7 @@ app-console:not(.show) {
 .title {
     position: absolute;
     width: 100%;
-    background: green;
+    background: #f2711c;
     top: 0;
     left: 0;
     padding: 10px;
@@ -103,7 +103,7 @@ app-console:not(.show) {
     border-radius: 100%;
     box-shadow: 0px 3px 7px rgba(0, 0, 0, 0.4);
     color: grey;
-    background: rgb(11, 58, 11);
+    background: #f2711c;
 }
 
 .viewLogs i.icon {
@@ -112,6 +112,7 @@ app-console:not(.show) {
 
 .viewLogs.new:before {
     position: absolute;
+    visibility: hidden;
     margin: -.5em 0 0 1.4em;
     background-color: #f2711c;
     content: '';
@@ -122,6 +123,7 @@ app-console:not(.show) {
 
 .viewLogs.new:after {
     position: absolute;
+    visibility: hidden;
     margin: -0.45em 0 0 .3em;
     border: 1px solid #f2711c;
     content: '';
@@ -161,7 +163,7 @@ viewLogs {
 }
 
 .viewLogs:not(.grey) {
-    background: green;
+    background:#f2711c;
     color: white;
 }
 
@@ -181,7 +183,7 @@ viewLogs {
 header {
     position: absolute;
     z-index: 1;
-    background: green;
+    background: #f2711c;
     width: 100%;
     height: 52px;
     padding: 17px;
@@ -357,6 +359,69 @@ app-modal.hide .modal-shadow{
     transition: right .2 ease left .2 ease;
 }
 
+.grey.ui.toggle.checkbox input:focus:checked~.box:before,
+.grey.ui.toggle.checkbox input:focus:checked~label:before {
+    background-color: #444 !important;
+}
+
+/*.grey.ui.toggle.checkbox .box:before, .grey.ui.toggle.checkbox label:before {
+    background-color: #fff!important;
+    
+}*/
+#colorMode.grey.ui.toggle.checkbox .box, #colorMode.grey.ui.toggle.checkbox label{
+    color: white!important;
+}
+#colorMode.ui.toggle.checkbox input:checked~.box, #colorMode.ui.toggle.checkbox input:checked~label{
+    color: white!important;
+}
+/*.grey.ui.toggle.checkbox input:checked~.box, .grey.ui.toggle.checkbox input:checked~label{
+    color: white!important;
+}
+.grey.ui.checkbox .box:after, .grey.ui.checkbox label:after{
+    color: white!important;
+}*/
+.grey.ui.toggle.checkbox input:checked ~ .box:before,
+.grey.ui.toggle.checkbox input:checked ~ label:before {
+  background-color: #444 !important;
+}
+#colorMode{
+    top: 7px;
+    float: right;
+    color: #fafafa!important;
+}
+.dark{
+    background-color: #444;
+    color: #fafafa;
+}
+.dark .contentText{
+    background-color: #444;
+    color: #fafafa;
+}
+.dark .modal-content-text, .dark .modal-content-text .field label, .dark .modal-content-text .field input{
+    background-color: #444!important;
+    color: #fafafa!important;
+    border: none;
+}
+.dark .modal-content-text .ui.divider{
+    color: white;
+}
+.dark .ui.table td.active,.dark .ui.table tr.active {
+    background: #ff9900!important;
+    color: #fafafa!important;
+}
+/*.modal-content-text .field, .modal-content-text p{
+    margin: 1em 0!important;
+    padding: 0 1em;
+}*/
+.dark .modal-content-text img{
+    margin-left: 1em;
+}
+/*.modal-content-text .button-container{
+    padding: 0 1em;
+}*/
+/*.dark .modal-content-text label{
+    color: #fafafa;
+}*/
 @media screen and (max-width: 899px) {
     .modal-shadow {
         width: 100%;
@@ -371,7 +436,7 @@ app-modal.hide .modal-shadow{
         width: calc(100% - 2 * 5px);
     }
     .mobile {
-        display: block;
+        display: inline-block;
     }
     app-side-bar .title .ui.header {
         display: none;
@@ -418,6 +483,9 @@ app-modal.hide .modal-shadow{
     }
     app-side-bar {
         width: 370px
+    }
+    app-side-bar .title .ui.header {
+        display: inline-block;
     }
     app-map {
         width: calc(100% - 370px);
@@ -490,7 +558,7 @@ app-modal.hide .modal-shadow{
 
 @media screen and (min-width: 699px) {
     .modal-content-text.right-image .ui.form {
-        width: calc(100% - 350px);
+        width: calc(100% - 360px);
         display: inline-block;
     }
     .modal-content-text.right-image .button-container {
@@ -506,7 +574,7 @@ app-modal.hide .modal-shadow{
 
 @media screen and (min-width: 700px) {
     .modal-content-text.right-image .ui.form {
-        width: calc(100% - 350px);
+        width: calc(100% - 360px);
         display: inline-block;
     }
     .modal-content-text.right-image .button-container {
@@ -539,7 +607,7 @@ app-modal.hide .modal-shadow{
 
 @media screen and (min-width: 1550px) {
     .modal-content-text.right-image .ui.form {
-        width: calc(100% - 450px);
+        width: calc(100% - 460px);
         display: inline-block;
     }
     .modal-content-text.right-image .button-container {

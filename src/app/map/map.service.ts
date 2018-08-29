@@ -29,6 +29,16 @@ export class MapService {
   initBase(basePoint) {
     let el = this.createMarker(basePoint[0], basePoint[1], 'base', 'base');
   }
+  
+  changeMapStyle(dark){
+    if(dark){
+      this.map.setStyle('mapbox://styles/bogdanmolodets/cjlet7a468fho2spkrjyxkl6g');
+    }else{
+      this.map.setStyle('mapbox://styles/bogdanmolodets/cjc0iypmd2gcf2rlefqdzoasf');
+    }
+    
+    
+  }
 
   buildCross(center, point) {
     if (this.cross) {

@@ -3,24 +3,25 @@
     <i class='icon bars' (click)='hideSideBar()'></i>
   </div>
   <h1 class="ui header">FAI app</h1>
+  <div class="grey ui toggle checkbox" id='colorMode'>
+    <input type="checkbox" name="popularity" tabindex="0">
+    <label><i class='icon moon'></i>Night mode </label>
+  </div>
 </div>
-<div class='sideBarContent contentText'>
+<div [ngClass]='{dark: dark}' class='sideBarContent contentText'>
   <div class="ui dimmer">
     <div class="ui text loader">Loading</div>
   </div>
   <div class='stages'>
-    <button class="ui green button" (click)='start()' [ngClass]='{disabled: !modalIsHidden()}'>
+    <button id='start' class="ui orange button" (click)='start()'>
       Start work
     </button>
   </div>
   <div class='stages'>
-    <!--<button class="ui green button" (click)='initBase()'>
-      Init base position
-    </button>-->
-    <table [ngClass]='{hide: (RS.llh == undefined || RS.llh == {})}' class="ui small green striped table">
+    <table [ngClass]='{hide: (RS.llh == undefined || RS.llh == {}), inverted: dark }' class="ui small orange striped table">
       <thead>
         <tr>
-          <th class="ui green" colspan="3">
+          <th class="ui orange" colspan="3">
             Reference station
           </th>
         </tr>
@@ -33,13 +34,12 @@
         </tr>
       </tbody>
     </table>
-    <!--<p *ngIf='center!=undefined'>Init base coordinates: {{center[0]}};{{center[0]}};</p>-->
   </div>
   <div class='stages'>
-    <table *ngIf='CP.llh!=undefined && CP.llh!={}' class="ui small green striped table">
+    <table *ngIf='CP.llh!=undefined && CP.llh!={}' [ngClass]='{inverted: dark}' class="ui small orange striped table">
       <thead>
         <tr>
-          <th class="ui green" colspan="3">
+          <th class="ui orange" colspan="3">
             Target
           </th>
         </tr>
@@ -58,22 +58,4 @@
       </tbody>
     </table>
   </div>
-  <!--<div class='stages'>
-    <table [ngClass]='{hide: (points === undefined)}' class="ui small green striped table">
-      <thead>
-        <tr>
-          <th class="ui green" colspan="3">
-            Cross target
-          </th>
-      </thead>
-      <tbody *ngIf='points!=undefined'>
-        <tr *ngFor='let point of points, let i = index' class='{{i}}-point' (click)='selectPoint(point.geometry.coordinates[1], i)'>
-          <td>Point {{i}}</td>
-          <td>{{point.geometry.coordinates[1][0]}}</td>
-          <td>{{point.geometry.coordinates[1][1]}}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>-->
-
 </div>

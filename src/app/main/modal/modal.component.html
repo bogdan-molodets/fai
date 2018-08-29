@@ -1,14 +1,6 @@
 <div class='modal'>
-  <h1 class="ui header">F#cking wizard</h1>
+  <h1 class="ui header">Wizard</h1>
   <div class="modal-content">
-    <!--<button id='left' class="circular green huge ui icon button left floated" [ngClass]='{basic: index==1 || checkInValid(index) || checkState()  }'
-      (click)='previousStep()'>
-      <i class=" icon angle left"></i>
-    </button>
-    <button id='right' class="circular green huge basic ui icon button right floated" [ngClass]='{basic: checkInValid(index) || checkState() }'
-      (click)='nextStep()'>
-      <i class=" icon angle right"></i>
-    </button>-->
     <div id='1' class="modal-content-text active right-image">
       <div class="ui horizontal divider">
         1 of 10
@@ -20,23 +12,16 @@
           <input type="text" formControlName='flight_id' placeholder="Flight id">
         </div>
         <div class="field">
-          <label>Target id</label>
+          <label >Target id</label>
           <input type="text" formControlName='target_id' placeholder="Target id">
         </div>
-        <!--<div class="field">
-          <label>RS id</label>
-          <input type="text" formControlName='rs_id' placeholder="RS id">
-        </div>-->
       </form>
       <div class='button-container'>
-        <!--<button class="green ui button loading" (click)='nextStep()'>
-          Do something
-        </button>-->
-        <button class="green ui button" (click)='createRS()' [ngClass]='{disabled: state == "OK" }' >
+        <button class="orange ui button" (click)='createRS()' [ngClass]='{disabled: state == "OK" }' >
           Create reference station
         </button>
         <div class='ui bottom attached label wait' [ngClass]='{yellow: (checkInValid(index) || checkState()) && state.match("Error") == null, green: !(checkInValid(index) || checkState()) && state.match("Error") == null, red: state.match("Error")!=null }'>{{state}}</div>
-        <button class="next green ui button right floated" [ngClass]='{disabled: checkInValid(index) || checkState() && state!="OK" }'
+        <button class="next orange ui button right floated" [ngClass]='{disabled: checkInValid(index) || checkState() && state!="OK" }'
           (click)='nextStep()'>
           Next
         </button>
@@ -56,7 +41,7 @@
       <div class='button-container'>
         <div class='ui bottom attached label yellow wait' [ngClass]='{yellow: checkInValid(index) || checkState(), green: !(checkInValid(index) || checkState()) }'
           [innerText]='(checkInValid(index) || checkState())?"Wait":"Done"'></div>
-        <button class="next green ui button right floated" [ngClass]='{disabled: checkInValid(index) || checkState() }' (click)='nextStep()'>
+        <button class="next orange ui button right floated" [ngClass]='{disabled: checkInValid(index) || checkState() }' (click)='nextStep()'>
           Next
         </button>
       </div>
@@ -71,7 +56,7 @@
       <div class='button-container'>
         <div class='ui bottom attached label yellow wait' [ngClass]='{yellow: checkInValid(index) || checkState(), green: !(checkInValid(index) || checkState()) }'
           [innerText]='(checkInValid(index) || checkState())?"Wait":"Done"'></div>
-        <button class="next green ui button right floated" [ngClass]='{disabled: checkInValid(index) || checkState() }' (click)='nextStep()'>
+        <button class="next orange ui button right floated" [ngClass]='{disabled: checkInValid(index) || checkState() }' (click)='nextStep()'>
           Next
         </button>
       </div>
@@ -86,7 +71,7 @@
       <div class='button-container'>
         <div class='ui bottom attached label yellow wait' [ngClass]='{yellow: checkInValid(index) || checkState(), green: !(checkInValid(index) || checkState()) }'
           [innerText]='(checkInValid(index) || checkState())?"Wait":"Done"'></div>
-        <button class="next green ui button right floated" [ngClass]='{disabled: checkInValid(index) || checkState() }' (click)='nextStep()'>
+        <button class="next orange ui button right floated" [ngClass]='{disabled: checkInValid(index) || checkState() }' (click)='nextStep()'>
           Next
         </button>
       </div>
@@ -95,7 +80,7 @@
       <div class="ui horizontal divider">
         5 of 10
       </div>
-      <table class='ui green striped table'>
+      <table [ngClass]='{ inverted: isDark() }' class='ui orange striped table'>
         <thead>
           <tr>
             <th>Name</th>
@@ -120,12 +105,12 @@
         </div>
       </form>
       <div class='button-container'>
-        <button class='ui green button' (click)='runRS()' [ngClass]='{disabled: state == ready}'>Run reference station</button>
+        <button class='ui orange button' (click)='runRS()' [ngClass]='{disabled: state !="" && state.match("Error")!=null || state == "ready"}'>Run reference station</button>
         <!--<button *ngIf='state.match("Error") != null' class='ui yellow button' (click)='reset(1)'>Reset</button>-->
         <div class='ui bottom attached label yellow wait' [ngClass]='{yellow: checkInValid(index) || checkState() && state.match("Error") == null, green: !(checkInValid(index) || checkState()) && state.match("Error") == null, red: state.match("Error")!=null }'>
           {{state}}
         </div>
-        <button class="next green ui button right floated" [ngClass]='{disabled: checkInValid(index) || checkState() }' (click)='nextStep()'>
+        <button class="next orange ui button right floated" [ngClass]='{disabled: checkInValid(index) || checkState() }' (click)='nextStep()'>
           Next
         </button>
       </div>
@@ -145,7 +130,7 @@
       <div class='button-container'>
         <div class='ui bottom attached label yellow wait' [ngClass]='{yellow: checkInValid(index) || checkState(), green: !(checkInValid(index) || checkState()) }'
           [innerText]='(checkInValid(index) || checkState())?"Wait":"Done"'></div>
-        <button class="next green ui button right floated" [ngClass]='{disabled: checkInValid(index) || checkState() }' (click)='nextStep()'>
+        <button class="next orange ui button right floated" [ngClass]='{disabled: checkInValid(index) || checkState() }' (click)='nextStep()'>
           Next
         </button>
       </div>
@@ -162,7 +147,7 @@
       <div class='button-container'>
         <div class='ui bottom attached label yellow wait' [ngClass]='{yellow: checkInValid(index) || checkState(), green: !(checkInValid(index) || checkState()) }'
           [innerText]='(checkInValid(index) || checkState())?"Wait":"Done"'></div>
-        <button class="next green ui button right floated" [ngClass]='{disabled: checkInValid(index) || checkState() }' (click)='nextStep()'>
+        <button class="next orange ui button right floated" [ngClass]='{disabled: checkInValid(index) || checkState() }' (click)='nextStep()'>
           Next
         </button>
       </div>
@@ -171,7 +156,7 @@
       <div class="ui horizontal divider">
         8 of 10
       </div>
-      <table class='ui green striped table'>
+      <table [ngClass]='{ inverted: isDark() }' class='ui orange striped table'>
         <thead>
           <tr>
             <th>Name</th>
@@ -194,11 +179,11 @@
         </tbody>
       </table>
       <div class='button-container'>
-        <button class='ui green button' (click)='runCP()'>Create central point</button>
+        <button class='ui orange button' [ngClass]='{disabled: state !="" && state.match("Error")!=null || state == "ready"}' (click)='runCP()'>Create central point</button>
         <div class='ui bottom attached label yellow wait' [ngClass]='{yellow: checkInValid(index) || checkState(), green: !(checkInValid(index) || checkState()) }'>
           {{state}}
         </div>
-        <button class="next green ui button right floated" [ngClass]='{disabled: checkInValid(index) || checkState() }' (click)='nextStep()'>
+        <button class="next orange ui button right floated" [ngClass]='{disabled: checkInValid(index) || checkState() }' (click)='nextStep()'>
           Next
         </button>
       </div>
@@ -215,7 +200,7 @@
       <div class='button-container'>
         <div class='ui bottom attached label yellow wait' [ngClass]='{yellow: checkInValid(index) || checkState(), green: !(checkInValid(index) || checkState()) }'
           [innerText]='(checkInValid(index) || checkState())?"Wait":"Done"'></div>
-        <button class="next green ui button right floated" [ngClass]='{disabled: checkInValid(index) || checkState() }' (click)='nextStep()'>
+        <button class="next orange ui button right floated" [ngClass]='{disabled: checkInValid(index) || checkState() }' (click)='nextStep()'>
           Next
         </button>
       </div>
@@ -224,7 +209,7 @@
       <div class="ui horizontal divider">
         10 of 10
       </div>
-      <table class='ui green striped table'>
+      <table [ngClass]='{ inverted: isDark() }' class='ui orange striped table'>
         <thead>
           <tr>
             <th>Name</th>
@@ -247,11 +232,11 @@
         </tbody>
       </table>
       <div class='button-container'>
-        <button class='ui green button' (click)='runAP()'>Create azimuth point</button>
+        <button class='ui orange button' [ngClass]='{disabled: state !="" && state.match("Error")!=null || state == "ready"}' (click)='runAP()'>Create azimuth point</button>
         <div class='ui bottom attached label yellow wait' [ngClass]='{yellow: checkInValid(index) || checkState(), green: !(checkInValid(index) || checkState()) }'>
           {{state}}
         </div>
-        <button class="next green ui button right floated" [ngClass]='{disabled: checkInValid(index) || checkState() }' (click)='nextStep()'>
+        <button class="next orange ui button right floated" [ngClass]='{disabled: checkInValid(index) || checkState() }' (click)='nextStep()'>
           Next
         </button>
       </div>

@@ -92,6 +92,10 @@ export class ModalComponent implements OnInit {
     }
   }
 
+  isDark(){
+    return $('app-main').hasClass('dark');
+  }
+
   reset(index) {
     $(`#${this.index}`).addClass('right').removeClass('active');
     this.state = '';
@@ -101,21 +105,21 @@ export class ModalComponent implements OnInit {
 
   createRS() {
     let alive = true;
-    $('.modal-content-text.active .ui.green.button').addClass('loading');
+    $('.modal-content-text.active .ui.orange.button').addClass('loading');
     this.rtmls.createTarget(this.flight_id.value, this.target_id.value).subscribe(res => {
       if (res.statusText == "OK") {
         this.state = res.statusText;
       }
-      $('.modal-content-text.active .ui.green.button').removeClass('loading');
+      $('.modal-content-text.active .ui.orange.button').removeClass('loading');
     }, error => {
       this.state = `${error.error.detail.status}. ${error.error.detail.message}`
-      $('.modal-content-text.active .ui.green.button').removeClass('loading');
+      $('.modal-content-text.active .ui.orange.button').removeClass('loading');
     })
   }
 
   runRS() {
     let alive = true;
-    $('.modal-content-text.active .ui.green.button').addClass('loading');
+    $('.modal-content-text.active .ui.orange.button').addClass('loading');
     // create rs
     this.rtmls.runReferenceStation(this.flight_id.value, this.target_id.value, this.rs_id.value).subscribe(runres => {
       if (runres.statusText == "OK") {
@@ -130,7 +134,7 @@ export class ModalComponent implements OnInit {
             alive = false;
             this.state = 'ready';
             this.changeRS.emit(res);
-            $('.modal-content-text.active .ui.green.button').removeClass('loading');
+            $('.modal-content-text.active .ui.orange.button').removeClass('loading');
           }
         });
       }
@@ -144,7 +148,7 @@ export class ModalComponent implements OnInit {
 
   runCP() {
     let alive = true;
-    $('.modal-content-text.active .ui.green.button').addClass('loading');
+    $('.modal-content-text.active .ui.orange.button').addClass('loading');
     //run cp
     this.rtmls.createTargetCentralPoint(this.flight_id.value, this.target_id.value, this.marker_id.value).subscribe(res => {
       // get state cp
@@ -160,7 +164,7 @@ export class ModalComponent implements OnInit {
             alive = false;
             this.state = 'ready';
             this.changeCP.emit(res);
-            $('.modal-content-text.active .ui.green.button').removeClass('loading');
+            $('.modal-content-text.active .ui.orange.button').removeClass('loading');
           }
         });
       }
@@ -173,7 +177,7 @@ export class ModalComponent implements OnInit {
 
   runAP() {
     let alive = true;
-    $('.modal-content-text.active .ui.green.button').addClass('loading');
+    $('.modal-content-text.active .ui.orange.button').addClass('loading');
     this.rtmls.createTargetAzimuthPoint(this.flight_id.value, this.target_id.value, this.marker_id.value).subscribe(res => {
       if (res.statusText == "OK") {
         this.rtmls.getTargetAzimuthPointState(this.flight_id.value, this.target_id.value).pipe(
@@ -186,7 +190,7 @@ export class ModalComponent implements OnInit {
             alive = false;
             this.state = 'ready';
             this.changeAP.emit(res);
-            $('.modal-content-text.active .ui.green.button').removeClass('loading');
+            $('.modal-content-text.active .ui.orange.button').removeClass('loading');
             // draw target
           }
         });

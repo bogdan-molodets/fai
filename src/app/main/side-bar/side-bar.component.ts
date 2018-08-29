@@ -12,6 +12,7 @@ export class SideBarComponent implements OnInit {
   base;
   points;
   center;
+  dark = false;
   private _RS: Object;
   private _CP: Object;
   private _AP: Object;
@@ -64,6 +65,15 @@ export class SideBarComponent implements OnInit {
   constructor(private mapService: MapService) { }
 
   ngOnInit() {
+    let that = this;
+    $('.ui.checkbox#colorMode').checkbox({
+      onChange() {
+        that.dark = !that.dark;
+        that.mapService.changeMapStyle(that.dark);
+        (that.dark)?$('app-main').addClass('dark'):$('app-main').removeClass('dark')
+        console.log('Divna Ukraina')
+      }
+    });
   }
 
   hideSideBar() {
@@ -94,6 +104,7 @@ export class SideBarComponent implements OnInit {
   }
 
   start() {
+    $('#start').addClass('disabled');
     $('app-side-bar').removeClass('show');
     $('.shadow').removeClass('show');
     $('app-modal').removeClass('hide');
