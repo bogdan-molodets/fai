@@ -5,49 +5,68 @@
   <h1 class="ui header">FAI app</h1>
 </div>
 <div class='sideBarContent contentText'>
+  <div class="ui dimmer">
+    <div class="ui text loader">Loading</div>
+  </div>
   <div class='stages'>
-    <button class="ui green button" (click)='start()'>
+    <button class="ui green button" (click)='start()' [ngClass]='{disabled: !modalIsHidden()}'>
       Start work
     </button>
   </div>
   <div class='stages'>
-    <button class="ui green button" (click)='initBase()'>
+    <!--<button class="ui green button" (click)='initBase()'>
       Init base position
-    </button>
-    <table [ngClass]='{hide: (base === undefined)}' class="ui small green striped table">
+    </button>-->
+    <table [ngClass]='{hide: (RS.llh == undefined || RS.llh == {})}' class="ui small green striped table">
       <thead>
         <tr>
           <th class="ui green" colspan="3">
-            Points
+            Reference station
           </th>
+        </tr>
       </thead>
       <tbody>
-        <tr *ngIf='base!=undefined' class='base-point' (click)='selectPoint(base, "base")'>
-          <td>Base point </td>
-          <td>{{base[0]}}</td>
-          <td>{{base[1]}}</td>
+        <tr class='base-point' (click)='selectPoint([RS.llh.lat, RS.llh.lon], "base")'>
+          <td>{{RS.state}}</td>
+          <td *ngIf='RS.llh!=undefined && RS.llh!={}'>{{RS.llh.lat}}</td>
+          <td *ngIf='RS.llh!=undefined && RS.llh!={}'>{{RS.llh.lon}}</td>
         </tr>
       </tbody>
     </table>
     <!--<p *ngIf='center!=undefined'>Init base coordinates: {{center[0]}};{{center[0]}};</p>-->
   </div>
   <div class='stages'>
-    <button [ngClass]='{green: (center !== undefined)}' class="ui button" (click)='buildCross()'>
-      Build cross
-    </button>
+    <table *ngIf='CP.llh!=undefined && CP.llh!={}' class="ui small green striped table">
+      <thead>
+        <tr>
+          <th class="ui green" colspan="3">
+            Target
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class='center-point' (click)='selectPoint([CP.llh.lat, CP.llh.lon], "center")'>
+          <td>Center point</td>
+          <td [ngClass]='{hide: (CP.llh!=undefined && CP.llh!={}) }'>{{CP.llh.lat}}</td>
+          <td [ngClass]='{hide: (CP.llh!=undefined && CP.llh!={}) }'>{{CP.llh.lon}}</td>
+        </tr>
+        <tr *ngIf='AP.llh!=undefined && AP.llh!={}' class='0-point' (click)='selectPoint([AP.llh.lat, AP.llh.lon], "0")'>
+          <td [ngClass]='{hide: (AP.llh!=undefined && AP.llh!={}) }'>Azimuth point</td>
+          <td [ngClass]='{hide: (AP.llh!=undefined && AP.llh!={}) }'>{{AP.llh.lat}}</td>
+          <td [ngClass]='{hide: (AP.llh!=undefined && AP.llh!={}) }'>{{AP.llh.lon}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <!--<div class='stages'>
     <table [ngClass]='{hide: (points === undefined)}' class="ui small green striped table">
       <thead>
         <tr>
           <th class="ui green" colspan="3">
-            Points
+            Cross target
           </th>
       </thead>
       <tbody *ngIf='points!=undefined'>
-        <tr class='center-point' (click)='selectPoint(center, "center")'>
-          <td>Center point</td>
-          <td>{{center[0]}}</td>
-          <td>{{center[1]}}</td>
-        </tr>
         <tr *ngFor='let point of points, let i = index' class='{{i}}-point' (click)='selectPoint(point.geometry.coordinates[1], i)'>
           <td>Point {{i}}</td>
           <td>{{point.geometry.coordinates[1][0]}}</td>
@@ -55,6 +74,6 @@
         </tr>
       </tbody>
     </table>
-  </div>
+  </div>-->
 
 </div>

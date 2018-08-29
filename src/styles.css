@@ -5,9 +5,11 @@ body {
     margin: 0;
     padding: 0;
 }
-td{
-    display: table-cell!important;
+
+td {
+    display: table-cell !important;
 }
+
 body ::-webkit-scrollbar {
     width: 7px !important;
 }
@@ -103,10 +105,12 @@ app-console:not(.show) {
     color: grey;
     background: rgb(11, 58, 11);
 }
-.viewLogs i.icon{
-    margin: 0!important;
+
+.viewLogs i.icon {
+    margin: 0 !important;
 }
-.viewLogs.new:before{
+
+.viewLogs.new:before {
     position: absolute;
     margin: -.5em 0 0 1.4em;
     background-color: #f2711c;
@@ -115,7 +119,8 @@ app-console:not(.show) {
     width: 8px;
     height: 8px;
 }
-.viewLogs.new:after{
+
+.viewLogs.new:after {
     position: absolute;
     margin: -0.45em 0 0 .3em;
     border: 1px solid #f2711c;
@@ -126,31 +131,33 @@ app-console:not(.show) {
     -webkit-animation: pulsar 2.5s ease-out infinite;
     animation: pulsar 2s ease-out infinite;
 }
-@keyframes pulsar{
-    0%{
+
+@keyframes pulsar {
+    0% {
         transform: scale(1);
         -webkit-transform: scale(1);
         opacity: 1;
     }
-    50%{
+    50% {
         transform: scale(1.5);
         -webkit-transform: scale(1.5);
         opacity: .25;
     }
-    100%{
+    100% {
         transform: scale(3);
         -webkit-transform: scale(3);
         opacity: .5;
     }
 }
-viewLogs{
+
+viewLogs {
     position: absolute;
     margin: -.5em 0 0 .2em;
     background-color: #f2711c;
     content: '';
     border-radius: 100%;
     width: 8px;
-    height: 8px; 
+    height: 8px;
 }
 
 .viewLogs:not(.grey) {
@@ -170,7 +177,8 @@ viewLogs{
     margin-top: 52px;
     padding: 10px;
 }
-header{
+
+header {
     position: absolute;
     z-index: 1;
     background: green;
@@ -180,29 +188,36 @@ header{
     color: white;
     top: 0;
 }
-header .icon, .title .mobile .icon{
-    font-size: 28px!important;
-    color: #fafafa!important;
+
+header .icon,
+.title .mobile .icon {
+    font-size: 28px !important;
+    color: #fafafa !important;
 }
-header h1{
+
+header h1 {
     position: absolute;
     top: 8px;
     margin: 0 calc((100% - 95px)/2);
     width: 95px;
 }
-.title .mobile .icon{
+
+.title .mobile .icon {
     padding-top: 8px;
     padding-left: 12px;
-} 
+}
+
 /*body .contentText{
     background-color: #333;
     color: #fafafa;
 }*/
-.shadow.show{
-    display: block!important;
+
+.shadow.show {
+    display: block !important;
 }
-.shadow{
-    display: none!important;
+
+.shadow {
+    display: none !important;
     width: 100%;
     height: 100%;
     position: fixed;
@@ -211,27 +226,33 @@ header h1{
     -webkit-transition: background-color .5s linear;
     transition: background-color .5s linear;
 }
-.stages{
+
+.stages {
     margin-bottom: 10px;
 }
-.hide{
-    display:none;
+
+.hide {
+    display: none;
 }
-#logo{
+
+#logo {
     position: absolute;
     left: 10px;
     bottom: 40px;
 }
-.mapboxgl-ctrl-logo{
-    display: none!important;
+
+.mapboxgl-ctrl-logo {
+    display: none !important;
 }
+
 /*app-modal.hide .modal{
     right: 5000px;
 }
 app-modal.hide .modal-shadow{
     right: 5000px;
 }*/
-.modal{
+
+.modal {
     position: fixed;
     top: 100px;
     left: calc(450px + 50px);
@@ -241,11 +262,13 @@ app-modal.hide .modal-shadow{
     height: auto;
     /*background-color: rgba(255, 255, 255, 0.2);*/
 }
-.modal h1.ui.header{
+
+.modal h1.ui.header {
     color: #fafafa;
     text-align: center;
 }
-.modal-shadow{
+
+.modal-shadow {
     position: fixed;
     top: 0;
     left: 450px;
@@ -254,13 +277,49 @@ app-modal.hide .modal-shadow{
     z-index: 199;
     background-color: rgba(0, 0, 0, 0.5)
 }
-.modal #right,.modal #left{
-    margin-top: 100px;
+
+.modal #right,
+.modal #left,
+.modal .next {
+    /*margin-top: 100px;*/
+    margin-top: 15px;
 }
-.modal #right.basic, .modal #left.basic{
+
+.modal #right.basic,
+.modal #left.basic,
+.modal .next.basic {
     pointer-events: none;
 }
-.modal-content-text{
+
+.modal .button-container {
+    margin: 15px 0 30px 0;
+}
+
+.wait.yellow:after {
+    content: ' .';
+    animation: dots 2s infinite;
+}
+
+@keyframes dots {
+    0%,
+    20% {
+        color: rgba(255, 255, 255, 0);
+        text-shadow: .25em 0 0 rgba(0, 0, 0, 0), .5em 0 0 rgba(0, 0, 0, 0);
+    }
+    40% {
+        color: white;
+        text-shadow: .25em 0 0 rgba(0, 0, 0, 0), .5em 0 0 rgba(0, 0, 0, 0);
+    }
+    60% {
+        text-shadow: .25em 0 0 white, .5em 0 0 rgba(0, 0, 0, 0);
+    }
+    80%,
+    100% {
+        text-shadow: .25em 0 0 white, .5em 0 0 white;
+    }
+}
+
+.modal-content-text {
     position: absolute;
     margin: 0 75px;
     width: calc(100% - 2 * 75px);
@@ -270,37 +329,54 @@ app-modal.hide .modal-shadow{
     border: 2px solid #fafafa;
     padding: 10px;
     background-color: white;
-    box-shadow: 1px 4px 15px rgba(0,0,0, 0.3);
+    box-shadow: 1px 4px 15px rgba(0, 0, 0, 0.3);
 }
-.modal-content-text.left:not(.active){
+
+.modal-content-text img {
+    position: relative;
+    max-width: 650px;
+    height: auto;
+    display: block;
+    float: left;
+    margin-bottom: 30px;
+}
+
+.modal-content-text.left:not(.active) {
     left: 5000px;
     transition: left .2 ease;
 }
-.modal-content-text.right:not(.active){
+
+.modal-content-text.right:not(.active) {
     right: 5000px;
     transition: right .2 ease;
 }
-.modal-content-text.active{ 
+
+.modal-content-text.active {
     right: 0;
     left: 0;
     transition: right .2 ease left .2 ease;
 }
+
 @media screen and (max-width: 899px) {
-    .modal-shadow{
+    .modal-shadow {
         width: 100%;
         left: 0;
     }
-    .modal{
+    .modal {
         width: calc(100% - 2* 25px);
         left: 25px;
     }
-    .mobile{
-        display:block;
+    .modal-content-text {
+        margin: 0 5px;
+        width: calc(100% - 2 * 5px);
     }
-    app-side-bar .title .ui.header{
-        display:none; 
+    .mobile {
+        display: block;
     }
-    .viewLogs{
+    app-side-bar .title .ui.header {
+        display: none;
+    }
+    .viewLogs {
         padding: 20px;
         font-size: 16px;
     }
@@ -326,19 +402,19 @@ app-modal.hide .modal-shadow{
 }
 
 @media screen and (min-width: 900px) {
-    .modal-shadow{
+    .modal-shadow {
         width: calc(100% - 370px);
         left: 370px;
     }
-    .modal{
+    .modal {
         width: calc((100% - 370px - 100px));
         left: calc(370px + 50px);
     }
-    .mobile{
-        display:none;
+    .mobile {
+        display: none;
     }
-    .shadow.mobile{
-        display:none!important;
+    .shadow.mobile {
+        display: none !important;
     }
     app-side-bar {
         width: 370px
@@ -353,19 +429,19 @@ app-modal.hide .modal-shadow{
 }
 
 @media screen and (min-width: 1200px) {
-    .modal-shadow{
+    .modal-shadow {
         width: calc(100% - 450px);
         left: 450px;
     }
-    .modal{
+    .modal {
         width: calc((100% - 450px - 100px));
         left: calc(450px + 50px);
     }
-    .mobile{
-        display:none;
+    .mobile {
+        display: none;
     }
-    .shadow.mobile{
-        display:none!important;
+    .shadow.mobile {
+        display: none !important;
     }
     app-side-bar {
         width: 450px;
@@ -376,5 +452,103 @@ app-modal.hide .modal-shadow{
     app-console {
         right: 150px;
         width: calc( 100% - 425px - 300px);
+    }
+}
+
+/**media for image**/
+
+@media screen and (max-width: 449px) {
+    .modal-content-text.right-image .ui.form {
+        width: 100%;
+        display: block;
+    }
+    .modal-content-text.right-image .button-container {
+        float: none;
+    }
+    .modal-content-text.right-image img {
+        width: 100%;
+        float: none;
+        margin: 0px;
+    }
+}
+
+@media screen and (min-width: 450px) {
+    .modal-content-text.right-image .ui.form {
+        width: 100%;
+        display: block;
+    }
+    .modal-content-text.right-image .button-container {
+        float: none;
+    }
+    .modal-content-text.right-image img {
+        max-width: 350px;
+        width: 100%;
+        margin: 0 calc((100% - 350px)/2);
+        float: none;
+    }
+}
+
+@media screen and (min-width: 699px) {
+    .modal-content-text.right-image .ui.form {
+        width: calc(100% - 350px);
+        display: inline-block;
+    }
+    .modal-content-text.right-image .button-container {
+        float: left;
+    }
+    .modal-content-text.right-image img {
+        max-width: 350px;
+        width: 100%;
+        float: right;
+        margin: 0px;
+    }
+}
+
+@media screen and (min-width: 700px) {
+    .modal-content-text.right-image .ui.form {
+        width: calc(100% - 350px);
+        display: inline-block;
+    }
+    .modal-content-text.right-image .button-container {
+        float: left;
+    }
+    .modal-content-text.right-image img {
+        max-width: 350px;
+        width: 100%;
+        float: right;
+        margin: 0px;
+    }
+}
+
+@media screen and (min-width: 900px) {
+    .modal-content-text.right-image .ui.form {
+        width: 100%;
+        display: block;
+        float: none;
+    }
+    .modal-content-text.right-image .button-container {
+        float: none;
+    }
+    .modal-content-text.right-image img {
+        float: none;
+        margin: 0 auto;
+        max-width: 450px;
+        width: 100%;
+    }
+}
+
+@media screen and (min-width: 1550px) {
+    .modal-content-text.right-image .ui.form {
+        width: calc(100% - 450px);
+        display: inline-block;
+    }
+    .modal-content-text.right-image .button-container {
+        float: left;
+    }
+    .modal-content-text.right-image img {
+        max-width: 450px;
+        width: 100%;
+        float: right;
+        margin-bottom: 30px;
     }
 }
