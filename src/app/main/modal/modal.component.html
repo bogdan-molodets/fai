@@ -120,7 +120,7 @@
         </div>
       </form>
       <div class='button-container'>
-        <button class='ui green button' (click)='runRS()' [ngClass]='{disabled: state == ready}'>Run reference station</button>
+        <button class='ui green button' (click)='runRS()' [ngClass]='{disabled: state == "ready"}'>Run reference station</button>
         <!--<button *ngIf='state.match("Error") != null' class='ui yellow button' (click)='reset(1)'>Reset</button>-->
         <div class='ui bottom attached label yellow wait' [ngClass]='{yellow: checkInValid(index) || checkState() && state.match("Error") == null, green: !(checkInValid(index) || checkState()) && state.match("Error") == null, red: state.match("Error")!=null }'>
           {{state}}
