@@ -3,9 +3,10 @@
     <h1>FAI app</h1>
 </header>
 <div class='shadow mobile' (click)='hideSideBar()'></div>
-<app-side-bar></app-side-bar>
+<app-side-bar [RS]='valueRS' [CP]='valueCP' [AP]='valueAP' [flightId]='valueFlightId' [targetId]='valueTargetId'></app-side-bar>
 <app-map></app-map>
 <app-console></app-console>
-<div class='viewLogs' (click)='viewLogs()'>
+<div class='viewLogs new' (click)='viewLogs()'>
     <i class='plug icon'></i>
 </div>
+<app-modal class='hide' (changeRS)='viewRS($event)' (changeCP)='viewCP($event)' (changeAP)='viewAP($event)' (changeFlightId)='viewFlightId($event)' (changeTargetId)='viewTargetId($event)' ></app-modal>
