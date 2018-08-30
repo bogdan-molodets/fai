@@ -1,5 +1,8 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges, SimpleChange } from '@angular/core';
 import { MapService } from '../../map/map.service';
+import { RtmlsService } from '../../rtmls/rtmls.service';
+import { repeatWhen, takeWhile } from 'rxjs/operators';
+import { interval } from 'rxjs';
 
 declare const $: any;
 
@@ -13,9 +16,12 @@ export class SideBarComponent implements OnInit {
   points;
   center;
   dark = false;
+  private alive = true;
   private _RS: Object;
   private _CP: Object;
   private _AP: Object;
+  private _flightId: string;
+  private _targetId: string;
 
   @Input() set RS(val: any) {
     this._RS = val;
@@ -41,6 +47,22 @@ export class SideBarComponent implements OnInit {
     return this._AP;
   }
 
+  @Input() set flightId(val: any) {
+    this._flightId = val;
+  }
+
+  get flightId() {
+    return this._flightId;
+  }
+
+  @Input() set targetId(val: any) {
+    this._targetId = val;
+  }
+
+  get targetId() {
+    return this._targetId;
+  }
+
   ngOnChanges(changes: SimpleChanges) {
     console.log(changes);
     Object.keys(changes).forEach(key => {
@@ -62,7 +84,7 @@ export class SideBarComponent implements OnInit {
     });
   }
 
-  constructor(private mapService: MapService) { }
+  constructor(private mapService: MapService, private rtmls: RtmlsService) { }
 
   ngOnInit() {
     let that = this;
@@ -119,4 +141,21 @@ export class SideBarComponent implements OnInit {
   modalIsHidden() {
     return $('app-modal').hasClass('hide');
   }
+
+  runRTKserver() {
+    this.rtmls.runRTK(this.flightId, this.targetId).then(res => {
+      console.log(res);
+      if (res) {
+        this.rtmls.getRTKStatus(this.flightId, this.targetId).pipe(repeatWhen(() => interval(1000)), takeWhile(() => this.alive)).subscribe(res => {
+          console.log(res);
+        });
+      }
+    });
+  }
+  stopRTKserver() {
+    this.rtmls.stopRTK(this.flightId, this.targetId).then(res => {
+      console.log(res);
+    });
+  }
+
 }

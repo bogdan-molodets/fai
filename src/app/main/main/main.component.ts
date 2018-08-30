@@ -13,6 +13,8 @@ export class MainComponent implements OnInit {
   valueRS = {};
   valueAP = {};
   valueCP = {};
+  valueFlightId;
+  valueTargetId;
   ngOnInit() {
   }
 

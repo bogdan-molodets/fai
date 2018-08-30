@@ -33,6 +33,8 @@ export class ModalComponent implements OnInit {
   @Output() changeRS: EventEmitter<Object> = new EventEmitter();
   @Output() changeCP: EventEmitter<Object> = new EventEmitter();
   @Output() changeAP: EventEmitter<Object> = new EventEmitter();
+  @Output() changeFlightId: EventEmitter<String> = new EventEmitter();
+  @Output() changeTargetId: EventEmitter<String> = new EventEmitter();
 
   constructor(private rtmls: RtmlsService) {
     this.initForm();
@@ -89,6 +91,8 @@ export class ModalComponent implements OnInit {
     } else if (this.index == 10) {
       this.index = 1;
       $('app-modal').addClass('hide');
+      this.changeFlightId.emit(this.flight_id.value);
+      this.changeTargetId.emit(this.target_id.value);
     }
   }
 
@@ -208,21 +212,7 @@ export class ModalComponent implements OnInit {
     // }, 5000);
   }
 
-  runRTKserver() {
-    this.rtmls.runRTK(this.flight_id.value, this.target_id.value).then(res => {
-      console.log(res);
-      if (res) {
-        this.rtmls.getRTKStatus(this.flight_id.value, this.target_id.value).pipe(repeatWhen(() => interval(1000)), takeWhile(() => this.alive)).subscribe(res => {
-          console.log(res);
-        });
-      }
-    });
-  }
-  stopRTKserver() {
-    this.rtmls.stopRTK(this.flight_id.value, this.target_id.value).then(res => {
-      console.log(res);
-    });
-  }
+
 
   ngOnDestroy() {
     this.alive = false;

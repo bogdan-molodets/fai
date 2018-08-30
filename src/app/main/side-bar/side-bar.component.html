@@ -14,7 +14,10 @@
   </div>
   <div class='stages'>
     <button id='start' class="ui orange button" (click)='start()'>
-      Start work
+      Init work
+    </button>
+    <button id='start' [ngClass]='{disabled: flightId == undefined || targetId == undefined}' class="ui orange button" (click)='runRTKserver()'>
+      Start
     </button>
   </div>
   <div class='stages'>
