@@ -13,7 +13,7 @@ declare const $: any;
 export class ConsoleComponent implements OnInit {
   private _alive = true;
   private date: string;
-  private logs = [];
+  logs = [];
   constructor(private rtmls: RtmlsService) {
 
   }

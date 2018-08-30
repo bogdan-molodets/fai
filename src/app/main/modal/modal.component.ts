@@ -106,7 +106,7 @@ export class ModalComponent implements OnInit {
   createRS() {
     let alive = true;
     $('.modal-content-text.active .ui.orange.button').addClass('loading');
-    this.rtmls.createTarget(this.flight_id.value, this.target_id.value).subscribe(res => {
+    this.rtmls.createTarget(this.flight_id.value, this.target_id.value).then(res => {
       if (res.statusText == "OK") {
         this.state = res.statusText;
       }
@@ -122,7 +122,7 @@ export class ModalComponent implements OnInit {
     let alive = true;
     $('.modal-content-text.active .ui.orange.button').addClass('loading');
     // create rs
-    this.rtmls.runReferenceStation(this.flight_id.value, this.target_id.value, this.rs_id.value).subscribe(runres => {
+    this.rtmls.runReferenceStation(this.flight_id.value, this.target_id.value, this.rs_id.value).then(runres => {
       if (runres.statusText == "OK") {
         // get state untill ready
         this.rtmls.getReferenceStationState(this.flight_id.value, this.target_id.value).pipe(
@@ -140,7 +140,7 @@ export class ModalComponent implements OnInit {
         });
       }
     });
-   
+
     // setTimeout(() => {
     //   this.state = 'ready';
     //   $('.modal-content-text.active .ui.green.button').removeClass('loading');
@@ -151,7 +151,7 @@ export class ModalComponent implements OnInit {
     let alive = true;
     $('.modal-content-text.active .ui.orange.button').addClass('loading');
     //run cp
-    this.rtmls.createTargetCentralPoint(this.flight_id.value, this.target_id.value, this.marker_id.value).subscribe(res => {
+    this.rtmls.createTargetCentralPoint(this.flight_id.value, this.target_id.value, this.marker_id.value).then(res => {
       // get state cp
       console.log(res);
       if (res.statusText == "OK") {
@@ -179,7 +179,7 @@ export class ModalComponent implements OnInit {
   runAP() {
     let alive = true;
     $('.modal-content-text.active .ui.orange.button').addClass('loading');
-    this.rtmls.createTargetAzimuthPoint(this.flight_id.value, this.target_id.value, this.marker_id.value).subscribe(res => {
+    this.rtmls.createTargetAzimuthPoint(this.flight_id.value, this.target_id.value, this.marker_id.value).then(res => {
       if (res.statusText == "OK") {
         this.rtmls.getTargetAzimuthPointState(this.flight_id.value, this.target_id.value).pipe(
           repeatWhen(() => interval(1000)),
@@ -197,12 +197,32 @@ export class ModalComponent implements OnInit {
         });
       }
     });
+    this.rtmls.getMarkersList(this.flight_id.value, this.target_id.value, '2018-01-01 01:01:01').pipe(
+      repeatWhen(() => interval(1000)),
+      takeWhile(() => alive)).subscribe(res => {
+        console.log(res);
+      });
     // setTimeout(() => {
     //   this.state = 'ready';
     //   $('.modal-content-text.active .ui.green.button').removeClass('loading');
     // }, 5000);
   }
 
+  runRTKserver() {
+    this.rtmls.runRTK(this.flight_id.value, this.target_id.value).then(res => {
+      console.log(res);
+      if (res) {
+        this.rtmls.getRTKStatus(this.flight_id.value, this.target_id.value).pipe(repeatWhen(() => interval(1000)), takeWhile(() => this.alive)).subscribe(res => {
+          console.log(res);
+        });
+      }
+    });
+  }
+  stopRTKserver() {
+    this.rtmls.stopRTK(this.flight_id.value, this.target_id.value).then(res => {
+      console.log(res);
+    });
+  }
 
   ngOnDestroy() {
     this.alive = false;

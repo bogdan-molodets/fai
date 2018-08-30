@@ -16,7 +16,7 @@ export class RtmlsService {
   constructor(private httpClient: HttpClient) { }
 
   readLogs(lastSync: string, flightId?: string): Observable<any> {
-    let params=flightId? {lastsync: lastSync, flight_id: flightId}: {lastsync: lastSync};
+    let params = flightId ? { lastsync: lastSync, flight_id: flightId } : { lastsync: lastSync };
 
     return this.httpClient.get<LogResponse>(environment.apiUrl + 'log', { params: params });//.map(res => {
     // return new LogResponseSerializer().deserialize(res);
@@ -28,10 +28,8 @@ export class RtmlsService {
   }
 
   // marker
-  getMarkersList(flightId: string, targetId: string, lastSync: string): Observable<MarkerList> {
-    return this.httpClient.get<MarkerList>(environment.apiUrl + 'marker', { params: { lastsync: lastSync, flight_id: flightId, target_id: targetId } }).map(res => {
-      return new MarkerListSerializer().deserialize(res);
-    });
+  getMarkersList(flightId: string, targetId: string, lastSync: string): Observable<any> {
+    return this.httpClient.get<any>(environment.apiUrl + 'marker', { params: { lastsync: lastSync, flight_id: flightId, target_id: targetId } });
   }
 
   createMarker(flightId: string, targetId: string, markerId: string): Observable<any> {
@@ -56,9 +54,9 @@ export class RtmlsService {
     });
   }
 
-  createTarget(flightId: string, targetId: string): Observable<any> {
+  createTarget(flightId: string, targetId: string): Promise<any> {
     let params = new HttpParams().set('flight_id', flightId).set('target_id', targetId);
-    return this.httpClient.request<any>(new HttpRequest("POST", environment.apiUrl + 'target', {}, { params: params }));// post<any>(environment.apiUrl + 'target', {}, { params});
+    return this.httpClient.request<any>(new HttpRequest("POST", environment.apiUrl + 'target', {}, { params: params })).toPromise();// post<any>(environment.apiUrl + 'target', {}, { params});
   }
 
   getTargetStatus(flightId: string, targetId: string): Observable<any> {
@@ -74,9 +72,9 @@ export class RtmlsService {
     })
   }
 
-  createTargetAzimuthPoint(flightId: string, targetId: string, markerId: string): Observable<any> {
+  createTargetAzimuthPoint(flightId: string, targetId: string, markerId: string): Promise<any> {
     let params = new HttpParams().set('flight_id', flightId).set('marker_id', markerId);
-    return this.httpClient.request<any>(new HttpRequest("POST", environment.apiUrl + 'target/' + targetId + '/ap', {}, { params: params }));
+    return this.httpClient.request<any>(new HttpRequest("POST", environment.apiUrl + 'target/' + targetId + '/ap', {}, { params: params })).toPromise();
   }
 
   updateAzimuthPointPositionState(flightId: string, targetId: string, state: string): Observable<any> {
@@ -90,9 +88,9 @@ export class RtmlsService {
     //});
   }
 
-  createTargetCentralPoint(flightId: string, targetId: string, markerId: string): Observable<any> {
+  createTargetCentralPoint(flightId: string, targetId: string, markerId: string): Promise<any> {
     let params = new HttpParams().set('flight_id', flightId).set('marker_id', markerId);
-    return this.httpClient.request<any>(new HttpRequest("POST", environment.apiUrl + 'target/' + targetId + '/cp', {}, { params: params }));
+    return this.httpClient.request<any>(new HttpRequest("POST", environment.apiUrl + 'target/' + targetId + '/cp', {}, { params: params })).toPromise();
     //return this.httpClient.post<any>(environment.apiUrl + 'target/' + targetId + '/cp', { flight_id: flightId, marker_id: markerId });
   }
 
@@ -106,9 +104,9 @@ export class RtmlsService {
     // });
   }
 
-  runReferenceStation(flightId: string, targetId: string, rsId: string): Observable<any> {
+  runReferenceStation(flightId: string, targetId: string, rsId: string): Promise<any> {
     let params = new HttpParams().set('flight_id', flightId).set('rs_id', rsId);
-    return this.httpClient.request<any>(new HttpRequest("POST", environment.apiUrl + 'target/' + targetId + '/rs', {}, { params: params }));
+    return this.httpClient.request<any>(new HttpRequest("POST", environment.apiUrl + 'target/' + targetId + '/rs', {}, { params: params })).toPromise();
     //  return this.httpClient.post<any>(environment.apiUrl + 'target/' + targetId + '/rs', { flight_id: flightId, rs_id: rsId });
   }
 
@@ -120,5 +118,19 @@ export class RtmlsService {
     this.flightIdSource.next(id);
   }
 
+  //rtk server
+  getRTKStatus(flightId: string, targetId: string): Observable<any> {
+    return this.httpClient.get<Target>(environment.apiUrl + 'rtksrv', { params: { flight_id: flightId, target_id: targetId } });//.map(res => {
+    // return new TargetSerializer().deserialize(res);
+    // });
+  }
 
+  runRTK(flightId: string, targetId: string): Promise<any> {
+    let params = new HttpParams().set('flight_id', flightId).set('target_id', targetId);
+    return this.httpClient.request<any>(new HttpRequest("POST", environment.apiUrl + 'rtksrv', {}, { params: params })).toPromise();// post<any>(environment.apiUrl + 'target', {}, { params});
+  }
+
+  stopRTK(flightId: string, targetId: string): Promise<any> {
+    return this.httpClient.delete<Target>(environment.apiUrl + 'rtksrv', { params: { flight_id: flightId, target_id: targetId } }).toPromise();
+  }
 }
