@@ -44,4 +44,12 @@ export class MainComponent implements OnInit {
     console.log(e);
     this.valueAP = e;  
   }
+  viewFlightId(e){
+    console.log(e);
+    this.valueAP = e;  
+  }
+  viewTargetId(e){
+    console.log(e);
+    this.valueAP = e;  
+  }
 }
