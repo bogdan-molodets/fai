@@ -30,7 +30,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr class='base-point' (click)='selectPoint([RS.llh.lat, RS.llh.lon], "base")'>
+        <tr class='base-point' (click)='selectPoint([RS.llh.lon, RS.llh.lat], "base")'>
           <td>{{RS.state}}</td>
           <td *ngIf='RS.llh!=undefined && RS.llh!={}'>{{RS.llh.lat}}</td>
           <td *ngIf='RS.llh!=undefined && RS.llh!={}'>{{RS.llh.lon}}</td>
@@ -48,12 +48,12 @@
         </tr>
       </thead>
       <tbody>
-        <tr class='center-point' (click)='selectPoint([CP.llh.lat, CP.llh.lon], "center")'>
+        <tr class='center-point' (click)='selectPoint([CP.llh.lon, CP.llh.lat], "center")'>
           <td>Center point</td>
           <td [ngClass]='{hide: (CP.llh!=undefined && CP.llh!={}) }'>{{CP.llh.lat}}</td>
           <td [ngClass]='{hide: (CP.llh!=undefined && CP.llh!={}) }'>{{CP.llh.lon}}</td>
         </tr>
-        <tr *ngIf='AP.llh!=undefined && AP.llh!={}' class='0-point' (click)='selectPoint([AP.llh.lat, AP.llh.lon], "0")'>
+        <tr *ngIf='AP.llh!=undefined && AP.llh!={}' class='0-point' (click)='selectPoint([AP.llh.lon, AP.llh.lat], "0")'>
           <td [ngClass]='{hide: (AP.llh!=undefined && AP.llh!={}) }'>Azimuth point</td>
           <td [ngClass]='{hide: (AP.llh!=undefined && AP.llh!={}) }'>{{AP.llh.lat}}</td>
           <td [ngClass]='{hide: (AP.llh!=undefined && AP.llh!={}) }'>{{AP.llh.lon}}</td>

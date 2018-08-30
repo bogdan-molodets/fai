@@ -46,10 +46,10 @@ export class MainComponent implements OnInit {
   }
   viewFlightId(e){
     console.log(e);
-    this.valueAP = e;  
+    this.valueFlightId = e;  
   }
   viewTargetId(e){
     console.log(e);
-    this.valueAP = e;  
+    this.valueTargetId = e;  
   }
 }

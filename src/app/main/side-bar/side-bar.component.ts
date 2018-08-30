@@ -107,7 +107,7 @@ export class SideBarComponent implements OnInit {
     //let basePoint = [14, 13];
     this.mapService.initBase([this.RS.llh.lat,this.RS.llh.lon]);
     //this.base = basePoint;
-    this.mapService.selectPoint([this.RS.llh.lat,this.RS.llh.lon], 6);
+    this.mapService.selectPoint([this.RS.llh.lon,this.RS.llh.lat], 6);
   }
 
   buildCross() {
