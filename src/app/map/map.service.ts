@@ -41,7 +41,7 @@ export class MapService {
     } else {
       this.map.setStyle('mapbox://styles/bogdanmolodets/cjc0iypmd2gcf2rlefqdzoasf');
     }
-    this.map.on('styledata',()=>{
+    this.map.on('styledata', () => {
       that.addCrossSource(that.style);
     });
   }
@@ -61,10 +61,10 @@ export class MapService {
     }*/
     this.createMarker(center[0], center[1], 'base', 'center');
 
-    let line1 = turf.lineString([center, point], { name: 'line1' });
-    let line2 = turf.transformRotate(line1, 90, { pivot: center });
-    let line3 = turf.transformRotate(line1, 180, { pivot: center });
-    let line4 = turf.transformRotate(line1, 270, { pivot: center });
+    let line1 = turf.lineString([[center[1], center[0]], [point[1], point[0]]], { name: 'line1' });
+    let line2 = turf.transformRotate(line1, 90, { pivot: [center[1], center[0]]});
+    let line3 = turf.transformRotate(line1, 180, { pivot: [center[1], center[0]]});
+    let line4 = turf.transformRotate(line1, 270, { pivot: [center[1], center[0]]});
 
     this.cross = turf.featureCollection([
       line1,
@@ -87,7 +87,7 @@ export class MapService {
     const that = this;
     try {
       this.cross.features.forEach(function (value, index) {
-        that.createMarker(value.geometry.coordinates[1][0], value.geometry.coordinates[1][1], 'base', 'point' + index);
+        that.createMarker(value.geometry.coordinates[1][1], value.geometry.coordinates[1][0], 'base', 'point' + index);
       });
     } catch (e) {
 
@@ -131,10 +131,10 @@ export class MapService {
       el.style.visibility = 'visible';
       let that = this;
       el.addEventListener('click', function () {
-        that.selectPoint([lat, lon], 11);
+        that.selectPoint([lon, lat], 11);
       });
       return new mapboxgl.Marker(el)
-        .setLngLat([lat, lon])
+        .setLngLat([lon, lat])
         .addTo(this.map);
     } else {
       console.log('is here');
