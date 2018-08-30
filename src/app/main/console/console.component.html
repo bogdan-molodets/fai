@@ -9,7 +9,7 @@
 
 <div class='logs contentText'>
 
-  <table>
+  <table [ngClass]='{ inverted: isDark() }' class='ui orange striped table'>
     <thead>
       <tr>
         <th>

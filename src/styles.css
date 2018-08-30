@@ -343,6 +343,10 @@ app-modal.hide .modal-shadow{
     margin-bottom: 30px;
 }
 
+.modal-content-text .button.loading{
+    pointer-events: none!important;
+}
+
 .modal-content-text.left:not(.active) {
     left: 5000px;
     transition: left .2 ease;

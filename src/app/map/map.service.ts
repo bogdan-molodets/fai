@@ -11,6 +11,10 @@ export class MapService {
 
   map: any;
   cross: any;
+  style = {
+    'line-color': 'green',
+    'line-width': 10
+  }
   constructor() {
 
   }
@@ -29,15 +33,17 @@ export class MapService {
   initBase(basePoint) {
     let el = this.createMarker(basePoint[0], basePoint[1], 'base', 'base');
   }
-  
-  changeMapStyle(dark){
-    if(dark){
+
+  changeMapStyle(dark) {
+    let that = this;
+    if (dark) {
       this.map.setStyle('mapbox://styles/bogdanmolodets/cjlet7a468fho2spkrjyxkl6g');
-    }else{
+    } else {
       this.map.setStyle('mapbox://styles/bogdanmolodets/cjc0iypmd2gcf2rlefqdzoasf');
     }
-    
-    
+    this.map.on('styledata',()=>{
+      that.addCrossSource(that.style);
+    });
   }
 
   buildCross(center, point) {
@@ -48,11 +54,11 @@ export class MapService {
       });
     }
 
-    const that = this;
+    /*const that = this;
     let style = {
       'line-color': 'green',
       'line-width': 10
-    }
+    }*/
     this.createMarker(center[0], center[1], 'base', 'center');
 
     let line1 = turf.lineString([center, point], { name: 'line1' });
@@ -67,12 +73,37 @@ export class MapService {
       line4
     ]);
 
-    this.cross.features.forEach(function (value, index) {
+    /*this.cross.features.forEach(function (value, index) {
       that.createMarker(value.geometry.coordinates[1][0], value.geometry.coordinates[1][1], 'base', 'point' + index);
       that.addSource('cross-source-' + index, value, 'line', 'cross-layer-' + index, style);
-    });
+    });*/
+    this.createCroos();
+    this.addCrossSource(this.style);
 
     return this.cross.features;
+  }
+
+  createCroos() {
+    const that = this;
+    try {
+      this.cross.features.forEach(function (value, index) {
+        that.createMarker(value.geometry.coordinates[1][0], value.geometry.coordinates[1][1], 'base', 'point' + index);
+      });
+    } catch (e) {
+
+    }
+
+  }
+
+  addCrossSource(style) {
+    const that = this;
+    try {
+      this.cross.features.forEach(function (value, index) {
+        that.addSource('cross-source-' + index, value, 'line', 'cross-layer-' + index, style);
+      });
+    } catch (e) {
+
+    }
   }
 
   addSource(sourceId, data, layerType, layerId, paint) {

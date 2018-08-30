@@ -104,10 +104,16 @@ export class SideBarComponent implements OnInit {
   }
 
   start() {
+    this.viewLogs();
     $('#start').addClass('disabled');
     $('app-side-bar').removeClass('show');
     $('.shadow').removeClass('show');
     $('app-modal').removeClass('hide');
+  }
+
+  viewLogs(){
+    $('app-console').addClass('show');
+    $(".viewLogs").attr("disabled", true).addClass('grey');
   }
 
   modalIsHidden() {

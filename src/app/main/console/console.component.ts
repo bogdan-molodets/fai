@@ -52,7 +52,10 @@ export class ConsoleComponent implements OnInit {
     this._alive = false;
   }
 
-
+  isDark(){
+    return $('app-main').hasClass('dark');
+  }
+  
   getFormatedDate(): string {
     return `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()} ${new Date().getHours()}:${new Date().getMinutes()}:${new Date().getSeconds()}`
   }
