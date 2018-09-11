@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges, SimpleChange } from '@angular/core';
 import { MapService } from '../../map/map.service';
 import { RtmlsService } from '../../rtmls/rtmls.service';
-import { repeatWhen, takeWhile } from 'rxjs/operators';
+import { repeatWhen, takeWhile, expand, delay } from 'rxjs/operators';
 import { interval } from 'rxjs';
 
 declare const $: any;
@@ -22,6 +22,7 @@ export class SideBarComponent implements OnInit {
   private _AP: Object;
   private _flightId: string;
   private _targetId: string;
+  private date: string;
 
   @Input() set RS(val: any) {
     this._RS = val;
@@ -92,7 +93,7 @@ export class SideBarComponent implements OnInit {
       onChange() {
         that.dark = !that.dark;
         that.mapService.changeMapStyle(that.dark);
-        (that.dark)?$('app-main').addClass('dark'):$('app-main').removeClass('dark')
+        (that.dark) ? $('app-main').addClass('dark') : $('app-main').removeClass('dark')
         console.log('Divna Ukraina')
       }
     });
@@ -105,16 +106,16 @@ export class SideBarComponent implements OnInit {
 
   initBase() {
     //let basePoint = [14, 13];
-    this.mapService.initBase([this.RS.llh.lat,this.RS.llh.lon]);
+    this.mapService.initBase([this.RS.llh.lat, this.RS.llh.lon]);
     //this.base = basePoint;
-    this.mapService.selectPoint([this.RS.llh.lat,this.RS.llh.lon], 6);
+    this.mapService.selectPoint([this.RS.llh.lat, this.RS.llh.lon], 6);
   }
 
   buildCross() {
     //if (this.base !== undefined) {
-      //this.center = [13, 12]
-      //let point = [12, 14];
-      this.points = this.mapService.buildCross([this.CP.llh.lat,this.CP.llh.lon], [this.AP.llh.lat,this.AP.llh.lon]);
+    //this.center = [13, 12]
+    //let point = [12, 14];
+    this.points = this.mapService.buildCross([this.CP.llh.lat, this.CP.llh.lon], [this.AP.llh.lat, this.AP.llh.lon]);
     //}
   }
 
@@ -130,10 +131,10 @@ export class SideBarComponent implements OnInit {
     $('#start').addClass('disabled');
     $('app-side-bar').removeClass('show');
     $('.shadow').removeClass('show');
-    $('app-modal').removeClass('hide');    
+    $('app-modal').removeClass('hide');
   }
 
-  viewLogs(){
+  viewLogs() {
     $('app-console').addClass('show');
     $(".viewLogs").attr("disabled", true).addClass('grey');
   }
@@ -144,21 +145,28 @@ export class SideBarComponent implements OnInit {
 
   runRTKserver() {
     this.rtmls.runRTK(this.flightId, this.targetId).then(res => {
-    
+
       if (res) {
         this.rtmls.getRTKStatus(this.flightId, this.targetId).pipe(repeatWhen(() => interval(1000)), takeWhile(() => this.alive)).subscribe(res => {
           console.log(res);
-          this.rtmls.getMarkersList(this.flightId, this.targetId, '2018-01-01 01:01:01').pipe(
-              repeatWhen(() => interval(1000)),
-             ).subscribe(res => {
-                console.log(res);
-              });
+        });
+        this.date = '2018-01-01 01:01:01';
+        this.rtmls.getMarkersList(this.flightId, this.targetId, this.date).pipe(
+          expand(ex => {
+            return this.rtmls.getMarkersList(this.flightId, this.targetId, this.date).pipe(delay(1000));
+          })
+        ).subscribe(res => {
+          if (res.marker.length > 0) {
+            this.date = res.marker[0].timestamp;
+            this.mapService.createMarker(res.marker[0].llh.lat,res.marker[0].llh.lon,'',res.marker[0].marker_id);
+          }
         });
       }
     });
   }
   stopRTKserver() {
     this.rtmls.stopRTK(this.flightId, this.targetId).then(res => {
+      this.alive=false;
       console.log(res);
     });
   }
