@@ -108,7 +108,7 @@ export class SideBarComponent implements OnInit {
     //let basePoint = [14, 13];
     this.mapService.initBase([this.RS.llh.lat, this.RS.llh.lon]);
     //this.base = basePoint;
-    this.mapService.selectPoint([this.RS.llh.lon,this.RS.llh.lat], 6);
+    this.mapService.selectPoint([this.RS.llh.lon,this.RS.llh.lat], 16);
   }
 
   buildCross() {
@@ -123,7 +123,7 @@ export class SideBarComponent implements OnInit {
     $('tr.active').removeClass('active');
     $(`.${pointId}-point`).addClass('active');
     this.hideSideBar();
-    this.mapService.selectPoint(point, 11);
+    this.mapService.selectPoint(point, 16);
   }
 
   start() {
@@ -156,7 +156,7 @@ export class SideBarComponent implements OnInit {
             return this.rtmls.getMarkersList(this.flightId, this.targetId, this.date).pipe(delay(1000));
           })
         ).subscribe(res => {
-          if (res.marker.length > 0) {
+          if (res.marker.length > 0 && res.marker[0].timestamp != this.date) {
             this.date = res.marker[0].timestamp;
             this.mapService.createMarker(res.marker[0].llh.lat,res.marker[0].llh.lon,'',res.marker[0].marker_id);
           }

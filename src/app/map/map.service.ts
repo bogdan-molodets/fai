@@ -130,7 +130,7 @@ export class MapService {
       el.style.height = '16px'; 
       let that = this;
       el.addEventListener('click', function () {
-        that.selectPoint([lon, lat], 11);
+        that.selectPoint([lon, lat], 16);
       });
       return new mapboxgl.Marker(el)
         .setLngLat([lon, lat])

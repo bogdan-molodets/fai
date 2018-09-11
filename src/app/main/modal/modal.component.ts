@@ -136,7 +136,8 @@ export class ModalComponent implements OnInit {
     $('.modal-content-text.active .ui.orange.button').addClass('loading');
     // create rs
     this.rtmls.runReferenceStation(this.flight_id.value, this.target_id.value, this.rs_id.value).then(runres => {
-      if (runres.statusText == "OK") {
+      //if (runres.statusText == "OK") {
+      if (runres.statusText != "OK") {
         // get state untill ready
         this.rtmls.getReferenceStationState(this.flight_id.value, this.target_id.value).pipe(
           repeatWhen(() => interval(1000)),
@@ -152,6 +153,30 @@ export class ModalComponent implements OnInit {
           }
         });
       }
+      //for demo
+      else {
+        setTimeout(() => {
+          this.state = 'init';
+        }, 3000);
+        setTimeout(() => {
+          this.state = 'processing';
+        }, 6000);
+        setTimeout(() => {
+          this.state = 'ready';
+          alive = false;
+          this.state = 'ready';
+          this.changeRS.emit({
+            llh: {
+              hgt: 0,
+              lat: 48.436917,
+              lon: 35.035634
+            },
+            state: 'ready'
+          });
+          $('.modal-content-text.active .ui.orange.button').removeClass('loading');
+        }, 9000);
+      }
+      //end of shit
     });
   }
 
@@ -161,8 +186,8 @@ export class ModalComponent implements OnInit {
     //run cp
     this.rtmls.createTargetCentralPoint(this.flight_id.value, this.target_id.value, this.marker_id.value).then(res => {
       // get state cp
-      console.log(res);
-      if (res.statusText == "OK") {
+      //if (res.statusText == "OK") {
+      if (res.statusText != "OK") {
         this.rtmls.getTargetCentralPointState(this.flight_id.value, this.target_id.value).pipe(
           repeatWhen(() => interval(1000)),
           takeWhile(() => alive)
@@ -177,6 +202,30 @@ export class ModalComponent implements OnInit {
           }
         });
       }
+      //for demo
+      else {
+        setTimeout(() => {
+          this.state = 'init';
+        }, 3000);
+        setTimeout(() => {
+          this.state = 'processing';
+        }, 6000);
+        setTimeout(() => {
+          this.state = 'ready';
+          alive = false;
+          this.state = 'ready';
+          this.changeCP.emit({
+            llh: {
+              hgt: 0,
+              lat: 48.437348,
+              lon: 35.035374
+            },
+            state: 'ready'
+          });
+          $('.modal-content-text.active .ui.orange.button').removeClass('loading');
+        }, 9000);
+      }
+      //end of shit
     });
   }
 
@@ -184,7 +233,8 @@ export class ModalComponent implements OnInit {
     let alive = true;
     $('.modal-content-text.active .ui.orange.button').addClass('loading');
     this.rtmls.createTargetAzimuthPoint(this.flight_id.value, this.target_id.value, this.marker_id.value).then(res => {
-      if (res.statusText == "OK") {
+      //if (res.statusText == "OK") {
+      if (res.statusText != "OK") {
         this.rtmls.getTargetAzimuthPointState(this.flight_id.value, this.target_id.value).pipe(
           repeatWhen(() => interval(1000)),
           takeWhile(() => alive)
@@ -200,8 +250,32 @@ export class ModalComponent implements OnInit {
           }
         });
       }
+      //for demo
+      else {
+        setTimeout(() => {
+          this.state = 'init';
+        }, 3000);
+        setTimeout(() => {
+          this.state = 'processing';
+        }, 6000);
+        setTimeout(() => {
+          this.state = 'ready';
+          alive = false;
+          this.state = 'ready';
+          this.changeAP.emit({
+            llh: {
+              hgt: 0,
+              lat: 48.437425,
+              lon: 35.035179
+            },
+            state: 'ready'
+          });
+          $('.modal-content-text.active .ui.orange.button').removeClass('loading');
+        }, 9000);
+      }
+      //end of shit
     });
-  
+
     // setTimeout(() => {
     //   this.state = 'ready';
     //   $('.modal-content-text.active .ui.green.button').removeClass('loading');
