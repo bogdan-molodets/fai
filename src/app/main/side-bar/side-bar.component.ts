@@ -130,12 +130,7 @@ export class SideBarComponent implements OnInit {
     $('#start').addClass('disabled');
     $('app-side-bar').removeClass('show');
     $('.shadow').removeClass('show');
-    $('app-modal').removeClass('hide');
-    this.rtmls.getMarkersList(this.flightId, this.targetId, '2018-01-01 01:01:01').pipe(
-      repeatWhen(() => interval(1000)),
-     ).subscribe(res => {
-        console.log(res);
-      });
+    $('app-modal').removeClass('hide');    
   }
 
   viewLogs(){
@@ -149,10 +144,15 @@ export class SideBarComponent implements OnInit {
 
   runRTKserver() {
     this.rtmls.runRTK(this.flightId, this.targetId).then(res => {
-      console.log(res);
+    
       if (res) {
         this.rtmls.getRTKStatus(this.flightId, this.targetId).pipe(repeatWhen(() => interval(1000)), takeWhile(() => this.alive)).subscribe(res => {
           console.log(res);
+          this.rtmls.getMarkersList(this.flightId, this.targetId, '2018-01-01 01:01:01').pipe(
+              repeatWhen(() => interval(1000)),
+             ).subscribe(res => {
+                console.log(res);
+              });
         });
       }
     });
