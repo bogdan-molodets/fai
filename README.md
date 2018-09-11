@@ -21,8 +21,8 @@
 
 #### Requirements
 ------------
--- [git](https://git-scm.com/downloads);
--- [curl](https://curl.haxx.se/download.html);
+- [git](https://git-scm.com/downloads);
+- [curl](https://curl.haxx.se/download.html);
 
 #### Install & Update
 -------------
