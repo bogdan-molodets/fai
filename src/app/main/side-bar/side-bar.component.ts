@@ -131,6 +131,11 @@ export class SideBarComponent implements OnInit {
     $('app-side-bar').removeClass('show');
     $('.shadow').removeClass('show');
     $('app-modal').removeClass('hide');
+    this.rtmls.getMarkersList(this.flightId, this.targetId, '2018-01-01 01:01:01').pipe(
+      repeatWhen(() => interval(1000)),
+     ).subscribe(res => {
+        console.log(res);
+      });
   }
 
   viewLogs(){

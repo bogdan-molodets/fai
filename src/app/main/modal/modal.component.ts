@@ -201,11 +201,11 @@ export class ModalComponent implements OnInit {
         });
       }
     });
-    this.rtmls.getMarkersList(this.flight_id.value, this.target_id.value, '2018-01-01 01:01:01').pipe(
-      repeatWhen(() => interval(1000)),
-      takeWhile(() => alive)).subscribe(res => {
-        console.log(res);
-      });
+  
+    // setTimeout(() => {
+    //   this.state = 'ready';
+    //   $('.modal-content-text.active .ui.green.button').removeClass('loading');
+    // }, 5000);
   }
 
 
