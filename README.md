@@ -1,27 +1,55 @@
-# Fai
+# FAI app
+![](https://noosphereengineering.com/images/logo@2x.png)
+#### System requirements
+-----------------------
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.8.
+|Operation system| Suported versions|
+|----------------|------------------| 
+|MacOS           |10.13.3           |
+|Ubuntu          |16.0.4            |
 
-## Development server
+| Browser | Suported versions                                               |
+|---------|-----------------------------------------------------------------|
+|Chrome   |latest                                                           |
+|Firefox  |latest                                                           |
+|Edge     |2 most recent major versions                                     |
+|IE       |11,10,9                                                          |
+|IE Mobile|11                                                               |
+|Safari   |2 most recent major versions                                     |
+|iOS      |2 most recent major versions                                     |
+|Android  |Nougat (7.0),Marshmallow (6.0),Lollipop (5.0, 5.1),KitKat (4.4)  |
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+#### Requirements
+------------
+- [git](https://git-scm.com/downloads);
+- [curl](https://curl.haxx.se/download.html);
 
-## Code scaffolding
+#### Install & Update
+-------------
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Run  _faiSetup_ file or open terminal in project directory and write command
 
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+##### Ubuntu
+***
+```
+bash faiSetup.sh
+```
+##### MacOS
+***
+```
+bash faiSetup 
+```
+#### Run
+-------------
+##### Ubuntu
+***
+`````
+bash runFai.sh
+`````
+##### MacOS
+***
+`````
+bash runFai
+`````
+***
+Powered by [Noosphere Engineering School](https://noosphereengineering.com/)

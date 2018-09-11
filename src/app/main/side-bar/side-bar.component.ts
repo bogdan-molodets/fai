@@ -108,7 +108,7 @@ export class SideBarComponent implements OnInit {
     //let basePoint = [14, 13];
     this.mapService.initBase([this.RS.llh.lat, this.RS.llh.lon]);
     //this.base = basePoint;
-    this.mapService.selectPoint([this.RS.llh.lat, this.RS.llh.lon], 6);
+    this.mapService.selectPoint([this.RS.llh.lon,this.RS.llh.lat], 6);
   }
 
   buildCross() {
@@ -171,4 +171,17 @@ export class SideBarComponent implements OnInit {
     });
   }
 
+  hideTable(table){
+    console.log($(`.${table} .icon`));
+    if($(`.${table}`).hasClass('hideTable')){
+      $(`.${table}`).removeClass('hideTable');
+      $(`.${table} .icon`).removeClass('down');
+      $(`.${table} .icon`).addClass('up');
+    }else{
+      $(`.${table}`).addClass('hideTable');
+      $(`.${table} .icon`).removeClass('up');
+      $(`.${table} .icon`).addClass('down');
+    } 
+
+  }
 }

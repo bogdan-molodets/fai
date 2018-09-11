@@ -16,11 +16,58 @@
     <button id='start' class="ui orange button" (click)='start()'>
       Init work
     </button>
-    <button id='start' [ngClass]='{disabled: flightId == undefined || targetId == undefined}' class="ui orange button" (click)='runRTKserver()'>
+    <button id='start' [ngClass]='{disabled: flightId == undefined || targetId == undefined}' class="ui orange button"
+      (click)='runRTKserver()'>
       Start
     </button>
   </div>
   <div class='stages'>
+    <table [ngClass]='{hide: (RS.llh == undefined || RS.llh == {}),inverted: dark}' class="ui small orange striped table ">
+      <tbody>
+        <tr>
+          <td>RS status</td>
+          <td>{{RS.state}}</td>
+        </tr>
+        <tr *ngIf='flightId != undefined'>
+          <td>Flight id</td>
+          <td>{{flightId}}</td>
+        </tr>
+        <tr *ngIf='targetId != undefined'>
+          <td>Target id</td>
+          <td>{{targetId}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class='stages'>
+    <table *ngIf='(RS.llh != undefined && RS.llh != {})' [ngClass]='{inverted: dark}' class="ui small orange striped table target-table">
+      <thead (click)='hideTable("target-table")'>
+        <tr>
+          <th class="ui orange" colspan="3">
+            Target<i class="icon angle up"></i>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngIf='(RS.llh != undefined && RS.llh != {})' class='base-point' (click)='selectPoint([RS.llh.lon, RS.llh.lat], "base")'>
+          <td>Reference station</td>
+          <td [ngClass]='{hide: (RS.llh!=undefined && RS.llh!={}) }'>{{RS.llh.lat}}</td>
+          <td [ngClass]='{hide: (RS.llh!=undefined && RS.llh!={}) }'>{{RS.llh.lon}}</td>
+        </tr>
+        <tr *ngIf='CP.llh!=undefined && CP.llh!={}' class='center-point' (click)='selectPoint([CP.llh.lon, CP.llh.lat], "center")'>
+          <td>Center point</td>
+          <td [ngClass]='{hide: (CP.llh!=undefined && CP.llh!={}) }'>{{CP.llh.lat}}</td>
+          <td [ngClass]='{hide: (CP.llh!=undefined && CP.llh!={}) }'>{{CP.llh.lon}}</td>
+        </tr>
+        <tr *ngIf='AP.llh!=undefined && AP.llh!={}' class='0-point' (click)='selectPoint([AP.llh.lon, AP.llh.lat], "0")'>
+          <td [ngClass]='{hide: (AP.llh!=undefined && AP.llh!={}) }'>Azimuth point</td>
+          <td [ngClass]='{hide: (AP.llh!=undefined && AP.llh!={}) }'>{{AP.llh.lat}}</td>
+          <td [ngClass]='{hide: (AP.llh!=undefined && AP.llh!={}) }'>{{AP.llh.lon}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <!--<div class='stages'>
     <table [ngClass]='{hide: (RS.llh == undefined || RS.llh == {}), inverted: dark }' class="ui small orange striped table">
       <thead>
         <tr>
@@ -30,7 +77,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr class='base-point' (click)='selectPoint([RS.llh.lat, RS.llh.lon], "base")'>
+        <tr class='base-point' (click)='selectPoint([RS.llh.lon, RS.llh.lat], "base")'>
           <td>{{RS.state}}</td>
           <td *ngIf='RS.llh!=undefined && RS.llh!={}'>{{RS.llh.lat}}</td>
           <td *ngIf='RS.llh!=undefined && RS.llh!={}'>{{RS.llh.lon}}</td>
@@ -43,22 +90,69 @@
       <thead>
         <tr>
           <th class="ui orange" colspan="3">
-            Target
+            Target<i class="icon angle up"></i>
           </th>
         </tr>
       </thead>
       <tbody>
-        <tr class='center-point' (click)='selectPoint([CP.llh.lat, CP.llh.lon], "center")'>
+        <tr class='center-point' (click)='selectPoint([CP.llh.lon, CP.llh.lat], "center")'>
           <td>Center point</td>
           <td [ngClass]='{hide: (CP.llh!=undefined && CP.llh!={}) }'>{{CP.llh.lat}}</td>
           <td [ngClass]='{hide: (CP.llh!=undefined && CP.llh!={}) }'>{{CP.llh.lon}}</td>
         </tr>
-        <tr *ngIf='AP.llh!=undefined && AP.llh!={}' class='0-point' (click)='selectPoint([AP.llh.lat, AP.llh.lon], "0")'>
+        <tr *ngIf='AP.llh!=undefined && AP.llh!={}' class='0-point' (click)='selectPoint([AP.llh.lon, AP.llh.lat], "0")'>
           <td [ngClass]='{hide: (AP.llh!=undefined && AP.llh!={}) }'>Azimuth point</td>
           <td [ngClass]='{hide: (AP.llh!=undefined && AP.llh!={}) }'>{{AP.llh.lat}}</td>
           <td [ngClass]='{hide: (AP.llh!=undefined && AP.llh!={}) }'>{{AP.llh.lon}}</td>
         </tr>
       </tbody>
     </table>
+  </div>-->
+
+  <!--<div class='stages'>
+    <table [ngClass]='{inverted: dark}' class="ui small orange striped table">
+      <tbody>
+        <tr>
+          <td>RS status</td>
+          <td>{{RS.state}}</td>
+        </tr>
+        <tr>
+          <td>Flight id</td>
+          <td>{{flightId}}</td>
+        </tr>
+        <tr>
+          <td>Target id</td>
+          <td>{{targetId}}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
+  <div class='stages'>
+    <table [ngClass]='{inverted: dark}' class="ui small orange striped table test">
+      <thead (click)='hideTable("test")'>
+        <tr>
+          <th class="ui orange" colspan="3">
+            Target<i class="icon angle up"></i>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class='rf-point'>
+          <td>Reference station</td>
+          <td>15</td>
+          <td>16</td>
+        </tr>
+        <tr class='center-point'>
+          <td>Center point</td>
+          <td>15</td>
+          <td>16</td>
+        </tr>
+        <tr class='0-point'>
+          <td>Azimuth point</td>
+          <td>12</td>
+          <td>12</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>-->
 </div>
