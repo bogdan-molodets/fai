@@ -3,6 +3,7 @@ import { MapService } from '../../map/map.service';
 import { RtmlsService } from '../../rtmls/rtmls.service';
 import { repeatWhen, takeWhile, expand, delay } from 'rxjs/operators';
 import { interval } from 'rxjs';
+import { markers } from './markers';
 
 declare const $: any;
 
@@ -158,11 +159,24 @@ export class SideBarComponent implements OnInit {
         ).subscribe(res => {
           if (res.marker.length > 0) {
             this.date = res.marker[0].timestamp;
-            this.mapService.createMarker(res.marker[0].llh.lat,res.marker[0].llh.lon,'',res.marker[0].marker_id);
+            this.mapService.createMarker(res.marker[0].llh.lat,res.marker[0].llh.lon,'marker',res.marker[0].marker_id);
           }
         });
       }
     });
+    setTimeout(()=>{
+      this.mapService.createMarker( markers.marker[0].llh.lat, markers.marker[0].llh.lon,'marker', markers.marker[0].marker_id);     
+    },5000);
+    setTimeout(()=>{
+      this.mapService.createMarker( markers.marker[1].llh.lat, markers.marker[1].llh.lon,'marker', markers.marker[1].marker_id);     
+    },8000);
+    setTimeout(()=>{
+      this.mapService.createMarker( markers.marker[2].llh.lat, markers.marker[2].llh.lon,'marker', markers.marker[2].marker_id);     
+    },5000);
+    setTimeout(()=>{
+      this.mapService.createMarker( markers.marker[3].llh.lat, markers.marker[3].llh.lon,'marker', markers.marker[3].marker_id);     
+    },8000);
+
   }
   stopRTKserver() {
     this.rtmls.stopRTK(this.flightId, this.targetId).then(res => {
