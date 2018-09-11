@@ -158,4 +158,17 @@ export class SideBarComponent implements OnInit {
     });
   }
 
+  hideTable(table){
+    console.log($(`.${table} .icon`));
+    if($(`.${table}`).hasClass('hideTable')){
+      $(`.${table}`).removeClass('hideTable');
+      $(`.${table} .icon`).removeClass('down');
+      $(`.${table} .icon`).addClass('up');
+    }else{
+      $(`.${table}`).addClass('hideTable');
+      $(`.${table} .icon`).removeClass('up');
+      $(`.${table} .icon`).addClass('down');
+    } 
+
+  }
 }

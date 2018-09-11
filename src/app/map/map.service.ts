@@ -59,7 +59,7 @@ export class MapService {
       'line-color': 'green',
       'line-width': 10
     }*/
-    this.createMarker(center[0], center[1], 'base', 'center');
+    this.createMarker(center[0], center[1], 'marker', 'center');
 
     let line1 = turf.lineString([[center[1], center[0]], [point[1], point[0]]], { name: 'line1' });
     let line2 = turf.transformRotate(line1, 90, { pivot: [center[1], center[0]]});
@@ -87,7 +87,7 @@ export class MapService {
     const that = this;
     try {
       this.cross.features.forEach(function (value, index) {
-        that.createMarker(value.geometry.coordinates[1][1], value.geometry.coordinates[1][0], 'base', 'point' + index);
+        that.createMarker(value.geometry.coordinates[1][1], value.geometry.coordinates[1][0], 'marker', 'point' + index);
       });
     } catch (e) {
 

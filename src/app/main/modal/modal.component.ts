@@ -19,6 +19,7 @@ declare const $: any;
 export class ModalComponent implements OnInit {
 
   private alive = true;
+  codePattern = "[A-F0-9]{4,4}";
   index = 1;
   stateIndexes = [1, 5, 8, 10];
   state = '';
@@ -27,8 +28,8 @@ export class ModalComponent implements OnInit {
   createMarkerReq: FormGroup;
   flight_id = new FormControl('', [Validators.required, Validators.minLength(1)]);
   target_id = new FormControl('', [Validators.required, Validators.minLength(1)]);
-  rs_id = new FormControl('', [Validators.required, Validators.minLength(1)]);
-  marker_id = new FormControl('', [Validators.required, Validators.minLength(1)]);
+  rs_id = new FormControl('', [Validators.required, Validators.pattern(this.codePattern)]);
+  marker_id = new FormControl('', [Validators.required, Validators.pattern(this.codePattern)]);
 
   @Output() changeRS: EventEmitter<Object> = new EventEmitter();
   @Output() changeCP: EventEmitter<Object> = new EventEmitter();
@@ -41,7 +42,14 @@ export class ModalComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    this.createReqRS.valueChanges.subscribe((val) => {
+      if (this.createReqRS.dirty && this.createReqRS.invalid) {
+        this.state = 'Error. Id lenght must have 4 symbol length. Use only A-F or 0-9.'
+      } else {
+        this.state = ''
+      }
+    }
+    );
   }
 
   initForm() {
@@ -61,12 +69,13 @@ export class ModalComponent implements OnInit {
     switch (index) {
       case 1:
         return this.createReq.invalid;
+      case 5:
+        return this.createReqRS.invalid;
       case 6:
         return this.createMarkerReq.invalid;
       default:
         return false;
     }
-    //return this.createReq.invalid && this.index == 1;
   }
 
   checkState() {
@@ -96,7 +105,7 @@ export class ModalComponent implements OnInit {
     }
   }
 
-  isDark(){
+  isDark() {
     return $('app-main').hasClass('dark');
   }
 
@@ -144,11 +153,6 @@ export class ModalComponent implements OnInit {
         });
       }
     });
-
-    // setTimeout(() => {
-    //   this.state = 'ready';
-    //   $('.modal-content-text.active .ui.green.button').removeClass('loading');
-    // }, 5000);
   }
 
   runCP() {
@@ -174,10 +178,6 @@ export class ModalComponent implements OnInit {
         });
       }
     });
-    // setTimeout(() => {
-    //   this.state = 'ready';
-    //   $('.modal-content-text.active .ui.green.button').removeClass('loading');
-    // }, 5000);
   }
 
   runAP() {
@@ -206,10 +206,6 @@ export class ModalComponent implements OnInit {
       takeWhile(() => alive)).subscribe(res => {
         console.log(res);
       });
-    // setTimeout(() => {
-    //   this.state = 'ready';
-    //   $('.modal-content-text.active .ui.green.button').removeClass('loading');
-    // }, 5000);
   }
 
 

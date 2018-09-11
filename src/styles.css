@@ -1,9 +1,16 @@
-body {
+/*body {
     box-sizing: border-box;
     overflow: hidden;
     overflow: hidden !important;
     margin: 0;
     padding: 0;
+}*/
+
+app-root {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    overflow: hidden;
 }
 
 td {
@@ -36,11 +43,11 @@ app-map {
     /*background-color: #00cc66; */
 }
 
-#map {
+/*#map {
     position: absolute;
     width: 100%;
     height: 100%;
-}
+}*/
 
 app-console {
     position: absolute;
@@ -163,7 +170,7 @@ viewLogs {
 }
 
 .viewLogs:not(.grey) {
-    background:#f2711c;
+    background: #f2711c;
     color: white;
 }
 
@@ -293,10 +300,6 @@ app-modal.hide .modal-shadow{
     pointer-events: none;
 }
 
-.modal .button-container {
-    margin: 15px 0 30px 0;
-}
-
 .wait.yellow:after {
     content: ' .';
     animation: dots 2s infinite;
@@ -325,7 +328,7 @@ app-modal.hide .modal-shadow{
     position: absolute;
     margin: 0 75px;
     width: calc(100% - 2 * 75px);
-    min-height: 300px;
+    min-height: 250px;
     height: auto;
     border-radius: 8px;
     border: 2px solid #fafafa;
@@ -343,8 +346,8 @@ app-modal.hide .modal-shadow{
     margin-bottom: 30px;
 }
 
-.modal-content-text .button.loading{
-    pointer-events: none!important;
+.modal-content-text .button.loading {
+    pointer-events: none !important;
 }
 
 .modal-content-text.left:not(.active) {
@@ -372,60 +375,140 @@ app-modal.hide .modal-shadow{
     background-color: #fff!important;
     
 }*/
-#colorMode.grey.ui.toggle.checkbox .box, #colorMode.grey.ui.toggle.checkbox label{
-    color: white!important;
+
+#colorMode.grey.ui.toggle.checkbox .box,
+#colorMode.grey.ui.toggle.checkbox label {
+    color: white !important;
 }
-#colorMode.ui.toggle.checkbox input:checked~.box, #colorMode.ui.toggle.checkbox input:checked~label{
-    color: white!important;
+
+#colorMode.ui.toggle.checkbox input:checked~.box,
+#colorMode.ui.toggle.checkbox input:checked~label {
+    color: white !important;
 }
+
 /*.grey.ui.toggle.checkbox input:checked~.box, .grey.ui.toggle.checkbox input:checked~label{
     color: white!important;
 }
 .grey.ui.checkbox .box:after, .grey.ui.checkbox label:after{
     color: white!important;
 }*/
-.grey.ui.toggle.checkbox input:checked ~ .box:before,
-.grey.ui.toggle.checkbox input:checked ~ label:before {
-  background-color: #444 !important;
+
+.grey.ui.toggle.checkbox input:checked~.box:before,
+.grey.ui.toggle.checkbox input:checked~label:before {
+    background-color: #444 !important;
 }
-#colorMode{
+
+#colorMode {
     top: 7px;
     float: right;
-    color: #fafafa!important;
+    color: #fafafa !important;
 }
-.dark{
+
+.dark {
     background-color: #444;
     color: #fafafa;
 }
-.dark .contentText{
+
+.dark .contentText {
     background-color: #444;
     color: #fafafa;
 }
-.dark .modal-content-text, .dark .modal-content-text .field label, .dark .modal-content-text .field input{
-    background-color: #444!important;
-    color: #fafafa!important;
+
+.dark .modal-content-text,
+.dark .modal-content-text .field label,
+.dark .modal-content-text .field input {
+    background-color: #444 !important;
+    color: #fafafa !important;
     border: none;
 }
-.dark .modal-content-text .ui.divider{
+
+.dark .modal-content-text .ui.divider {
     color: white;
 }
-.dark .ui.table td.active,.dark .ui.table tr.active {
-    background: #ff9900!important;
-    color: #fafafa!important;
+
+.dark .ui.table td.active,
+.dark .ui.table tr.active {
+    background: #ff9900 !important;
+    color: #fafafa !important;
+}
+
+.ui.table .icon{
+    float: right;
+}
+
+.ui.table.hideTable tbody{
+    display: none;
 }
 /*.modal-content-text .field, .modal-content-text p{
     margin: 1em 0!important;
     padding: 0 1em;
 }*/
-.dark .modal-content-text img{
+
+.dark .modal-content-text img {
     margin-left: 1em;
 }
+
 /*.modal-content-text .button-container{
     padding: 0 1em;
 }*/
+
 /*.dark .modal-content-text label{
     color: #fafafa;
 }*/
+
+@media screen and (max-height:949px) {
+    .modal {
+        top: 52px;
+    }
+    .modal-content-text {
+        height: auto;
+        overflow-y: auto;
+        overflow-x: hidden;
+        max-height: calc(100vh - 230px);
+        padding: 10px 10px 0 10px;
+    }
+    .modal-content .ui.attached.label{
+        width: calc(100% + 20px)!important;
+        margin-top: 10px!important;
+        left: -10px!important;
+        position: relative!important;
+    }
+    .modal .button-container {
+        margin: 15px 0 0 0;
+    }
+    app-console{
+        height: 110px;
+    }
+    app-console .title{
+        padding: 5px!important;
+    }
+    app-console .icon.close {
+        top: 5px!important;
+    }
+}
+@media screen and (min-height:950px) {
+    .modal .button-container {
+        margin: 15px 0 80px 0;
+    }
+    .modal-content-text{
+        overflow-y: auto;
+        overflow-x: hidden;
+        max-height: calc(100vh - 375px);
+        padding: 10px 10px 0 10px;
+    }
+    .modal-content .ui.attached.label{
+        width: calc(100% + 20px)!important;
+        margin-top: 10px!important;
+        left: -10px!important;
+        position: relative!important;
+    }
+    .modal .button-container {
+        margin: 15px 0 0 0;
+    }
+    app-console{
+        height: 200px;
+    }
+}
 @media screen and (max-width: 899px) {
     .modal-shadow {
         width: 100%;
@@ -468,9 +551,20 @@ app-modal.hide .modal-shadow{
         right: 5px;
         width: calc( 100% - 10px);
     }
+    #map {
+        position: absolute;
+        width: 100%;
+        top: 52px;
+        height: calc(100% - 52px);
+    }
 }
 
 @media screen and (min-width: 900px) {
+    #map {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+    }
     .modal-shadow {
         width: calc(100% - 370px);
         left: 370px;
@@ -530,7 +624,7 @@ app-modal.hide .modal-shadow{
 /**media for image**/
 
 @media screen and (max-width: 449px) {
-    .modal-content-text.right-image .ui.form {
+    .modal-content-text.right-image .ui.form, .modal-content-text.right-image .ui.table  {
         width: 100%;
         display: block;
     }
@@ -565,6 +659,9 @@ app-modal.hide .modal-shadow{
         width: calc(100% - 360px);
         display: inline-block;
     }
+    .modal-content-text.right-image .ui.table {
+        width: calc(100% - 360px);
+    }
     .modal-content-text.right-image .button-container {
         float: left;
     }
@@ -577,9 +674,12 @@ app-modal.hide .modal-shadow{
 }
 
 @media screen and (min-width: 700px) {
-    .modal-content-text.right-image .ui.form {
+    .modal-content-text.right-image .ui.form{
         width: calc(100% - 360px);
         display: inline-block;
+    }
+    .modal-content-text.right-image .ui.table  {
+        width: calc(100% - 360px);
     }
     .modal-content-text.right-image .button-container {
         float: left;
@@ -598,6 +698,9 @@ app-modal.hide .modal-shadow{
         display: block;
         float: none;
     }
+    .modal-content-text.right-image .ui.table  {
+        width: 100%;
+    }
     .modal-content-text.right-image .button-container {
         float: none;
     }
@@ -610,9 +713,12 @@ app-modal.hide .modal-shadow{
 }
 
 @media screen and (min-width: 1550px) {
-    .modal-content-text.right-image .ui.form {
+    .modal-content-text.right-image .ui.form{
         width: calc(100% - 460px);
         display: inline-block;
+    }
+    .modal-content-text.right-image .ui.table  {
+        width: calc(100% - 460px);
     }
     .modal-content-text.right-image .button-container {
         float: left;
