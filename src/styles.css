@@ -436,6 +436,10 @@ app-modal.hide .modal-shadow{
     float: right;
 }
 
+.ui.table.target-table thead, .ui.table.target-table th{
+    cursor: pointer;
+}
+
 .ui.table.hideTable tbody{
     display: none;
 }
