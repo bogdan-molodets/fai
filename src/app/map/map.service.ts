@@ -59,7 +59,7 @@ export class MapService {
       'line-color': 'green',
       'line-width': 10
     }*/
-    this.createMarker(center[0], center[1], 'base', 'center');
+    this.createMarker(center[0], center[1], '', 'center');
 
     let line1 = turf.lineString([[center[1], center[0]], [point[1], point[0]]], { name: 'line1' });
     let line2 = turf.transformRotate(line1, 90, { pivot: [center[1], center[0]]});
@@ -87,7 +87,7 @@ export class MapService {
     const that = this;
     try {
       this.cross.features.forEach(function (value, index) {
-        that.createMarker(value.geometry.coordinates[1][1], value.geometry.coordinates[1][0], 'base', 'point' + index);
+        that.createMarker(value.geometry.coordinates[1][1], value.geometry.coordinates[1][0], '', 'point' + index);
       });
     } catch (e) {
 
@@ -119,23 +119,30 @@ export class MapService {
     });
   }
 
-  createMarker(lat, lon, icon, id) {
+  createMarker(lat, lon, icon, id, marker?) {
     if (!document.getElementById(id.toString())) {
       let el = document.createElement('div');
       el.className = 'marker';
       el.id = id;
-      el.style.backgroundImage = `url(../../assets/${icon}.png)`;
+      (icon!='')?el.style.backgroundImage = `url(../../assets/${icon}.png)`:{};
       el.style.cursor = 'pointer';
       el.style.width = '16px';
-      el.style.height = '16px';
-      el.style.visibility = 'visible';
+      el.style.height = '16px'; 
       let that = this;
       el.addEventListener('click', function () {
-        that.selectPoint([lon, lat], 11);
+        that.selectPoint([lon, lat], 16);
       });
-      return new mapboxgl.Marker(el)
+      if(marker == undefined){
+        return new mapboxgl.Marker(el)
         .setLngLat([lon, lat])
         .addTo(this.map);
+      }else{
+        return new mapboxgl.Marker(el)
+        .setLngLat([lon, lat])
+        .setPopup(new mapboxgl.Popup({ offset: 25 })
+        .setHTML('<p>' + marker.marker_id + '<p><p>Latitude: ' + marker.llh.lat + '</p><p>Longtitude: ' + marker.llh.lon + '</p>'))
+        .addTo(this.map);
+      }
     } else {
       console.log('is here');
     }

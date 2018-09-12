@@ -19,6 +19,7 @@ declare const $: any;
 export class ModalComponent implements OnInit {
 
   private alive = true;
+  codePattern = "[A-F0-9]{4,4}";
   index = 1;
   stateIndexes = [1, 5, 8, 10];
   state = '';
@@ -27,8 +28,8 @@ export class ModalComponent implements OnInit {
   createMarkerReq: FormGroup;
   flight_id = new FormControl('', [Validators.required, Validators.minLength(1)]);
   target_id = new FormControl('', [Validators.required, Validators.minLength(1)]);
-  rs_id = new FormControl('', [Validators.required, Validators.minLength(1)]);
-  marker_id = new FormControl('', [Validators.required, Validators.minLength(1)]);
+  rs_id = new FormControl('', [Validators.required, Validators.pattern(this.codePattern)]);
+  marker_id = new FormControl('', [Validators.required, Validators.pattern(this.codePattern)]);
 
   @Output() changeRS: EventEmitter<Object> = new EventEmitter();
   @Output() changeCP: EventEmitter<Object> = new EventEmitter();
@@ -41,7 +42,14 @@ export class ModalComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    this.createReqRS.valueChanges.subscribe((val) => {
+      if (this.createReqRS.dirty && this.createReqRS.invalid) {
+        this.state = 'Error. Id lenght must have 4 symbol length. Use only A-F or 0-9.'
+      } else {
+        this.state = ''
+      }
+    }
+    );
   }
 
   initForm() {
@@ -61,12 +69,13 @@ export class ModalComponent implements OnInit {
     switch (index) {
       case 1:
         return this.createReq.invalid;
+      case 5:
+        return this.createReqRS.invalid;
       case 6:
         return this.createMarkerReq.invalid;
       default:
         return false;
     }
-    //return this.createReq.invalid && this.index == 1;
   }
 
   checkState() {
@@ -96,7 +105,7 @@ export class ModalComponent implements OnInit {
     }
   }
 
-  isDark(){
+  isDark() {
     return $('app-main').hasClass('dark');
   }
 
@@ -110,14 +119,18 @@ export class ModalComponent implements OnInit {
   createRS() {
     let alive = true;
     $('.modal-content-text.active .ui.orange.button').addClass('loading');
+    $('.modal-content-text.active .ui.orange.button').addClass('disabled');
     this.rtmls.createTarget(this.flight_id.value, this.target_id.value).then(res => {
       if (res.statusText == "OK") {
         this.state = res.statusText;
+        this.nextStep();
       }
       $('.modal-content-text.active .ui.orange.button').removeClass('loading');
+      $('.modal-content-text.active .ui.orange.button').removeClass('disabled');
     }, error => {
       this.state = `${error.error.detail.status}. ${error.error.detail.message}`
       $('.modal-content-text.active .ui.orange.button').removeClass('loading');
+      $('.modal-content-text.active .ui.orange.button').removeClass('disabled');
     })
     this.rtmls.processFlightId(this.flight_id.value);
   }
@@ -127,7 +140,8 @@ export class ModalComponent implements OnInit {
     $('.modal-content-text.active .ui.orange.button').addClass('loading');
     // create rs
     this.rtmls.runReferenceStation(this.flight_id.value, this.target_id.value, this.rs_id.value).then(runres => {
-      if (runres.statusText == "OK") {
+      //if (runres.statusText == "OK") {
+      if (runres.statusText != "OK") {
         // get state untill ready
         this.rtmls.getReferenceStationState(this.flight_id.value, this.target_id.value).pipe(
           repeatWhen(() => interval(1000)),
@@ -143,12 +157,31 @@ export class ModalComponent implements OnInit {
           }
         });
       }
+      //for demo
+      else {
+        setTimeout(() => {
+          this.state = 'init';
+        }, 3000);
+        setTimeout(() => {
+          this.state = 'processing';
+        }, 6000);
+        setTimeout(() => {
+          this.state = 'ready';
+          alive = false;
+          this.state = 'ready';
+          this.changeRS.emit({
+            llh: {
+              hgt: 0,
+              lat: 48.436917,
+              lon: 35.035634
+            },
+            state: 'ready'
+          });
+          $('.modal-content-text.active .ui.orange.button').removeClass('loading');
+        }, 9000);
+      }
+      //end of shit
     });
-
-    // setTimeout(() => {
-    //   this.state = 'ready';
-    //   $('.modal-content-text.active .ui.green.button').removeClass('loading');
-    // }, 5000);
   }
 
   runCP() {
@@ -157,8 +190,8 @@ export class ModalComponent implements OnInit {
     //run cp
     this.rtmls.createTargetCentralPoint(this.flight_id.value, this.target_id.value, this.marker_id.value).then(res => {
       // get state cp
-      console.log(res);
-      if (res.statusText == "OK") {
+      //if (res.statusText == "OK") {
+      if (res.statusText != "OK") {
         this.rtmls.getTargetCentralPointState(this.flight_id.value, this.target_id.value).pipe(
           repeatWhen(() => interval(1000)),
           takeWhile(() => alive)
@@ -173,18 +206,39 @@ export class ModalComponent implements OnInit {
           }
         });
       }
+      //for demo
+      else {
+        setTimeout(() => {
+          this.state = 'init';
+        }, 3000);
+        setTimeout(() => {
+          this.state = 'processing';
+        }, 6000);
+        setTimeout(() => {
+          this.state = 'ready';
+          alive = false;
+          this.state = 'ready';
+          this.changeCP.emit({
+            llh: {
+              hgt: 0,
+              lat: 48.437348,
+              lon: 35.035374
+            },
+            state: 'ready'
+          });
+          $('.modal-content-text.active .ui.orange.button').removeClass('loading');
+        }, 9000);
+      }
+      //end of shit
     });
-    // setTimeout(() => {
-    //   this.state = 'ready';
-    //   $('.modal-content-text.active .ui.green.button').removeClass('loading');
-    // }, 5000);
   }
 
   runAP() {
     let alive = true;
     $('.modal-content-text.active .ui.orange.button').addClass('loading');
     this.rtmls.createTargetAzimuthPoint(this.flight_id.value, this.target_id.value, this.marker_id.value).then(res => {
-      if (res.statusText == "OK") {
+      //if (res.statusText == "OK") {
+      if (res.statusText != "OK") {
         this.rtmls.getTargetAzimuthPointState(this.flight_id.value, this.target_id.value).pipe(
           repeatWhen(() => interval(1000)),
           takeWhile(() => alive)
@@ -200,12 +254,32 @@ export class ModalComponent implements OnInit {
           }
         });
       }
+      //for demo
+      else {
+        setTimeout(() => {
+          this.state = 'init';
+        }, 3000);
+        setTimeout(() => {
+          this.state = 'processing';
+        }, 6000);
+        setTimeout(() => {
+          this.state = 'ready';
+          alive = false;
+          this.state = 'ready';
+          this.changeAP.emit({
+            llh: {
+              hgt: 0,
+              lat: 48.437425,
+              lon: 35.035179
+            },
+            state: 'ready'
+          });
+          $('.modal-content-text.active .ui.orange.button').removeClass('loading');
+        }, 9000);
+      }
+      //end of shit
     });
-    this.rtmls.getMarkersList(this.flight_id.value, this.target_id.value, '2018-01-01 01:01:01').pipe(
-      repeatWhen(() => interval(1000)),
-      takeWhile(() => alive)).subscribe(res => {
-        console.log(res);
-      });
+
     // setTimeout(() => {
     //   this.state = 'ready';
     //   $('.modal-content-text.active .ui.green.button').removeClass('loading');
