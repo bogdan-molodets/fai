@@ -18,6 +18,7 @@ export class SideBarComponent implements OnInit {
   markers = [];
   center;
   dark = false;
+  rtks = false;
   private alive = true;
   private _RS: Object;
   private _CP: Object;
@@ -176,6 +177,7 @@ export class SideBarComponent implements OnInit {
         });
       }
     });*/
+    this.rtks = true;
     console.log(markers);
     console.log(markers.marker[0].llh.lat);
     setTimeout(()=>{

@@ -16,7 +16,7 @@
     <button id='start' class="ui orange button" (click)='start()'>
       Init work
     </button>
-    <button id='start' [ngClass]='{disabled: flightId == undefined || targetId == undefined}' class="ui orange button"
+    <button id='start' [ngClass]='{disabled: flightId == undefined || targetId == undefined || rtks}' class="ui orange button"
       (click)='runRTKserver()'>
       Start
     </button>
