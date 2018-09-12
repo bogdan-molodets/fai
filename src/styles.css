@@ -432,6 +432,17 @@ app-modal.hide .modal-shadow{
     color: #fafafa !important;
 }
 
+.mapboxgl-popup-content {
+    font-weight: bolder;
+    border-radius: 5px;
+}
+.mapboxgl-popup-content p{
+    margin: 0;
+}
+.dark .mapboxgl-popup-content {
+    color: #444!important;
+    
+}
 .ui.table .icon{
     float: right;
 }

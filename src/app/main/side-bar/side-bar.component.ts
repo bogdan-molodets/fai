@@ -15,6 +15,7 @@ declare const $: any;
 export class SideBarComponent implements OnInit {
   base;
   points;
+  markers = [];
   center;
   dark = false;
   private alive = true;
@@ -127,6 +128,17 @@ export class SideBarComponent implements OnInit {
     this.mapService.selectPoint(point, 16);
   }
 
+  selectMarker(marker) {
+    $('tr.active').removeClass('active');
+    $(`.${marker.marker_id}`).addClass('active');
+    this.hideSideBar();
+    this.mapService.selectPoint([marker.llh.lon, marker.llh.lat], 16);
+    /*new mapboxgl.Popup()
+        .setLngLat([marker.llh.lon, marker.llh.lat])
+        .setHTML('<p>' + marker.marker_id + '<p><p>Latitude: ' + marker.llh.lat + '</p><p>Longtitude: ' + marker.llh.lon + '</p>')
+        .addTo(this.mapService.map);*/
+  }
+
   start() {
     this.viewLogs();
     $('#start').addClass('disabled');
@@ -145,7 +157,7 @@ export class SideBarComponent implements OnInit {
   }
 
   runRTKserver() {
-    this.rtmls.runRTK(this.flightId, this.targetId).then(res => {
+    /*this.rtmls.runRTK(this.flightId, this.targetId).then(res => {
 
       if (res) {
         this.rtmls.getRTKStatus(this.flightId, this.targetId).pipe(repeatWhen(() => interval(1000)), takeWhile(() => this.alive)).subscribe(res => {
@@ -163,19 +175,25 @@ export class SideBarComponent implements OnInit {
           }
         });
       }
-    });
+    });*/
+    console.log(markers);
+    console.log(markers.marker[0].llh.lat);
     setTimeout(()=>{
-      this.mapService.createMarker( markers.marker[0].llh.lat, markers.marker[0].llh.lon,'marker', markers.marker[0].marker_id);     
+      this.markers.push(markers.marker[0]);
+      this.mapService.createMarker( markers.marker[0].llh.lat, markers.marker[0].llh.lon,'marker', markers.marker[0].marker_id, markers.marker[0] );     
     },5000);
     setTimeout(()=>{
-      this.mapService.createMarker( markers.marker[1].llh.lat, markers.marker[1].llh.lon,'marker', markers.marker[1].marker_id);     
-    },8000);
+      this.markers.push(markers.marker[1]);
+      this.mapService.createMarker( markers.marker[1].llh.lat, markers.marker[1].llh.lon,'marker', markers.marker[1].marker_id, markers.marker[1]);     
+    },9000);
     setTimeout(()=>{
-      this.mapService.createMarker( markers.marker[2].llh.lat, markers.marker[2].llh.lon,'marker', markers.marker[2].marker_id);     
-    },5000);
+      this.markers.push(markers.marker[2]);
+      this.mapService.createMarker( markers.marker[2].llh.lat, markers.marker[2].llh.lon,'marker', markers.marker[2].marker_id, markers.marker[2]);     
+    },7000);
     setTimeout(()=>{
-      this.mapService.createMarker( markers.marker[3].llh.lat, markers.marker[3].llh.lon,'marker', markers.marker[3].marker_id);     
-    },8000);
+      this.markers.push(markers.marker[3]);
+      this.mapService.createMarker( markers.marker[3].llh.lat, markers.marker[3].llh.lon,'marker', markers.marker[3].marker_id, markers.marker[3]);     
+    },6000);
 
   }
   stopRTKserver() {

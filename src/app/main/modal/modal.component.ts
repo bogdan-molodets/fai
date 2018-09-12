@@ -119,14 +119,18 @@ export class ModalComponent implements OnInit {
   createRS() {
     let alive = true;
     $('.modal-content-text.active .ui.orange.button').addClass('loading');
+    $('.modal-content-text.active .ui.orange.button').addClass('disabled');
     this.rtmls.createTarget(this.flight_id.value, this.target_id.value).then(res => {
       if (res.statusText == "OK") {
         this.state = res.statusText;
+        this.nextStep();
       }
       $('.modal-content-text.active .ui.orange.button').removeClass('loading');
+      $('.modal-content-text.active .ui.orange.button').removeClass('disabled');
     }, error => {
       this.state = `${error.error.detail.status}. ${error.error.detail.message}`
       $('.modal-content-text.active .ui.orange.button').removeClass('loading');
+      $('.modal-content-text.active .ui.orange.button').removeClass('disabled');
     })
     this.rtmls.processFlightId(this.flight_id.value);
   }

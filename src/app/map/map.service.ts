@@ -119,7 +119,7 @@ export class MapService {
     });
   }
 
-  createMarker(lat, lon, icon, id) {
+  createMarker(lat, lon, icon, id, marker?) {
     if (!document.getElementById(id.toString())) {
       let el = document.createElement('div');
       el.className = 'marker';
@@ -132,9 +132,17 @@ export class MapService {
       el.addEventListener('click', function () {
         that.selectPoint([lon, lat], 16);
       });
-      return new mapboxgl.Marker(el)
+      if(marker == undefined){
+        return new mapboxgl.Marker(el)
         .setLngLat([lon, lat])
         .addTo(this.map);
+      }else{
+        return new mapboxgl.Marker(el)
+        .setLngLat([lon, lat])
+        .setPopup(new mapboxgl.Popup({ offset: 25 })
+        .setHTML('<p>' + marker.marker_id + '<p><p>Latitude: ' + marker.llh.lat + '</p><p>Longtitude: ' + marker.llh.lon + '</p>'))
+        .addTo(this.map);
+      }
     } else {
       console.log('is here');
     }

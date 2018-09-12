@@ -67,6 +67,33 @@
       </tbody>
     </table>
   </div>
+  <div class='stage'>
+    <table *ngIf='markers.length!=0' [ngClass]='{inverted: dark}' class='ui table orange striped'>
+      <thead>
+        <th class='ui orange' colspan="3">
+          Markers
+        </th>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            Marker Id
+          </td>
+          <td>
+            Azimuth
+          </td>
+          <td>
+            Distance
+          </td>
+        </tr>
+        <tr *ngFor='let marker of markers' (click)='selectMarker(marker)'>
+          <td>{{marker.marker_id}}</td>
+          <td>{{marker.azimuth}}</td>
+          <td>{{marker.distance}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
   <!--<div class='stages'>
     <table [ngClass]='{hide: (RS.llh == undefined || RS.llh == {}), inverted: dark }' class="ui small orange striped table">
       <thead>

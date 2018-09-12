@@ -17,11 +17,11 @@
         </div>
       </form>
       <div class='button-container'>
-        <button class="orange ui button" (click)='createRS()' [ngClass]='{disabled: state == "OK" }'>
+        <!--<button class="orange ui button" (click)='createRS()' [ngClass]='{disabled: state == "OK" }'>
           Create reference station
-        </button>
-        <button class="next orange ui button right floated" [ngClass]='{disabled: checkInValid(index) || checkState() && state!="OK" }'
-          (click)='nextStep()'>
+        </button>-->
+        <button class="next orange ui button right floated" [ngClass]='{disabled: checkInValid(index)}'
+          (click)='createRS()'>
           Next
         </button>
       </div>
@@ -146,8 +146,8 @@
         Step 7 of 10
       </div>
       <img src='assets/IMG7.png'>
-      <p>Activate marker and place it as accurate as possible in the center of the target. Wait until marker status LED stop
-        to blink and will be solid color (color of light depends on battery charge level). The marker will automatically
+      <p>Activate marker and place it as accurate as possible in the center of the target. Wait until marker status LED start
+        to blink blue color. The marker will automatically
         turn off when the measurement is completed.
       </p>
       <div class='button-container'>
@@ -202,8 +202,7 @@
         Step 9 of 10
       </div>
       <img src='assets/IMG9.png'>
-      <p>Activate marker and place it in the “north” part of the target. Wait until marker status LED stop to blink and will
-        be solid color (color of light depends on battery charge level). The marker will automatically turn off when the
+      <p>Activate marker and place it in the “north” part of the target. Wait until marker status LED start to blink blue color. The marker will automatically turn off when the
         measurement is completed.
       </p>
       <div class='button-container'>
