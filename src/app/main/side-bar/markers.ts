@@ -1,8 +1,8 @@
 export const markers={
     "marker": [
       {
-        "azimuth": 5,
-        "distance": 3,
+        "azimuth": 3.008,
+        "distance": 3.045,
         "llh": {
           "hgt": 0,
           "lat": 48.437430,
@@ -13,8 +13,8 @@ export const markers={
         "timestamp": "string"
       },
       {
-        "azimuth": 45,
-        "distance": 15,
+        "azimuth": 44.350,
+        "distance": 4.502,
         "llh": {
           "hgt": 0,
           "lat": 48.437546,
@@ -25,8 +25,8 @@ export const markers={
         "timestamp": "string"
       },
       {
-        "azimuth": 350,
-        "distance": 10,
+        "azimuth": 350.729,
+        "distance": 3.200,
         "llh": {
           "hgt": 0,
           "lat": 48.437401,
@@ -37,8 +37,8 @@ export const markers={
         "timestamp": "string"
       },
       {
-        "azimuth": 50,
-        "distance": 15,
+        "azimuth": 48.198,
+        "distance": 6.657,
         "llh": {
           "hgt": 0,
           "lat": 48.437655,
