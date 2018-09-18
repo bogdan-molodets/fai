@@ -172,7 +172,11 @@ export class SideBarComponent implements OnInit {
         ).subscribe(res => {
           if (res.marker.length > 0 && res.marker[0].timestamp != this.date) {
             this.date = res.marker[0].timestamp;
-            this.mapService.createMarker(res.marker[0].llh.lat,res.marker[0].llh.lon,'marker',res.marker[0].marker_id);
+            res.forEach(element => {
+              this.mapService.createMarker(element.llh.lat,element.llh.lon,'marker',element.marker_id);
+              this.markers.push(res);
+            });
+          // this.mapService.createMarker(res.marker[0].llh.lat,res.marker[0].llh.lon,'marker',res.marker[0].marker_id);
           }
         });
       }
