@@ -149,7 +149,6 @@ export class ModalComponent implements OnInit {
         ).subscribe(res => {
           this.state = res.state;
           if (res.state == 'ready') {
-            console.log(res);
             alive = false;
             this.state = 'ready';
             this.changeRS.emit(res);
