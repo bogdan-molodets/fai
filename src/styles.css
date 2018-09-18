@@ -75,7 +75,14 @@ app-console .icon.close {
     right: 5px;
     top: 8px;
 }
-
+app-console .icon.window.maximize, app-console .icon.window.minimize{
+    position: absolute;
+    right: 25px;
+    top: 8px;
+}
+app-console.wide{
+    height: calc(100% - 30px);    
+}
 app-console:not(.show) {
     -webkit-transform: translateX(3000px);
     transform: translateX(3000px);
@@ -94,6 +101,9 @@ app-console:not(.show) {
     padding: 10px;
     color: white;
     box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.3);
+}
+app-console .title{
+    z-index: 40;
 }
 
 .title .header.ui {
@@ -176,8 +186,9 @@ viewLogs {
 
 .logs {
     overflow-y: auto;
-    height: inherit;
-    padding: 40px 10px;
+    position: relative;
+    /*height: inherit;*/
+    padding: 5px 10px;
 }
 
 .sideBarContent {
@@ -495,10 +506,18 @@ app-modal.hide .modal-shadow{
         height: 110px;
     }
     app-console .title{
-        padding: 5px!important;
+        padding: 7px!important;
     }
-    app-console .icon.close {
+    app-console .icon.close, app-console .icon.window.maximize, app-console .icon.window.minimize {
         top: 5px!important;
+    }
+    
+    .logs{
+        height: calc(100% - 30px);
+        top: 30px
+    }
+    .logs .ui.table thead th, .logs .ui.table td{
+        padding: 3px;
     }
 }
 @media screen and (min-height:950px) {
@@ -523,6 +542,11 @@ app-modal.hide .modal-shadow{
     app-console{
         height: 200px;
     }
+    .logs{
+        height: calc(100% - 40px);
+        top: 40px
+    }
+    
 }
 @media screen and (max-width: 899px) {
     .modal-shadow {

@@ -48,6 +48,17 @@ export class ConsoleComponent implements OnInit {
     $(".viewLogs").removeAttr("disabled").removeClass('grey');
   }
 
+  setWide(){
+    if ($('app-console').hasClass('wide')){
+      $('app-console').removeClass('wide');
+      $('.window.minimize.icon').removeClass('minimize').addClass('maximize');
+    }else{
+      $('app-console').addClass('wide');
+      $('.window.maximize.icon').removeClass('maximize').addClass('minimize');
+    }
+    
+  }
+
   ngOnDestroy() {
     this._alive = false;
   }
