@@ -111,7 +111,7 @@ export class SideBarComponent implements OnInit {
     //let basePoint = [14, 13];
     this.mapService.initBase([this.RS.llh.lat, this.RS.llh.lon]);
     //this.base = basePoint;
-    this.mapService.selectPoint([this.RS.llh.lon,this.RS.llh.lat], 16);
+    this.mapService.selectPoint([this.RS.llh.lon, this.RS.llh.lat], 16);
   }
 
   buildCross() {
@@ -158,6 +158,7 @@ export class SideBarComponent implements OnInit {
   }
 
   runRTKserver() {
+    const that = this;
     this.rtmls.runRTK(this.flightId, this.targetId).then(res => {
 
       if (res) {
@@ -170,13 +171,28 @@ export class SideBarComponent implements OnInit {
             return this.rtmls.getMarkersList(this.flightId, this.targetId, this.date).pipe(delay(1000));
           })
         ).subscribe(res => {
+         
           if (res.marker.length > 0 && res.marker[0].timestamp != this.date) {
             this.date = res.marker[0].timestamp;
-            res.forEach(element => {
-              this.mapService.createMarker(element.llh.lat,element.llh.lon,'marker',element.marker_id);
-              this.markers.push(res);
+
+            
+            res.marker.forEach(element => {
+              let alive = true;
+              this.rtmls.getMarkerState(this.flightId, this.targetId, element.marker_id).pipe(
+                repeatWhen(() => interval(1000)),
+                takeWhile(() => alive)
+              ).subscribe(marker => {
+                if (marker.state == 'ready') {
+                  this.mapService.createMarker(element.llh.lat, element.llh.lon, 'marker', element.marker_id);
+                  alive = false;
+                  this.markers.push(marker);
+                }
+              });
+
+
+           
             });
-          // this.mapService.createMarker(res.marker[0].llh.lat,res.marker[0].llh.lon,'marker',res.marker[0].marker_id);
+            // this.mapService.createMarker(res.marker[0].llh.lat,res.marker[0].llh.lon,'marker',res.marker[0].marker_id);
           }
         });
       }
@@ -204,22 +220,22 @@ export class SideBarComponent implements OnInit {
   }
   stopRTKserver() {
     this.rtmls.stopRTK(this.flightId, this.targetId).then(res => {
-      this.alive=false;
+      this.alive = false;
       console.log(res);
     });
   }
 
-  hideTable(table){
+  hideTable(table) {
     console.log($(`.${table} .icon`));
-    if($(`.${table}`).hasClass('hideTable')){
+    if ($(`.${table}`).hasClass('hideTable')) {
       $(`.${table}`).removeClass('hideTable');
       $(`.${table} .icon`).removeClass('down');
       $(`.${table} .icon`).addClass('up');
-    }else{
+    } else {
       $(`.${table}`).addClass('hideTable');
       $(`.${table} .icon`).removeClass('up');
       $(`.${table} .icon`).addClass('down');
-    } 
+    }
 
   }
 }
