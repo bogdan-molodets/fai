@@ -126,14 +126,14 @@ export class SideBarComponent implements OnInit {
     $('tr.active').removeClass('active');
     $(`.${pointId}-point`).addClass('active');
     this.hideSideBar();
-    this.mapService.selectPoint(point, 16);
+    this.mapService.selectPoint(point, 22);
   }
 
   selectMarker(marker) {
     $('tr.active').removeClass('active');
     $(`.${marker.marker_id}`).addClass('active');
     this.hideSideBar();
-    this.mapService.selectPoint([marker.llh.lon, marker.llh.lat], 16);
+    this.mapService.selectPoint([marker.llh.lon, marker.llh.lat], 22);
     /*new mapboxgl.Popup()
         .setLngLat([marker.llh.lon, marker.llh.lat])
         .setHTML('<p>' + marker.marker_id + '<p><p>Latitude: ' + marker.llh.lat + '</p><p>Longtitude: ' + marker.llh.lon + '</p>')
