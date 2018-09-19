@@ -180,9 +180,7 @@ export class SideBarComponent implements OnInit {
             res.marker.forEach(element => {
 
               this.rtmls.getMarkerState(this.flightId, this.targetId, element.marker_id).pipe(
-                distinctUntilChanged(function (x) {
-                  return x.status;
-                }),
+                distinctUntilChanged(),
                 repeatWhen(() => interval(1000)),
          //       takeWhile(() => alive)
               ).subscribe(marker => {
