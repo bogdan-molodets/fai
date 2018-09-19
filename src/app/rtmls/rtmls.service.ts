@@ -37,10 +37,11 @@ export class RtmlsService {
   }
 
   // get marker state 
-  getMarkerState(flightId: string, targetId: string, markerId: string): Observable<MarkerState> {
-    return this.httpClient.get<MarkerState>(environment.apiUrl + 'marker/' + markerId, { params: { flight_id: flightId, target_id: targetId } }).map(res => {
-      return new MarkerStateSerialzer().deserialize(res);
-    })
+  getMarkerState(flightId: string, targetId: string, markerId: string): Observable<any> {
+    return this.httpClient.get<any>(environment.apiUrl + 'marker/' + markerId, { params: { flight_id: flightId, target_id: targetId } });
+    // .map(res => {
+    //   return new MarkerStateSerialzer().deserialize(res);
+    // })
   }
 
   updateMarker(flightId: string, targetId: string, markerId: string, state: string): Observable<any> {
