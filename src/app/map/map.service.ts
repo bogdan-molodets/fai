@@ -46,6 +46,21 @@ export class MapService {
     });
   }
 
+  changeMapStyleOffline(online?: boolean) {
+    let that = this;
+    if (online) {
+      this.map.setStyle('mapbox://styles/bogdanmolodets/cjc0iypmd2gcf2rlefqdzoasf');
+    } else {
+      this.map.setStyle('http://localhost:4200/assets/offline.json');
+    }
+
+    this.map.on('styledata', () => {
+      that.addCrossSource(that.style);
+    });
+  }
+
+
+
   buildCross(center, point) {
     if (this.cross) {
       this.cross.features.forEach(function (value, index) {
@@ -62,9 +77,9 @@ export class MapService {
     this.createMarker(center[0], center[1], '', 'center');
 
     let line1 = turf.lineString([[center[1], center[0]], [point[1], point[0]]], { name: 'line1' });
-    let line2 = turf.transformRotate(line1, 90, { pivot: [center[1], center[0]]});
-    let line3 = turf.transformRotate(line1, 180, { pivot: [center[1], center[0]]});
-    let line4 = turf.transformRotate(line1, 270, { pivot: [center[1], center[0]]});
+    let line2 = turf.transformRotate(line1, 90, { pivot: [center[1], center[0]] });
+    let line3 = turf.transformRotate(line1, 180, { pivot: [center[1], center[0]] });
+    let line4 = turf.transformRotate(line1, 270, { pivot: [center[1], center[0]] });
 
     this.cross = turf.featureCollection([
       line1,
@@ -124,24 +139,24 @@ export class MapService {
       let el = document.createElement('div');
       el.className = 'marker';
       el.id = id;
-      (icon!='')?el.style.backgroundImage = `url(../../assets/${icon}.png)`:{};
+      (icon != '') ? el.style.backgroundImage = `url(../../assets/${icon}.png)` : {};
       el.style.cursor = 'pointer';
       el.style.width = '16px';
-      el.style.height = '16px'; 
+      el.style.height = '16px';
       let that = this;
       el.addEventListener('click', function () {
         that.selectPoint([lon, lat], 16);
       });
-      if(marker == undefined){
+      if (marker == undefined) {
         return new mapboxgl.Marker(el)
-        .setLngLat([lon, lat])
-        .addTo(this.map);
-      }else{
+          .setLngLat([lon, lat])
+          .addTo(this.map);
+      } else {
         return new mapboxgl.Marker(el)
-        .setLngLat([lon, lat])
-        .setPopup(new mapboxgl.Popup({ offset: 25 })
-        .setHTML('<p>' + marker.marker_id + '<p><p>Latitude: ' + marker.llh.lat + '</p><p>Longtitude: ' + marker.llh.lon + '</p>'))
-        .addTo(this.map);
+          .setLngLat([lon, lat])
+          .setPopup(new mapboxgl.Popup({ offset: 25 })
+            .setHTML('<p>' + marker.marker_id + '<p><p>Latitude: ' + marker.llh.lat + '</p><p>Longtitude: ' + marker.llh.lon + '</p>'))
+          .addTo(this.map);
       }
     } else {
       console.log('is here');
