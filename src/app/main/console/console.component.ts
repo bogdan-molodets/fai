@@ -30,7 +30,7 @@ export class ConsoleComponent implements OnInit {
           )
         ).subscribe(res => {
 
-          this.logs=this.logs.concat(res.log);
+          this.logs.unshift(res.log);
           if (res.log.length > 0) {          
             this.date = this.logs[0].timestamp;
           }
