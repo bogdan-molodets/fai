@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges, SimpleChange } from '@angular/core';
 import { MapService } from '../../map/map.service';
 import { RtmlsService } from '../../rtmls/rtmls.service';
-import { repeatWhen, takeWhile, expand, delay, distinctUntilChanged, mergeMap } from 'rxjs/operators';
+import { repeatWhen, takeWhile, expand, delay, distinctUntilChanged, mergeMap, retryWhen } from 'rxjs/operators';
 import { interval, concat } from 'rxjs';
 import { markers } from './markers';
 
@@ -165,38 +165,34 @@ export class SideBarComponent implements OnInit {
         // this.rtmls.getRTKStatus(this.flightId, this.targetId).pipe(repeatWhen(() => interval(1000)), takeWhile(() => this.alive)).subscribe(res => {
         //   console.log(res);
         // });
-        this.date = '2018-01-01 01:01:01';
+        this.date = '2000-01-01 01:01:01';
         this.rtmls.getMarkersList(this.flightId, this.targetId, this.date).pipe(
           expand(ex => {
             return this.rtmls.getMarkersList(this.flightId, this.targetId, this.date).pipe(delay(1000));
+          }),
+          retryWhen(errors => {
+            return errors.pipe(delay(1000));
           })
         ).subscribe(res => {
-
           if (res.marker.length > 0 && res.marker[0].timestamp != this.date) {
             this.date = res.marker[0].timestamp;
-          //  let alive = true;
-
-            
             res.marker.forEach(element => {
-
               this.rtmls.getMarkerState(this.flightId, this.targetId, element.marker_id).pipe(
                 distinctUntilChanged(),
                 repeatWhen(() => interval(1000)),
-         //       takeWhile(() => alive)
+                //       takeWhile(() => alive)
               ).subscribe(marker => {
                 if (marker.state == 'ready') {
                   this.mapService.createMarker(element.llh.lat, element.llh.lon, 'marker', element.marker_id);
-              //    alive = false;
+                  //    alive = false;
                   this.markers.push(marker);
                 }
               });
-
-
-
             });
             // this.mapService.createMarker(res.marker[0].llh.lat,res.marker[0].llh.lon,'marker',res.marker[0].marker_id);
           }
-        });
+        },
+        );;
       }
     });
     this.rtks = true;
