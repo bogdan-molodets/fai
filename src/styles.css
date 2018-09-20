@@ -106,6 +106,10 @@ app-console .title{
     z-index: 40;
 }
 
+.marker img{
+    width: 100%;
+}
+
 .title .header.ui {
     color: white !important;
     margin: 0;
@@ -386,12 +390,15 @@ app-modal.hide .modal-shadow{
     background-color: #fff!important;
     
 }*/
-
+#mapMode.grey.ui.toggle.checkbox .box,
+#mapMode.grey.ui.toggle.checkbox label,
 #colorMode.grey.ui.toggle.checkbox .box,
 #colorMode.grey.ui.toggle.checkbox label {
     color: white !important;
 }
 
+#mapMode.ui.toggle.checkbox input:checked~.box,
+#mapMode.ui.toggle.checkbox input:checked~label,
 #colorMode.ui.toggle.checkbox input:checked~.box,
 #colorMode.ui.toggle.checkbox input:checked~label {
     color: white !important;
@@ -409,7 +416,7 @@ app-modal.hide .modal-shadow{
     background-color: #444 !important;
 }
 
-#colorMode {
+#mapMode,#colorMode {
     top: 7px;
     float: right;
     color: #fafafa !important;

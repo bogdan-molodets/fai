@@ -96,7 +96,7 @@ export class SideBarComponent implements OnInit {
     $('.ui.checkbox#colorMode').checkbox({
       onChange() {
         that.dark = !that.dark;
-        that.mapService.changeMapStyle(that.dark);
+        that.mapService.changeMapStyle(that.offline, that.dark);
         (that.dark) ? $('app-main').addClass('dark') : $('app-main').removeClass('dark')
         console.log('Divna Ukraina')
       }
@@ -104,7 +104,7 @@ export class SideBarComponent implements OnInit {
     $('.ui.checkbox#mapMode').checkbox({
       onChange() {
         that.offline = !that.offline;
-        that.mapService.changeMapStyleOffline(that.offline);
+        that.mapService.changeMapStyleOffline(that.offline, that.dark);
       //  (that.dark) ? $('app-main').addClass('dark') : $('app-main').removeClass('dark')
         console.log('Divna Ukraina')
       }
