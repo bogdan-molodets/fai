@@ -178,12 +178,15 @@ export class SideBarComponent implements OnInit {
             this.date = res.marker[0].timestamp;
             res.marker.forEach(element => {
               this.rtmls.getMarkerState(this.flightId, this.targetId, element.marker_id).pipe(
-                distinctUntilChanged(),
+                distinctUntilChanged(function(x){
+                  return x.state;
+                }),
                 repeatWhen(() => interval(1000)),
                 //       takeWhile(() => alive)
               ).subscribe(marker => {
+                console.log(marker);
                 if (marker.state == 'ready') {
-                  this.mapService.createMarker(element.llh.lat, element.llh.lon, 'marker', element.marker_id);
+                  this.mapService.createMarker(marker.llh.lat, marker.llh.lon, 'marker', marker.marker_id);
                   //    alive = false;
                   this.markers.push(marker);
                 }

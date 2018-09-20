@@ -27,12 +27,16 @@ export class ConsoleComponent implements OnInit {
           expand(ex => {
             return this.rtmls.readLogs(this.date).pipe(delay(1000));
           }
-          )
+          ), retryWhen(errors => {
+            return errors.pipe(delay(1000));
+          })
         ).subscribe(res => {
 
-          this.logs=this.logs.concat(res.log).reverse();
-          if (res.log.length > 0) {          
-            this.date = res.log[0].timestamp;
+         
+          if (res.log.length > 0) {
+            this.logs = res.log.reverse();
+            //this.date = this.logs[0].timestamp;
+          
           }
         });
 
@@ -48,25 +52,25 @@ export class ConsoleComponent implements OnInit {
     $(".viewLogs").removeAttr("disabled").removeClass('grey');
   }
 
-  setWide(){
-    if ($('app-console').hasClass('wide')){
+  setWide() {
+    if ($('app-console').hasClass('wide')) {
       $('app-console').removeClass('wide');
       $('.window.minimize.icon').removeClass('minimize').addClass('maximize');
-    }else{
+    } else {
       $('app-console').addClass('wide');
       $('.window.maximize.icon').removeClass('maximize').addClass('minimize');
     }
-    
+
   }
 
   ngOnDestroy() {
     this._alive = false;
   }
 
-  isDark(){
+  isDark() {
     return $('app-main').hasClass('dark');
   }
-  
+
   getFormatedDate(): string {
     return `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()} ${new Date().getHours()}:${new Date().getMinutes()}:${new Date().getSeconds()}`
   }
