@@ -1,7 +1,7 @@
 <div class='modal'>
   <h1 class="ui header">Wizard</h1>
   <div class="modal-content">
-    <div id='1' class="modal-content-text active">
+    <div id='-1' class="modal-content-text active">
       <div class="ui horizontal divider">
        Step 1 of 10
       </div>
@@ -27,7 +27,7 @@
       </div>
       <div class='ui bottom attached label wait' [ngClass]='{yellow: (checkInValid(index) || checkState()) && state.match("Error") == null, green: !(checkInValid(index) || checkState()) && state.match("Error") == null, red: state.match("Error")!=null }'>{{state}}</div>
     </div>
-    <div id='2' class="modal-content-text right right-image">
+    <div id='1' class="modal-content-text right right-image">
       <div class="ui horizontal divider">
         Step 2 of 10
       </div>
@@ -46,7 +46,7 @@
       <div class='ui bottom attached label yellow wait' [ngClass]='{yellow: checkInValid(index) || checkState(), green: !(checkInValid(index) || checkState()) }'
         [innerText]='(checkInValid(index) || checkState())?"Wait":"Done"'></div>
     </div>
-    <div id='3' class="modal-content-text right right-image">
+    <div id='2' class="modal-content-text right right-image">
       <div class="ui horizontal divider">
         Step 3 of 10
       </div>
@@ -62,7 +62,7 @@
       <div class='ui bottom attached label yellow wait' [ngClass]='{yellow: checkInValid(index) || checkState(), green: !(checkInValid(index) || checkState()) }'
         [innerText]='(checkInValid(index) || checkState())?"Wait":"Done"'></div>
     </div>
-    <div id='4' class="modal-content-text right right-image">
+    <div id='3' class="modal-content-text right right-image">
       <div class="ui horizontal divider">
         Step 4 of 10
       </div>
@@ -78,7 +78,7 @@
       <div class='ui bottom attached label yellow wait' [ngClass]='{yellow: checkInValid(index) || checkState(), green: !(checkInValid(index) || checkState()) }'
         [innerText]='(checkInValid(index) || checkState())?"Wait":"Done"'></div>
     </div>
-    <div id='5' class="modal-content-text right  right-image">
+    <div id='4' class="modal-content-text right  right-image">
       <div class="ui horizontal divider">
         Step 5 of 10
       </div>
@@ -120,7 +120,7 @@
         {{state}}
       </div>
     </div>
-    <div id='6' class="modal-content-text right right-image">
+    <div id='5' class="modal-content-text right right-image">
       <div class="ui horizontal divider">
         Step 6 of 10
       </div>
@@ -141,7 +141,7 @@
       <div class='ui bottom attached label yellow wait' [ngClass]='{yellow: !marker_id.dirty && (checkInValid(index) || checkState() && state.match("Error") == null) , green: !(checkInValid(index) || checkState()) && state.match("Error") == null, red: state.match("Error")!=null || marker_id.dirty}'
         [innerText]='(checkInValid(index) || checkState())?(marker_id.dirty ? "Error. Id lenght must have 4 symbol length. Use only A-F or 0-9." : "Waiting for input"):"Done"'></div>
     </div>
-    <div id='7' class="modal-content-text right right-image">
+    <div id='6' class="modal-content-text right right-image">
       <div class="ui horizontal divider">
         Step 7 of 10
       </div>
@@ -159,7 +159,7 @@
       <div class='ui bottom attached label yellow wait' [ngClass]='{yellow: checkInValid(index) || checkState(), green: !(checkInValid(index) || checkState()) }'
         [innerText]='(checkInValid(index) || checkState())?"Wait":"Done"'></div>
     </div>
-    <div id='8' class="modal-content-text right">
+    <div id='7' class="modal-content-text right">
       <div class="ui horizontal divider">
         Step 8 of 10
       </div>
@@ -197,7 +197,7 @@
         {{state}}
       </div>
     </div>
-    <div id='9' class="modal-content-text right right-image">
+    <div id='8' class="modal-content-text right right-image">
       <div class="ui horizontal divider">
         Step 9 of 10
       </div>
