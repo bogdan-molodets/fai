@@ -49,9 +49,9 @@ export class MapService {
   changeMapStyleOffline(online?: boolean) {
     let that = this;
     if (online) {
-      this.map.setStyle('mapbox://styles/bogdanmolodets/cjc0iypmd2gcf2rlefqdzoasf');
-    } else {
       this.map.setStyle('http://localhost:4200/assets/offline.json');
+    } else {
+      this.map.setStyle('mapbox://styles/bogdanmolodets/cjc0iypmd2gcf2rlefqdzoasf');
     }
 
     this.map.on('styledata', () => {

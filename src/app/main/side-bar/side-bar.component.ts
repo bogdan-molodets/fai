@@ -18,6 +18,7 @@ export class SideBarComponent implements OnInit {
   markers = [];
   center;
   dark = false;
+  offline=false;
   rtks = false;
   private alive = true;
   private _RS: Object;
@@ -97,6 +98,14 @@ export class SideBarComponent implements OnInit {
         that.dark = !that.dark;
         that.mapService.changeMapStyle(that.dark);
         (that.dark) ? $('app-main').addClass('dark') : $('app-main').removeClass('dark')
+        console.log('Divna Ukraina')
+      }
+    });
+    $('.ui.checkbox#mapMode').checkbox({
+      onChange() {
+        that.offline = !that.offline;
+        that.mapService.changeMapStyleOffline(that.offline);
+      //  (that.dark) ? $('app-main').addClass('dark') : $('app-main').removeClass('dark')
         console.log('Divna Ukraina')
       }
     });
