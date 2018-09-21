@@ -24,7 +24,7 @@
       </div>
       <div class='ui bottom attached label wait' [ngClass]='{yellow: (checkInValid(index) || checkState()) && state.match("Error") == null, green: !(checkInValid(index) || checkState()) && state.match("Error") == null, red: state.match("Error")!=null }'>{{state}}</div>
     </div>-->
-    <div id='1' class="modal-content-text right right-image">
+    <div id='1' class="modal-content-text right right-image active">
       <div class="ui horizontal divider">
         Step 1 of 9
       </div>
@@ -75,7 +75,7 @@
       <div class='ui bottom attached label yellow wait' [ngClass]='{yellow: checkInValid(index) || checkState(), green: !(checkInValid(index) || checkState()) }'
         [innerText]='(checkInValid(index) || checkState())?"Wait":"Done"'></div>
     </div>
-    <div id='4' class="modal-content-text right  right-image  active">
+    <div id='4' class="modal-content-text right  right-image">
       <div class="ui horizontal divider">
         Step 4 of 9
       </div>
