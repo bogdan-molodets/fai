@@ -1,7 +1,7 @@
 <div class='modal'>
   <h1 class="ui header">Wizard</h1>
   <div class="modal-content">
-    <div id='1' class="modal-content-text active">
+    <!--<div id='1' class="modal-content-text active">
       <div class="ui horizontal divider">
        Step 1 of 10
       </div>
@@ -17,19 +17,16 @@
         </div>
       </form>
       <div class='button-container'>
-        <!--<button class="orange ui button" (click)='createRS()' [ngClass]='{disabled: state == "OK" }'>
-          Create reference station
-        </button>-->
         <button class="next orange ui button right floated" [ngClass]='{disabled: checkInValid(index)}'
           (click)='createRS()'>
           Next
         </button>
       </div>
       <div class='ui bottom attached label wait' [ngClass]='{yellow: (checkInValid(index) || checkState()) && state.match("Error") == null, green: !(checkInValid(index) || checkState()) && state.match("Error") == null, red: state.match("Error")!=null }'>{{state}}</div>
-    </div>
-    <div id='2' class="modal-content-text right right-image">
+    </div>-->
+    <div id='1' class="modal-content-text right right-image active">
       <div class="ui horizontal divider">
-        Step 2 of 10
+        Step 1 of 9
       </div>
       <img src='assets/IMG2.png'>
       <p>Place the reference station in a location where equal range in all directions provides full coverage of the site.
@@ -46,9 +43,9 @@
       <div class='ui bottom attached label yellow wait' [ngClass]='{yellow: checkInValid(index) || checkState(), green: !(checkInValid(index) || checkState()) }'
         [innerText]='(checkInValid(index) || checkState())?"Wait":"Done"'></div>
     </div>
-    <div id='3' class="modal-content-text right right-image">
+    <div id='2' class="modal-content-text right right-image">
       <div class="ui horizontal divider">
-        Step 3 of 10
+        Step 2 of 9
       </div>
       <img src='assets/IMG3.png'>
       <p>Connect WiFi router with POE adaptor. Connect the battery to power-up the WiFi router.
@@ -62,9 +59,9 @@
       <div class='ui bottom attached label yellow wait' [ngClass]='{yellow: checkInValid(index) || checkState(), green: !(checkInValid(index) || checkState()) }'
         [innerText]='(checkInValid(index) || checkState())?"Wait":"Done"'></div>
     </div>
-    <div id='4' class="modal-content-text right right-image">
+    <div id='3' class="modal-content-text right right-image">
       <div class="ui horizontal divider">
-        Step 4 of 10
+        Step 3 of 9
       </div>
       <img src='assets/IMG4.png'>
       <p>Turn on the reference station. Wait until WiFi LED will be steady GREEN, GPS LED will be blinking YELLOW.
@@ -78,12 +75,12 @@
       <div class='ui bottom attached label yellow wait' [ngClass]='{yellow: checkInValid(index) || checkState(), green: !(checkInValid(index) || checkState()) }'
         [innerText]='(checkInValid(index) || checkState())?"Wait":"Done"'></div>
     </div>
-    <div id='5' class="modal-content-text right  right-image">
+    <div id='4' class="modal-content-text right  right-image">
       <div class="ui horizontal divider">
-        Step 5 of 10
+        Step 4 of 9
       </div>
       <img src='assets/IMG1.png'>
-      <table [ngClass]='{ inverted: isDark() }' class='ui orange striped table'>
+      <!--<table [ngClass]='{ inverted: isDark() }' class='ui orange striped table'>
         <thead>
           <tr>
             <th>Name</th>
@@ -100,7 +97,18 @@
             <td>{{createReq.value.flight_id}}</td>
           </tr>
         </tbody>
-      </table>
+      </table>-->
+      <div class='noimg'>
+      <form class="ui form" [formGroup]="createReq" novalidate>
+        <div class="field">
+          <label>Flight id</label>
+          <input type="text" formControlName='flight_id' placeholder="Flight id">
+        </div>
+        <div class="field">
+          <label>Target id</label>
+          <input type="text" formControlName='target_id' placeholder="Target id">
+        </div>
+      </form>
       <form class="ui form" [formGroup]="createReqRS" novalidate>
         <div class="field">
           <label>RS id</label>
@@ -120,9 +128,10 @@
         {{state}}
       </div>
     </div>
-    <div id='6' class="modal-content-text right right-image">
+    </div>
+    <div id='5' class="modal-content-text right right-image">
       <div class="ui horizontal divider">
-        Step 6 of 10
+        Step 5 of 9
       </div>
       <img src='assets/IMG6.png'>
       <p>To initialize the target, one of the markers must be selected.</p>
@@ -141,9 +150,9 @@
       <div class='ui bottom attached label yellow wait' [ngClass]='{yellow: !marker_id.dirty && (checkInValid(index) || checkState() && state.match("Error") == null) , green: !(checkInValid(index) || checkState()) && state.match("Error") == null, red: state.match("Error")!=null || marker_id.dirty}'
         [innerText]='(checkInValid(index) || checkState())?(marker_id.dirty ? "Error. Id lenght must have 4 symbol length. Use only A-F or 0-9." : "Waiting for input"):"Done"'></div>
     </div>
-    <div id='7' class="modal-content-text right right-image">
+    <div id='6' class="modal-content-text right right-image">
       <div class="ui horizontal divider">
-        Step 7 of 10
+        Step 6 of 9
       </div>
       <img src='assets/IMG7.png'>
       <p>Activate marker and place it as accurate as possible in the center of the target. Wait until marker status LED start
@@ -159,9 +168,9 @@
       <div class='ui bottom attached label yellow wait' [ngClass]='{yellow: checkInValid(index) || checkState(), green: !(checkInValid(index) || checkState()) }'
         [innerText]='(checkInValid(index) || checkState())?"Wait":"Done"'></div>
     </div>
-    <div id='8' class="modal-content-text right">
+    <div id='7' class="modal-content-text right">
       <div class="ui horizontal divider">
-        Step 8 of 10
+        Step 7 of 9
       </div>
       <table [ngClass]='{ inverted: isDark() }' class='ui orange striped table'>
         <thead>
@@ -197,9 +206,9 @@
         {{state}}
       </div>
     </div>
-    <div id='9' class="modal-content-text right right-image">
+    <div id='8' class="modal-content-text right right-image">
       <div class="ui horizontal divider">
-        Step 9 of 10
+        Step 8 of 9
       </div>
       <img src='assets/IMG9.png'>
       <p>Activate marker and place it in the “north” part of the target. Wait until marker status LED start to blink blue color. The marker will automatically turn off when the
@@ -214,9 +223,9 @@
       <div class='ui bottom attached label yellow wait' [ngClass]='{yellow: checkInValid(index) || checkState(), green: !(checkInValid(index) || checkState()) }'
         [innerText]='(checkInValid(index) || checkState())?"Wait":"Done"'></div>
     </div>
-    <div id='10' class="modal-content-text right">
+    <div id='9' class="modal-content-text right">
       <div class="ui horizontal divider">
-        Step 10 of 10
+        Step 9 of 9
       </div>
       <table [ngClass]='{ inverted: isDark() }' class='ui orange striped table'>
         <thead>

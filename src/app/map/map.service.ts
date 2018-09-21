@@ -34,24 +34,40 @@ export class MapService {
     let el = this.createMarker(basePoint[0], basePoint[1], 'base', 'base');
   }
 
-  changeMapStyle(dark) {
+  changeMapStyle(online: boolean, dark: boolean) {
     let that = this;
-    if (dark) {
-      this.map.setStyle('mapbox://styles/bogdanmolodets/cjlet7a468fho2spkrjyxkl6g');
+    if (online) {
+      if (dark) {
+        this.map.setStyle('http://localhost:4200/assets/offlineDark.json');
+      }else{
+        this.map.setStyle('http://localhost:4200/assets/offline.json');
+      }
     } else {
-      this.map.setStyle('mapbox://styles/bogdanmolodets/cjc0iypmd2gcf2rlefqdzoasf');
+      if (dark) {
+        this.map.setStyle('mapbox://styles/bogdanmolodets/cjlet7a468fho2spkrjyxkl6g');
+      } else {
+        this.map.setStyle('mapbox://styles/bogdanmolodets/cjc0iypmd2gcf2rlefqdzoasf');
+      }
     }
     this.map.on('styledata', () => {
       that.addCrossSource(that.style);
     });
   }
 
-  changeMapStyleOffline(online?: boolean) {
+  changeMapStyleOffline(online: boolean, dark: boolean) {
     let that = this;
     if (online) {
-      this.map.setStyle('http://localhost:4200/assets/offline.json');
+      if (dark) {
+        this.map.setStyle('http://localhost:4200/assets/offlineDark.json');
+      }else{
+        this.map.setStyle('http://localhost:4200/assets/offline.json');
+      }
     } else {
-      this.map.setStyle('mapbox://styles/bogdanmolodets/cjc0iypmd2gcf2rlefqdzoasf');
+      if (dark) {
+        this.map.setStyle('mapbox://styles/bogdanmolodets/cjlet7a468fho2spkrjyxkl6g');
+      } else {
+        this.map.setStyle('mapbox://styles/bogdanmolodets/cjc0iypmd2gcf2rlefqdzoasf');
+      }
     }
 
     this.map.on('styledata', () => {
@@ -139,10 +155,17 @@ export class MapService {
       let el = document.createElement('div');
       el.className = 'marker';
       el.id = id;
-      (icon != '') ? el.style.backgroundImage = `url(../../assets/${icon}.png)` : {};
+      const img = document.createElement('img');
+      el.appendChild(img);
+      (icon != '') ? img.src = `../../assets/${icon}.png` : {};
       el.style.cursor = 'pointer';
-      el.style.width = '16px';
-      el.style.height = '16px';
+      if( icon == 'base'){
+        el.style.width = '7px';
+        el.style.height = '7px';
+      }else{
+        el.style.width = '16px';
+        el.style.height = '16px';
+      }
       let that = this;
       el.addEventListener('click', function () {
         that.selectPoint([lon, lat], 16);

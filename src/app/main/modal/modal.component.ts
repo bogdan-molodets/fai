@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, HostListener } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -21,7 +21,7 @@ export class ModalComponent implements OnInit {
   private alive = true;
   codePattern = "[A-F0-9]{4,4}";
   index = 1;
-  stateIndexes = [1, 5, 8, 10];
+  stateIndexes = [ 4, 7, 9];
   state = '';
   createReqRS: FormGroup;
   createReq: FormGroup;
@@ -51,6 +51,16 @@ export class ModalComponent implements OnInit {
     }
     );
   }
+  @HostListener('window:resize') onResize() {
+    /**if(($(`.noimg`).height() + $(`#${this.index} img`).height()) > $(`.active`).outerHeight(true)){
+      let res = ($(`#${this.index} img`).height()  - $(`.noimg`).height() - $(`#${this.index} img`).height() + $(`.active`).outerHeight(true));
+      $(`#${this.index} img`).css('height', 0);
+      $(`#${this.index} img`).css('width', 'auto');
+    }else{
+      $(`#${this.index} img`).css('height', '');
+      $(`#${this.index} img`).css('width', '');
+    }**/
+  }
 
   initForm() {
     this.createReq = new FormGroup({
@@ -67,10 +77,12 @@ export class ModalComponent implements OnInit {
 
   checkInValid(index) {
     switch (index) {
-      case 1:
+      /**case 1:
         return this.createReq.invalid;
       case 5:
-        return this.createReqRS.invalid;
+        return this.createReqRS.invalid;**/
+      case 4: this.createReq.invalid || this.createReqRS.invalid;
+        return 
       case 6:
         return this.createMarkerReq.invalid;
       default:
