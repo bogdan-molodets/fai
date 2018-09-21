@@ -1,8 +1,8 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges, SimpleChange } from '@angular/core';
 import { MapService } from '../../map/map.service';
 import { RtmlsService } from '../../rtmls/rtmls.service';
-import { repeatWhen, takeWhile, expand, delay, distinctUntilChanged, mergeMap, retryWhen } from 'rxjs/operators';
-import { interval, concat } from 'rxjs';
+import { repeatWhen, takeWhile, expand, delay, distinctUntilChanged, mergeMap, retryWhen, distinct } from 'rxjs/operators';
+import { interval, concat, Observable } from 'rxjs';
 import { markers } from './markers';
 
 declare const $: any;
@@ -187,12 +187,13 @@ export class SideBarComponent implements OnInit {
             this.date = res.marker[0].timestamp;
             res.marker.forEach(element => {
               this.rtmls.getMarkerState(this.flightId, this.targetId, element.marker_id).pipe(
-                distinctUntilChanged(function(x){
+                distinct(function(x){
                   return x.state;
                 }),
                 repeatWhen(() => interval(1000)),
                 //       takeWhile(() => alive)
               ).subscribe(marker => {
+              
                 console.log(marker);
                 if (marker.state == 'ready') {
                   this.mapService.createMarker(marker.llh.lat, marker.llh.lon, 'marker', marker.marker_id);
