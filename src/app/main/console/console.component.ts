@@ -34,7 +34,8 @@ export class ConsoleComponent implements OnInit {
 
          
           if (res.log.length > 0) {
-            this.logs = res.log.reverse();
+            this.logs = res.log;
+            this.logs.reverse();
             //this.date = this.logs[0].timestamp;
           
           }
