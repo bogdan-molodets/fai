@@ -276,6 +276,10 @@ app-modal.hide .modal-shadow{
     right: 5000px;
 }*/
 
+app-modal form{
+    margin: 0 0 1em;
+}
+
 .modal {
     position: fixed;
     top: 100px;
@@ -603,6 +607,16 @@ app-modal.hide .modal-shadow{
         top: 52px;
         height: calc(100% - 52px);
     }
+    .sideBarContent{
+        margin-top: 52px;
+        height: calc(100% - 52px);
+    }
+    #mapMode, #colorMode {
+        top: 7px;
+        margin-right: 5px;
+        float: right;
+        color: #fafafa !important;
+    }
 }
 
 @media screen and (min-width: 900px) {
@@ -638,6 +652,16 @@ app-modal.hide .modal-shadow{
         right: 50px;
         width: calc( 100% - 370px - 100px);
     }
+    .sideBarContent{
+        margin-top: 77px;
+        height: calc(100% - 77px);
+    }
+    #mapMode, #colorMode {
+        top: 0px;
+        margin-right: 5px;
+        float: right;
+        color: #fafafa !important;
+    }
 }
 
 @media screen and (min-width: 1200px) {
@@ -664,6 +688,16 @@ app-modal.hide .modal-shadow{
     app-console {
         right: 150px;
         width: calc( 100% - 425px - 300px);
+    }
+    .sideBarContent{
+        margin-top: 52px;
+        height: calc(100% - 52px);
+    }
+    #mapMode, #colorMode {
+        top: 7px;
+        margin-right: 5px;
+        float: right;
+        color: #fafafa !important;
     }
 }
 
@@ -731,7 +765,7 @@ app-modal.hide .modal-shadow{
         float: left;
     }
     .modal-content-text.right-image img {
-        max-width: 350px;
+        max-width: 275px;
         width: 100%;
         float: right;
         margin: 0px;
@@ -753,7 +787,7 @@ app-modal.hide .modal-shadow{
     .modal-content-text.right-image img {
         float: none;
         margin: 0 auto;
-        max-width: 450px;
+        max-width: 350px;
         width: 100%;
     }
 }
