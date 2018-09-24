@@ -191,7 +191,8 @@ export class SideBarComponent implements OnInit {
                 distinctUntilChanged((marker1: any, marker2: any) => marker1.state == marker2.state),
                 repeatWhen(() => interval(1000)),
                 takeWhile(() => this.alive)
-              ).subscribe(marker => {               
+              ).subscribe(marker => {
+                console.log(marker);               
                 this.pushToArray(marker);
                 if (marker.state == 'ready') {
                   this.mapService.createMarker(marker.llh.lat, marker.llh.lon, 'marker', marker.marker_id);                  
