@@ -17,13 +17,21 @@
     <div class="ui text loader">Loading</div>
   </div>
   <div class='stages'>
-    <button id='start' class="ui orange button" (click)='start()'>
+    <button id='start' class="ui mini orange button" (click)='start()'>
       Init work
     </button>
-    <button id='start' [ngClass]='{disabled: flightId == undefined || targetId == undefined || rtks}' class="ui orange button"
+    <button id='start' [ngClass]='{disabled: flightId == undefined || targetId == undefined || rtks}' class="ui mini orange button"
       (click)='runRTKserver()'>
-      Start
+      Start RTK
     </button>
+    <button id='stop' *ngIf='rtks' class="ui mini orange button"
+      (click)='stopRTKserver()'>
+      Stop RTK
+    </button>
+    <!--<button id='restart' *ngIf='rtks' class="ui mini orange button"
+      (click)='restartRTKserver()'>
+      Restart RTK
+    </button>-->
   </div>
   <div class='stages'>
     <table [ngClass]='{hide: (RS.llh == undefined || RS.llh == {}),inverted: dark}' class="ui small orange striped table ">
@@ -55,18 +63,18 @@
       <tbody>
         <tr *ngIf='(RS.llh != undefined && RS.llh != {})' class='base-point' (click)='selectPoint([RS.llh.lon, RS.llh.lat], "base")'>
           <td>Reference station</td>
-          <td [ngClass]='{hide: (RS.llh!=undefined && RS.llh!={}) }'>{{RS.llh.lat}}</td>
-          <td [ngClass]='{hide: (RS.llh!=undefined && RS.llh!={}) }'>{{RS.llh.lon}}</td>
+          <td [ngClass]='{hide: (RS.llh!=undefined && RS.llh!={}) }'>{{RS.llh.lat.toFixed(3)}}</td>
+          <td [ngClass]='{hide: (RS.llh!=undefined && RS.llh!={}) }'>{{RS.llh.lon.toFixed(3)}}</td>
         </tr>
         <tr *ngIf='CP.llh!=undefined && CP.llh!={}' class='center-point' (click)='selectPoint([CP.llh.lon, CP.llh.lat], "center")'>
           <td>Center point</td>
-          <td [ngClass]='{hide: (CP.llh!=undefined && CP.llh!={}) }'>{{CP.llh.lat}}</td>
-          <td [ngClass]='{hide: (CP.llh!=undefined && CP.llh!={}) }'>{{CP.llh.lon}}</td>
+          <td [ngClass]='{hide: (CP.llh!=undefined && CP.llh!={}) }'>{{CP.llh.lat.toFixed(3)}}</td>
+          <td [ngClass]='{hide: (CP.llh!=undefined && CP.llh!={}) }'>{{CP.llh.lon.toFixed(3)}}</td>
         </tr>
         <tr *ngIf='AP.llh!=undefined && AP.llh!={}' class='0-point' (click)='selectPoint([AP.llh.lon, AP.llh.lat], "0")'>
           <td [ngClass]='{hide: (AP.llh!=undefined && AP.llh!={}) }'>Azimuth point</td>
-          <td [ngClass]='{hide: (AP.llh!=undefined && AP.llh!={}) }'>{{AP.llh.lat}}</td>
-          <td [ngClass]='{hide: (AP.llh!=undefined && AP.llh!={}) }'>{{AP.llh.lon}}</td>
+          <td [ngClass]='{hide: (AP.llh!=undefined && AP.llh!={}) }'>{{AP.llh.lat.toFixed(3)}}</td>
+          <td [ngClass]='{hide: (AP.llh!=undefined && AP.llh!={}) }'>{{AP.llh.lon.toFixed(3)}}</td>
         </tr>
       </tbody>
     </table>
@@ -96,8 +104,8 @@
         <tr *ngFor='let marker of markers' (click)='selectMarker(marker)'>
           <td>{{marker.state}}</td>
           <td *ngIf='marker.state == "ready"'>{{marker.marker_id}}</td>
-          <td *ngIf='marker.state == "ready"'>{{marker.azimuth}}</td>
-          <td *ngIf='marker.state == "ready"'>{{marker.distance}}</td>
+          <td *ngIf='marker.state == "ready"'>{{marker.azimuth.toFixed(3)}}</td>
+          <td *ngIf='marker.state == "ready"'>{{marker.distance.toFixed(3)}}</td>
         </tr>
       </tbody>
     </table>
