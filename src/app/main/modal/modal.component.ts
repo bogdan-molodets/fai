@@ -84,7 +84,7 @@ export class ModalComponent implements OnInit {
       case 4: 
         //console.log(this.createReq.invalid || this.createReqRS.invalid);
         return this.createReq.invalid || this.createReqRS.invalid;
-      case 6:
+      case 5:
         return this.createMarkerReq.invalid;
       default:
         return false;

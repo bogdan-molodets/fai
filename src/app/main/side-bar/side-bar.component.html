@@ -63,18 +63,18 @@
       <tbody>
         <tr *ngIf='(RS.llh != undefined && RS.llh != {})' class='base-point' (click)='selectPoint([RS.llh.lon, RS.llh.lat], "base")'>
           <td>Reference station</td>
-          <td [ngClass]='{hide: (RS.llh!=undefined && RS.llh!={}) }'>{{RS.llh.lat.toFixed(3)}}</td>
-          <td [ngClass]='{hide: (RS.llh!=undefined && RS.llh!={}) }'>{{RS.llh.lon.toFixed(3)}}</td>
+          <td [ngClass]='{hide: (RS.llh!=undefined && RS.llh!={}) }'>{{RS.llh.lat}}</td>
+          <td [ngClass]='{hide: (RS.llh!=undefined && RS.llh!={}) }'>{{RS.llh.lon}}</td>
         </tr>
         <tr *ngIf='CP.llh!=undefined && CP.llh!={}' class='center-point' (click)='selectPoint([CP.llh.lon, CP.llh.lat], "center")'>
           <td>Center point</td>
-          <td [ngClass]='{hide: (CP.llh!=undefined && CP.llh!={}) }'>{{CP.llh.lat.toFixed(3)}}</td>
-          <td [ngClass]='{hide: (CP.llh!=undefined && CP.llh!={}) }'>{{CP.llh.lon.toFixed(3)}}</td>
+          <td [ngClass]='{hide: (CP.llh!=undefined && CP.llh!={}) }'>{{CP.llh.lat}}</td>
+          <td [ngClass]='{hide: (CP.llh!=undefined && CP.llh!={}) }'>{{CP.llh.lon}}</td>
         </tr>
         <tr *ngIf='AP.llh!=undefined && AP.llh!={}' class='0-point' (click)='selectPoint([AP.llh.lon, AP.llh.lat], "0")'>
           <td [ngClass]='{hide: (AP.llh!=undefined && AP.llh!={}) }'>Azimuth point</td>
-          <td [ngClass]='{hide: (AP.llh!=undefined && AP.llh!={}) }'>{{AP.llh.lat.toFixed(3)}}</td>
-          <td [ngClass]='{hide: (AP.llh!=undefined && AP.llh!={}) }'>{{AP.llh.lon.toFixed(3)}}</td>
+          <td [ngClass]='{hide: (AP.llh!=undefined && AP.llh!={}) }'>{{AP.llh.lat}}</td>
+          <td [ngClass]='{hide: (AP.llh!=undefined && AP.llh!={}) }'>{{AP.llh.lon}}</td>
         </tr>
       </tbody>
     </table>
@@ -82,7 +82,7 @@
   <div class='stage'>
     <table *ngIf='markers.length!=0' [ngClass]='{inverted: dark}' class='ui table orange striped'>
       <thead>
-        <th class='ui orange' colspan="3">
+        <th class='ui orange' colspan="4">
           Markers
         </th>
       </thead>
