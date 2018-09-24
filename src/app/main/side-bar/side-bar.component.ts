@@ -18,7 +18,7 @@ export class SideBarComponent implements OnInit {
   markers = [];
   center;
   dark = false;
-  offline=false;
+  offline = false;
   rtks = false;
   private alive = true;
   private _RS: Object;
@@ -105,7 +105,7 @@ export class SideBarComponent implements OnInit {
       onChange() {
         that.offline = !that.offline;
         that.mapService.changeMapStyleOffline(that.offline, that.dark);
-      //  (that.dark) ? $('app-main').addClass('dark') : $('app-main').removeClass('dark')
+        //  (that.dark) ? $('app-main').addClass('dark') : $('app-main').removeClass('dark')
         console.log('Divna Ukraina')
       }
     });
@@ -188,18 +188,13 @@ export class SideBarComponent implements OnInit {
             this.date = res.marker[0].timestamp;
             res.marker.forEach(element => {
               this.rtmls.getMarkerState(this.flightId, this.targetId, element.marker_id).pipe(
-                distinct(function(x){
-                  return x.state;
-                }),
+                distinctUntilChanged((marker1: any, marker2: any) => marker1.state == marker2.state),
                 repeatWhen(() => interval(1000)),
                 takeWhile(() => this.alive)
-              ).subscribe(marker => {
-              
-                console.log(marker);
+              ).subscribe(marker => {               
+                this.pushToArray(marker);
                 if (marker.state == 'ready') {
-                  this.mapService.createMarker(marker.llh.lat, marker.llh.lon, 'marker', marker.marker_id);
-                  //    alive = false;
-                  this.markers.push(marker);
+                  this.mapService.createMarker(marker.llh.lat, marker.llh.lon, 'marker', marker.marker_id);                  
                 }
               });
             });
@@ -255,5 +250,14 @@ export class SideBarComponent implements OnInit {
       $(`.${table} .icon`).addClass('down');
     }
 
+  }
+
+  pushToArray(marker: any) {
+    let index = this.markers.findIndex((m) => m.marker_id == marker.marker_id);
+    if (index == -1) {
+      this.markers.push(marker);
+    } else {
+      this.markers[index] = marker;
+    }
   }
 }
