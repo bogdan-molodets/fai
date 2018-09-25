@@ -2,7 +2,7 @@ import { Component, OnInit, Input, OnChanges, SimpleChanges, SimpleChange } from
 import { MapService } from '../../map/map.service';
 import { RtmlsService } from '../../rtmls/rtmls.service';
 import { repeatWhen, takeWhile, expand, delay, distinctUntilChanged, mergeMap, retryWhen, distinct } from 'rxjs/operators';
-import { interval, concat, Observable } from 'rxjs';
+import { interval, concat, Observable, Subscription } from 'rxjs';
 import { markers } from './markers';
 
 declare const $: any;
@@ -12,6 +12,15 @@ declare const $: any;
   templateUrl: './side-bar.component.html',
   styleUrls: ['./side-bar.component.css']
 })
+
+class MarkerObservable {
+  /**
+   *
+   */
+  constructor(readonly markerId: string, readonly observable: Subscription) {
+
+  }
+}
 export class SideBarComponent implements OnInit {
   base;
   points;
@@ -20,6 +29,7 @@ export class SideBarComponent implements OnInit {
   dark = false;
   offline = false;
   rtks = false;
+  markerObservables: MarkerObservable[] = [];
   private alive = true;
   private _RS: Object;
   private _CP: Object;
@@ -186,18 +196,26 @@ export class SideBarComponent implements OnInit {
           if (res.marker.length > 0 && res.marker[0].timestamp != this.date) {
             this.date = res.marker[0].timestamp;
             res.marker.forEach(element => {
-              this.rtmls.getMarkerState(this.flightId, this.targetId, element.marker_id).pipe(
-                distinctUntilChanged((marker1: any, marker2: any) => marker1.state == marker2.state),
-                repeatWhen(() => interval(1000)),
-                //       takeWhile(() => alive)
-              ).subscribe(marker => {               
+
+              let m = this.rtmls.getMarkerState(this.flightId, this.targetId, element.marker_id).pipe(
+                //   distinctUntilChanged((marker1, marker2) => marker1.state == marker2.state),
+                repeatWhen(() => interval(3000)),
+               
+              ).subscribe(marker => {
+
                 this.pushToArray(marker);
                 if (marker.state == 'ready') {
-                  this.mapService.createMarker(marker.llh.lat, marker.llh.lon, 'marker', marker.marker_id);                  
+                  // find subscription in MarkerObservable array unsubscribe from it and delete from array
+                  let obj = this.markerObservables.find(el => { return el.markerId == marker.marker_id });
+                  obj.observable.unsubscribe();
+                  this.markerObservables.splice(this.markerObservables.indexOf(obj), 1);
+                  //
+                  this.mapService.createMarker(marker.llh.lat, marker.llh.lon, 'marker', marker.marker_id);
                 }
               });
+              this.markerObservables.push(new MarkerObservable(element.marker_id, m));
             });
-            // this.mapService.createMarker(res.marker[0].llh.lat,res.marker[0].llh.lon,'marker',res.marker[0].marker_id);
+
           }
         },
         );;

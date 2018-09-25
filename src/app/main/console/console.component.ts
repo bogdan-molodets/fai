@@ -24,15 +24,11 @@ export class ConsoleComponent implements OnInit {
       if (resf) {
         this.date = '2018-01-01 01:01:01';
         this.rtmls.readLogs(this.date).pipe(
-          expand(ex => {
-            return this.rtmls.readLogs(this.date).pipe(delay(1000));
-          }
-          ), retryWhen(errors => {
+          repeatWhen(() => interval(20000)),
+           retryWhen(errors => {
             return errors.pipe(delay(1000));
           })
-        ).subscribe(res => {
-
-         
+        ).subscribe(res => {         
           if (res.log.length > 0) {
             this.logs = res.log;
             this.logs.reverse();
