@@ -7,11 +7,6 @@ import { markers } from './markers';
 
 declare const $: any;
 
-@Component({
-  selector: 'app-side-bar',
-  templateUrl: './side-bar.component.html',
-  styleUrls: ['./side-bar.component.css']
-})
 
 class MarkerObservable {
   /**
@@ -21,6 +16,12 @@ class MarkerObservable {
 
   }
 }
+@Component({
+  selector: 'app-side-bar',
+  templateUrl: './side-bar.component.html',
+  styleUrls: ['./side-bar.component.css']
+})
+
 export class SideBarComponent implements OnInit {
   base;
   points;
