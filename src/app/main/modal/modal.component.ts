@@ -81,9 +81,10 @@ export class ModalComponent implements OnInit {
         return this.createReq.invalid;
       case 5:
         return this.createReqRS.invalid;**/
-      case 4: this.createReq.invalid || this.createReqRS.invalid;
-        return
-      case 6:
+      case 4: 
+        //console.log(this.createReq.invalid || this.createReqRS.invalid);
+        return this.createReq.invalid || this.createReqRS.invalid;
+      case 5:
         return this.createMarkerReq.invalid;
       default:
         return false;
@@ -104,12 +105,12 @@ export class ModalComponent implements OnInit {
   }
 
   nextStep() {
-    if (this.index < 10) {
+    if (this.index < 9) {
       $(`#${this.index}`).addClass('right').removeClass('active');
       this.state = '';
       this.index++;
       $(`#${this.index}`).addClass('active').removeClass('right');
-    } else if (this.index == 10) {
+    } else if (this.index == 9) {
       this.index = 1;
       $('app-modal').addClass('hide');
       this.changeFlightId.emit(this.flight_id.value);

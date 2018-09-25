@@ -192,7 +192,8 @@ export class SideBarComponent implements OnInit {
           }),
           retryWhen(errors => {
             return errors.pipe(delay(1000));
-          })
+          }),
+          takeWhile(() => this.alive)
         ).subscribe(res => {
           if (res.marker.length > 0 && res.marker[0].timestamp != this.date) {
             this.date = res.marker[0].timestamp;
@@ -201,7 +202,7 @@ export class SideBarComponent implements OnInit {
               let m = this.rtmls.getMarkerState(this.flightId, this.targetId, element.marker_id).pipe(
                 //   distinctUntilChanged((marker1, marker2) => marker1.state == marker2.state),
                 repeatWhen(() => interval(3000)),
-               
+                takeWhile(() => this.alive)
               ).subscribe(marker => {
 
                 this.pushToArray(marker);
@@ -210,11 +211,13 @@ export class SideBarComponent implements OnInit {
                   let obj = this.markerObservables.find(el => { return el.markerId == marker.marker_id });
                   obj.observable.unsubscribe();
                   this.markerObservables.splice(this.markerObservables.indexOf(obj), 1);
+                  console.log(this.markerObservables);
                   //
                   this.mapService.createMarker(marker.llh.lat, marker.llh.lon, 'marker', marker.marker_id);
                 }
               });
               this.markerObservables.push(new MarkerObservable(element.marker_id, m));
+              console.log(this.markerObservables);
             });
 
           }
@@ -246,6 +249,12 @@ export class SideBarComponent implements OnInit {
   stopRTKserver() {
     this.rtmls.stopRTK(this.flightId, this.targetId).then(res => {
       this.alive = false;
+      console.log(res);
+    });
+  }
+
+  restartRTKserver() {
+    this.rtmls.rerunRTK(this.flightId, this.targetId, '').then(res => {
       console.log(res);
     });
   }

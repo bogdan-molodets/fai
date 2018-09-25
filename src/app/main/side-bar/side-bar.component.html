@@ -17,13 +17,21 @@
     <div class="ui text loader">Loading</div>
   </div>
   <div class='stages'>
-    <button id='start' class="ui orange button" (click)='start()'>
+    <button id='start' class="ui mini orange button" (click)='start()'>
       Init work
     </button>
-    <button id='start' [ngClass]='{disabled: flightId == undefined || targetId == undefined || rtks}' class="ui orange button"
+    <button id='start' [ngClass]='{disabled: flightId == undefined || targetId == undefined || rtks}' class="ui mini orange button"
       (click)='runRTKserver()'>
-      Start
+      Start RTK
     </button>
+    <button id='stop' *ngIf='rtks' class="ui mini orange button"
+      (click)='stopRTKserver()'>
+      Stop RTK
+    </button>
+    <!--<button id='restart' *ngIf='rtks' class="ui mini orange button"
+      (click)='restartRTKserver()'>
+      Restart RTK
+    </button>-->
   </div>
   <div class='stages'>
     <table [ngClass]='{hide: (RS.llh == undefined || RS.llh == {}),inverted: dark}' class="ui small orange striped table ">
@@ -74,7 +82,7 @@
   <div class='stage'>
     <table *ngIf='markers.length!=0' [ngClass]='{inverted: dark}' class='ui table orange striped'>
       <thead>
-        <th class='ui orange' colspan="3">
+        <th class='ui orange' colspan="4">
           Markers
         </th>
       </thead>
@@ -96,8 +104,8 @@
         <tr *ngFor='let marker of markers' (click)='selectMarker(marker)'>
           <td>{{marker.state}}</td>
           <td *ngIf='marker.state == "ready"'>{{marker.marker_id}}</td>
-          <td *ngIf='marker.state == "ready"'>{{marker.azimuth}}</td>
-          <td *ngIf='marker.state == "ready"'>{{marker.distance}}</td>
+          <td *ngIf='marker.state == "ready"'>{{marker.azimuth.toFixed(3)}}</td>
+          <td *ngIf='marker.state == "ready"'>{{marker.distance.toFixed(3)}}</td>
         </tr>
       </tbody>
     </table>

@@ -134,4 +134,9 @@ export class RtmlsService {
   stopRTK(flightId: string, targetId: string): Promise<any> {
     return this.httpClient.delete<Target>(environment.apiUrl + 'rtksrv', { params: { flight_id: flightId, target_id: targetId } }).toPromise();
   }
+
+  rerunRTK(flightId: string, targetId: string, state):Promise<any>{
+    let params = new HttpParams().set('flight_id', flightId).set('target_id', targetId);
+    return this.httpClient.put<any>(environment.apiUrl + 'rtksrv', {state: state}, {params: params}).toPromise();
+  }
 }

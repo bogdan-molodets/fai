@@ -116,7 +116,7 @@
         </div>
       </form>
       <div class='button-container'>
-        <button class='ui orange button' (click)='runRS()' [ngClass]='{disabled: (!checkInValid(index) && state !="" && state.match("Error")!=null || state == "ready") || state == "Error. Id lenght must have 4 symbol length. Use only A-F or 0-9." || !rs_id.dirty }'>Run
+        <button class='ui orange button' (click)='runRS()' [ngClass]='{disabled: checkInValid(index) || (!checkInValid(index) && state !="" && state.match("Error")!=null || state == "ready") || state == "Error. Id lenght must have 4 symbol length. Use only A-F or 0-9." || !rs_id.dirty }'>Run
           reference station</button>
         <!--<button *ngIf='state.match("Error") != null' class='ui yellow button' (click)='reset(1)'>Reset</button>-->
 
@@ -143,7 +143,7 @@
       </form>
       <div class='button-container'>
 
-        <button class="next orange ui button right floated" [ngClass]='{disabled: checkInValid(index) || checkState() }' (click)='nextStep()'>
+        <button class="next orange ui button right floated" [ngClass]='{disabled: checkInValid(index) || checkState()}' (click)='nextStep()'>
           Next
         </button>
       </div>
