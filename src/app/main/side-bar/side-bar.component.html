@@ -103,7 +103,7 @@
         </tr>
         <tr *ngFor='let marker of markers' (click)='selectMarker(marker)'>
           <td>{{marker.state}}</td>
-          <td *ngIf='marker.state == "ready"'>{{marker.marker_id}}</td>
+          <td>{{marker.marker_id}}</td>
           <td *ngIf='marker.state == "ready"'>{{marker.azimuth.toFixed(3)}}</td>
           <td *ngIf='marker.state == "ready"'>{{marker.distance.toFixed(3)}}</td>
         </tr>
