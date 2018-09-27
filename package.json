@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "./node_modules/.bin/forever stopall && ./node_modules/.bin/forever start app.js && ./node_modules/.bin/forever start map.js",
     "build": "./node_modules/.bin/forever stopall && ng build --prod && ./node_modules/.bin/forever start app.js && ./node_modules/.bin/forever start map.js",
     "test": "ng test",
     "lint": "ng lint",
