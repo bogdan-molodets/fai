@@ -5,7 +5,6 @@
 
 |Operation system| Suported versions|
 |----------------|------------------| 
-|MacOS           |10.13.3           |
 |Ubuntu          |16.0.4            |
 
 | Browser | Suported versions                                               |
@@ -23,33 +22,23 @@
 ------------
 - [git](https://git-scm.com/downloads);
 - [curl](https://curl.haxx.se/download.html);
+- [node](https://nodejs.org/uk/download/package-manager/);
+- [npm](https://www.npmjs.com/get-npm);
 
 #### Install & Update
 -------------
 
-Run  _faiSetup_ file or open terminal in project directory and write command
+Run  _setup_ file or open terminal in project directory and write command
 
-##### Ubuntu
-***
 ```
-bash faiSetup.sh
+bash setup.sh
 ```
-##### MacOS
-***
-```
-bash faiSetup 
-```
+
 #### Run
 -------------
-##### Ubuntu
-***
+
 `````
-bash runFai.sh
-`````
-##### MacOS
-***
-`````
-bash runFai
+bash run.sh
 `````
 ***
 Powered by [Noosphere Engineering School](https://noosphereengineering.com/)
