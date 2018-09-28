@@ -249,6 +249,7 @@ export class SideBarComponent implements OnInit {
   stopRTKserver() {
     this.rtmls.stopRTK(this.flightId, this.targetId).then(res => {
       this.alive = false;
+      this.rtks  = false;
       console.log(res);
     });
   }

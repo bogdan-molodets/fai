@@ -21,7 +21,7 @@ export class ModalComponent implements OnInit {
   private alive = true;
   codePattern = "[A-F0-9]{4,4}";
   index = 1;
-  stateIndexes = [4, 7, 9];
+  stateIndexes = [4, 6, 7];
   state = '';
   createReqRS: FormGroup;
   createReq: FormGroup;
@@ -67,6 +67,8 @@ export class ModalComponent implements OnInit {
       flight_id: this.flight_id,
       target_id: this.target_id,
     });
+    this.createReq.controls.flight_id.setValue('0000');
+    this.createReq.controls.target_id.setValue('1111');
     this.createReqRS = new FormGroup({
       rs_id: this.rs_id
     });
@@ -77,13 +79,8 @@ export class ModalComponent implements OnInit {
 
   checkInValid(index) {
     switch (index) {
-      /**case 1:
-        return this.createReq.invalid;
-      case 5:
-        return this.createReqRS.invalid;**/
       case 4: 
-        //console.log(this.createReq.invalid || this.createReqRS.invalid);
-        return this.createReq.invalid || this.createReqRS.invalid;
+        return this.createReqRS.invalid;
       case 5:
         return this.createMarkerReq.invalid;
       default:
@@ -105,12 +102,12 @@ export class ModalComponent implements OnInit {
   }
 
   nextStep() {
-    if (this.index < 9) {
+    if (this.index < 7) {
       $(`#${this.index}`).addClass('right').removeClass('active');
       this.state = '';
       this.index++;
       $(`#${this.index}`).addClass('active').removeClass('right');
-    } else if (this.index == 9) {
+    } else if (this.index == 7) {
       this.index = 1;
       $('app-modal').addClass('hide');
       this.changeFlightId.emit(this.flight_id.value);

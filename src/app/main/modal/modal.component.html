@@ -1,32 +1,9 @@
 <div class='modal'>
   <h1 class="ui header">Wizard</h1>
   <div class="modal-content">
-    <!--<div id='1' class="modal-content-text active">
-      <div class="ui horizontal divider">
-       Step 1 of 10
-      </div>
-      
-      <form class="ui form" [formGroup]="createReq" novalidate>
-        <div class="field">
-          <label>Flight id</label>
-          <input type="text" formControlName='flight_id' placeholder="Flight id">
-        </div>
-        <div class="field">
-          <label>Target id</label>
-          <input type="text" formControlName='target_id' placeholder="Target id">
-        </div>
-      </form>
-      <div class='button-container'>
-        <button class="next orange ui button right floated" [ngClass]='{disabled: checkInValid(index)}'
-          (click)='createRS()'>
-          Next
-        </button>
-      </div>
-      <div class='ui bottom attached label wait' [ngClass]='{yellow: (checkInValid(index) || checkState()) && state.match("Error") == null, green: !(checkInValid(index) || checkState()) && state.match("Error") == null, red: state.match("Error")!=null }'>{{state}}</div>
-    </div>-->
     <div id='1' class="modal-content-text right right-image active">
       <div class="ui horizontal divider">
-        Step 1 of 9
+        Step 1 of 7
       </div>
       <img src='assets/IMG2.png'>
       <p>Place the reference station in a location where equal range in all directions provides full coverage of the site.
@@ -45,7 +22,7 @@
     </div>
     <div id='2' class="modal-content-text right right-image">
       <div class="ui horizontal divider">
-        Step 2 of 9
+        Step 2 of 7
       </div>
       <img src='assets/IMG3.png'>
       <p>Connect WiFi router with POE adaptor. Connect the battery to power-up the WiFi router.
@@ -61,7 +38,7 @@
     </div>
     <div id='3' class="modal-content-text right right-image">
       <div class="ui horizontal divider">
-        Step 3 of 9
+        Step 3 of 7
       </div>
       <img src='assets/IMG4.png'>
       <p>Turn on the reference station. Wait until WiFi LED will be steady GREEN, GPS LED will be blinking YELLOW.
@@ -77,38 +54,10 @@
     </div>
     <div id='4' class="modal-content-text right  right-image">
       <div class="ui horizontal divider">
-        Step 4 of 9
+        Step 4 of 7
       </div>
       <img src='assets/IMG1.png'>
-      <!--<table [ngClass]='{ inverted: isDark() }' class='ui orange striped table'>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Value</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Target id</td>
-            <td>{{createReq.value.target_id}}</td>
-          </tr>
-          <tr>
-            <td>Flight id</td>
-            <td>{{createReq.value.flight_id}}</td>
-          </tr>
-        </tbody>
-      </table>-->
       <div class='noimg'>
-      <form class="ui form" [formGroup]="createReq" novalidate>
-        <div class="field">
-          <label>Flight id</label>
-          <input type="text" formControlName='flight_id' placeholder="Flight id">
-        </div>
-        <div class="field">
-          <label>Target id</label>
-          <input type="text" formControlName='target_id' placeholder="Target id">
-        </div>
-      </form>
       <form class="ui form" [formGroup]="createReqRS" novalidate>
         <div class="field">
           <label>RS id</label>
@@ -118,8 +67,6 @@
       <div class='button-container'>
         <button class='ui orange button' (click)='runRS()' [ngClass]='{disabled: checkInValid(index) || (!checkInValid(index) && state !="" && state.match("Error")!=null || state == "ready") || state == "Error. Id lenght must have 4 symbol length. Use only A-F or 0-9." || !rs_id.dirty }'>Run
           reference station</button>
-        <!--<button *ngIf='state.match("Error") != null' class='ui yellow button' (click)='reset(1)'>Reset</button>-->
-
         <button class="next orange ui button right floated" [ngClass]='{disabled: checkInValid(index) || checkState() }' (click)='nextStep()'>
           Next
         </button>
@@ -131,7 +78,7 @@
     </div>
     <div id='5' class="modal-content-text right right-image">
       <div class="ui horizontal divider">
-        Step 5 of 9
+        Step 5 of 7
       </div>
       <img src='assets/IMG6.png'>
       <p>To initialize the target, one of the markers must be selected.</p>
@@ -152,48 +99,13 @@
     </div>
     <div id='6' class="modal-content-text right right-image">
       <div class="ui horizontal divider">
-        Step 6 of 9
+        Step 6 of 7
       </div>
       <img src='assets/IMG7.png'>
       <p>Activate marker and place it as accurate as possible in the center of the target. Wait until marker status LED start
         to blink blue color. The marker will automatically
         turn off when the measurement is completed.
       </p>
-      <div class='button-container'>
-
-        <button class="next orange ui button right floated" [ngClass]='{disabled: checkInValid(index) || checkState() }' (click)='nextStep()'>
-          Next
-        </button>
-      </div>
-      <div class='ui bottom attached label yellow wait' [ngClass]='{yellow: checkInValid(index) || checkState(), green: !(checkInValid(index) || checkState()) }'
-        [innerText]='(checkInValid(index) || checkState())?"Wait":"Done"'></div>
-    </div>
-    <div id='7' class="modal-content-text right">
-      <div class="ui horizontal divider">
-        Step 7 of 9
-      </div>
-      <table [ngClass]='{ inverted: isDark() }' class='ui orange striped table'>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Value</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Target id</td>
-            <td>{{createReq.value.target_id}}</td>
-          </tr>
-          <tr>
-            <td>Flight id</td>
-            <td>{{createReq.value.flight_id}}</td>
-          </tr>
-          <tr>
-            <td>Marker id</td>
-            <td>{{createMarkerReq.value.marker_id}}</td>
-          </tr>
-        </tbody>
-      </table>
       <div class='button-container'>
         <button class='ui orange button' [ngClass]='{disabled: state !="" && state.match("Error")!=null || state == "ready"}' (click)='runCP()'>Create
           central point</button>
@@ -206,49 +118,14 @@
         {{state}}
       </div>
     </div>
-    <div id='8' class="modal-content-text right right-image">
+    <div id='7' class="modal-content-text right right-image">
       <div class="ui horizontal divider">
-        Step 8 of 9
+        Step 7 of 7
       </div>
       <img src='assets/IMG9.png'>
       <p>Activate marker and place it in the “north” part of the target. Wait until marker status LED start to blink blue color. The marker will automatically turn off when the
         measurement is completed.
       </p>
-      <div class='button-container'>
-
-        <button class="next orange ui button right floated" [ngClass]='{disabled: checkInValid(index) || checkState() }' (click)='nextStep()'>
-          Next
-        </button>
-      </div>
-      <div class='ui bottom attached label yellow wait' [ngClass]='{yellow: checkInValid(index) || checkState(), green: !(checkInValid(index) || checkState()) }'
-        [innerText]='(checkInValid(index) || checkState())?"Wait":"Done"'></div>
-    </div>
-    <div id='9' class="modal-content-text right">
-      <div class="ui horizontal divider">
-        Step 9 of 9
-      </div>
-      <table [ngClass]='{ inverted: isDark() }' class='ui orange striped table'>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Value</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Target id</td>
-            <td>{{createReq.value.target_id}}</td>
-          </tr>
-          <tr>
-            <td>Flight id</td>
-            <td>{{createReq.value.flight_id}}</td>
-          </tr>
-          <tr>
-            <td>Marker id</td>
-            <td>{{createMarkerReq.value.marker_id}}</td>
-          </tr>
-        </tbody>
-      </table>
       <div class='button-container'>
         <button class='ui orange button' [ngClass]='{disabled: state !="" && state.match("Error")!=null || state == "ready"}' (click)='runAP()'>Create
           azimuth point</button>

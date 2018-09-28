@@ -30,10 +30,9 @@ export class ConsoleComponent implements OnInit {
           })
         ).subscribe(res => {         
           if (res.log.length > 0) {
-            this.logs = res.log;
-            this.logs.reverse();
-            //this.date = this.logs[0].timestamp;
-          
+            while(res.log.length!=0){
+              this.logs.push(res.log.pop());
+            }
           }
         });
 
