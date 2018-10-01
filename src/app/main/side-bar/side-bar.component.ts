@@ -179,6 +179,7 @@ export class SideBarComponent implements OnInit {
   }
 
   runRTKserver() {
+    this.alive=true;
     const that = this;
     this.rtmls.runRTK(this.flightId, this.targetId).then(res => {
 
@@ -187,14 +188,14 @@ export class SideBarComponent implements OnInit {
         //   console.log(res);
         // });
         this.date = '2000-01-01 01:01:01';
-        this.markerList = this.rtmls.getMarkersList(this.flightId, this.targetId, this.date).pipe(
+        this.rtmls.getMarkersList(this.flightId, this.targetId, this.date).pipe(
           expand(ex => {
             return this.rtmls.getMarkersList(this.flightId, this.targetId, this.date).pipe(delay(1000));
           }),
           retryWhen(errors => {
             return errors.pipe(delay(1000));
           }),
-          //takeWhile(() => this.alive)
+          takeWhile(() => this.alive)
         ).subscribe(res => {
           if (res.marker.length > 0 && res.marker[0].timestamp != this.date) {
             this.date = res.marker[0].timestamp;
@@ -251,7 +252,7 @@ export class SideBarComponent implements OnInit {
     this.rtmls.stopRTK(this.flightId, this.targetId).then(res => {
       this.alive = false;
       this.rtks = false;
-      this.markerList.unsubscribe();
+      //this.markerList.unsubscribe();
       console.log(res);
     });
   }
