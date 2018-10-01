@@ -30,9 +30,10 @@ export class ConsoleComponent implements OnInit {
           })
         ).subscribe(res => {         
           if (res.log.length > 0) {
-            while(res.log.length!=0){
-              this.logs.push(res.log.pop());
-            }
+            this.logs = res.log;
+            // while(res.log.length!=0){
+            //   this.logs.push(res.log.pop());
+            // }
           }
         });
 
