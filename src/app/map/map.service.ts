@@ -159,13 +159,8 @@ export class MapService {
       el.appendChild(img);
       (icon != '') ? img.src = `../../assets/${icon}.png` : {};
       el.style.cursor = 'pointer';
-      if( icon == 'base'){
-        el.style.width = '7px';
-        el.style.height = '7px';
-      }else{
-        el.style.width = '16px';
-        el.style.height = '16px';
-      }
+      el.style.width = '16px';
+      el.style.height = '16px';
       let that = this;
       el.addEventListener('click', function () {
         that.selectPoint([lon, lat], 16);
