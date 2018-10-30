@@ -1,6 +1,6 @@
 #!/bin/bash
 echo 'run FAI app'
-path="/home/$USER/fai_app/fai"
+path="/home/$USER/RTLS_server/fai"
 cd $path
 if command --version node &> /dev/null; then
 	echo "Install Node at first."
@@ -9,7 +9,7 @@ else
 fi
 npm run start
 
-path="../fai_server/api"
+path="../server/api"
 cd $path
 
 echo $(python3 server.py)
